@@ -30,12 +30,12 @@ module mod_top(
 
     // PLL 分频演示，从输入产生不同频率的时钟
     wire clk_hdmi;
-    wire clk_hdmi_locked;
+    wire clk_locked;
     ip_pll u_ip_pll(
-        .clk_in1  (clk_in         ),  // 输入 100MHz 时钟
-        .reset    (btn_rst        ),  // 复位信号，高有效
-        .clk_out1 (clk_hdmi       ),  // 50MHz 像素时钟
-        .locked   (clk_hdmi_locked)   // 高表示 50MHz 时钟已经稳定输出
+        .clk_in1  (clk_in    ),  // 输入 100MHz 时钟
+        .reset    (btn_rst   ),  // 复位信号，高有效
+        .clk_out1 (clk_hdmi  ),  // 50MHz 像素时钟
+        .locked   (clk_locked)   // 高表示 50MHz 时钟已经稳定输出
     );
 
     // 七段数码管扫描演示
@@ -109,7 +109,7 @@ module mod_top(
         .vid_pHSync (video_hsync),
         .vid_pVSync (video_vsync),
         .vid_pData  ({video_red, video_blue, video_green}),
-        .aRst       (~clk_hdmi_locked),
+        .aRst       (~clk_locked),
 
         .TMDS_Clk_p  (hdmi_tmds_c_p),
         .TMDS_Clk_n  (hdmi_tmds_c_n),
