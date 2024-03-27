@@ -43,7 +43,7 @@ module mod_top(
     dpy_scan u_dpy_scan (
         .clk     (clk_in      ),
         .number  (number      ),
-        .dp      (7'b0        ),
+        .dp      (8'b0        ),
 
         .digit   (dpy_digit   ),
         .segment (dpy_segment )
