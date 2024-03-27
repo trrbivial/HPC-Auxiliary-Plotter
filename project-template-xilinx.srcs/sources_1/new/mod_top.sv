@@ -15,7 +15,13 @@ module mod_top(
 
     // 数码管，配合 dpy_scan 模块使用
     output wire [7:0] dpy_digit,   // 七段数码管笔段信号
-    output wire [7:0] dpy_segment  // 七段数码管位扫描信号
+    output wire [7:0] dpy_segment, // 七段数码管位扫描信号
+
+    // HDMI 图像输出
+    output wire [2:0] hdmi_tmds_n,    // HDMI TMDS 数据信号
+    output wire [2:0] hdmi_tmds_p,    // HDMI TMDS 数据信号
+    output wire       hdmi_tmds_c_n,  // HDMI TMDS 时钟信号
+    output wire       hdmi_tmds_c_p   // HDMI TMDS 时钟信号
 
     );
 
@@ -68,6 +74,47 @@ module mod_top(
 
         .led_bit (led_bit     ),
         .led_com (led_com     )
+    );
+
+    // 图像输出演示，分辨率 800x600@72Hz，像素时钟为 50MHz，显示渐变色彩条
+    wire [11:0] hdata;  // 当前横坐标
+    wire [11:0] vdata;  // 当前纵坐标
+    wire [7:0] video_red; // 红色分量
+    wire [7:0] video_green; // 绿色分量
+    wire [7:0] video_blue; // 蓝色分量
+    wire video_clk; // 像素时钟
+    wire video_hsync;
+    wire video_vsync;
+
+    // 生成彩条数据，分别取坐标低位作为 RGB 值
+    // 警告：该图像生成方式仅供演示，请勿使用横纵坐标驱动大量逻辑！！
+    assign video_red = vdata < 200 ? hdata[8:1] : 8'b0;
+    assign video_green = vdata >= 200 && vdata < 400 ? hdata[8:1] : 8'b0;
+    assign video_blue = vdata >= 400 ? hdata[8:1] : 8'b0;
+
+    assign video_clk = clk_hdmi;
+    video #(12, 800, 856, 976, 1040, 600, 637, 643, 666, 1, 1) u_video800x600at72 (
+        .clk(video_clk), 
+        .hdata(hdata), //横坐标
+        .vdata(vdata), //纵坐标
+        .hsync(video_hsync),
+        .vsync(video_vsync),
+        .data_enable(video_de)
+    );
+
+    // 把 RGB 转化为 HDMI TMDS 信号并输出
+    ip_rgb2dvi u_ip_rgb2dvi (
+        .PixelClk   (video_clk),
+        .vid_pVDE   (video_de),
+        .vid_pHSync (video_hsync),
+        .vid_pVSync (video_vsync),
+        .vid_pData  ({video_red, video_blue, video_green}),
+        .aRst       (~clk_hdmi_locked),
+
+        .TMDS_Clk_p  (hdmi_tmds_c_p),
+        .TMDS_Clk_n  (hdmi_tmds_c_n),
+        .TMDS_Data_p (hdmi_tmds_p),
+        .TMDS_Data_n (hdmi_tmds_n)
     );
 
 endmodule
