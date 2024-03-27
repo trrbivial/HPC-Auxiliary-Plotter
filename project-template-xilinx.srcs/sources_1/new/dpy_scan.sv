@@ -44,10 +44,6 @@ module dpy_scan #(
     reg [2:0] scan_digit;
     wire [3:0] scan_number;
 
-    initial begin
-        scan_digit = 3'b0;
-    end
-
     // scan current digit
     reg [31:0] counter;
     always_ff @ (posedge clk) begin

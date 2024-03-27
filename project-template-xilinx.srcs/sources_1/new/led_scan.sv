@@ -11,10 +11,6 @@ module led_scan #(
 
     reg [1:0] scan_part;
 
-    initial begin
-        scan_part = 3'b0;
-    end
-
     // scan current part
     reg [31:0] counter;
     always_ff @ (posedge clk) begin
