@@ -288,7 +288,11 @@ set_property -dict {PACKAGE_PIN A15 IOSTANDARD TMDS_33} [get_ports hdmi_tmds_c_p
 # set_property -dict {PACKAGE_PIN G18 IOSTANDARD LVCMOS33} [get_ports sd_dat[3]]
 
 # SD Card (SPI mode)
-# set_property -dict {PACKAGE_PIN F18 IOSTANDARD LVCMOS33} [get_ports sd_sclk]  # SD CLK
-# set_property -dict {PACKAGE_PIN F19 IOSTANDARD LVCMOS33} [get_ports sd_mosi]  # SD CMD
-# set_property -dict {PACKAGE_PIN E19 IOSTANDARD LVCMOS33} [get_ports sd_miso]  # SD DAT0
-# set_property -dict {PACKAGE_PIN G18 IOSTANDARD LVCMOS33} [get_ports sd_cs]    # SD DAT3
+# SD CLK
+# set_property -dict {PACKAGE_PIN F18 IOSTANDARD LVCMOS33} [get_ports sd_sclk]
+# SD CMD
+# set_property -dict {PACKAGE_PIN F19 IOSTANDARD LVCMOS33} [get_ports sd_mosi]
+# SD DAT0
+# set_property -dict {PACKAGE_PIN E19 IOSTANDARD LVCMOS33} [get_ports sd_miso]
+# SD DAT3
+# set_property -dict {PACKAGE_PIN G18 IOSTANDARD LVCMOS33} [get_ports sd_cs]
