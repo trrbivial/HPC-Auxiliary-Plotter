@@ -17,6 +17,34 @@ module mod_top(
     output wire [7:0] dpy_digit,   // 七段数码管笔段信号
     output wire [7:0] dpy_segment, // 七段数码管位扫描信号
 
+    // 以下是一些被注释掉的外设接口
+    // 若要使用，不要忘记去掉 io.xdc 中对应行的注释
+
+    // PS/2 键盘
+    // input  wire        ps2_keyboard_clk,     // PS/2 键盘时钟信号
+    // input  wire        ps2_keyboard_data,    // PS/2 键盘数据信号
+
+    // PS/2 鼠标
+    // inout  wire       ps2_mouse_clk,     // PS/2 时钟信号
+    // inout  wire       ps2_mouse_data,    // PS/2 数据信号
+
+    // SD 卡（SPI 模式）
+    // output wire        sd_sclk,     // SPI 时钟
+    // output wire        sd_mosi,     // 数据输出
+    // input  wire        sd_miso,     // 数据输入
+    // output wire        sd_cs,       // SPI 片选，低有效
+    // input  wire        sd_cd,       // 卡插入检测，0 表示有卡插入
+    // input  wire        sd_wp,       // 写保护检测，0 表示写保护状态
+
+    // RGMII 以太网接口
+    // output wire        rgmii_clk125,
+    // input  wire        rgmii_rx_clk,
+    // input  wire        rgmii_rx_ctl,
+    // input  wire [3: 0] rgmii_rx_data,
+    // output wire        rgmii_tx_clk,
+    // output wire        rgmii_tx_ctl,
+    // output wire [3: 0] rgmii_tx_data,
+
     // HDMI 图像输出
     output wire [2:0] hdmi_tmds_n,    // HDMI TMDS 数据信号
     output wire [2:0] hdmi_tmds_p,    // HDMI TMDS 数据信号
