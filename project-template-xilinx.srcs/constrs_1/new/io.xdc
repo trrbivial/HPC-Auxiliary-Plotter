@@ -1,5 +1,6 @@
 # 100M Input Clock
 set_property -dict {PACKAGE_PIN K4 IOSTANDARD LVCMOS33} [get_ports clk_100m]
+create_clock -period 10.000 [get_ports clk_100m]
 
 # Push Buttons: CLK, RST, KEY1-4
 set_property -dict {PACKAGE_PIN AB11 IOSTANDARD LVCMOS33} [get_ports btn_clk]
