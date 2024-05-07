@@ -48,6 +48,13 @@ module complex_tb();
     assign a.valid = valid;
     assign b.valid = valid;
 
+    complex_adder cp_adder (
+        .clk(clk),
+        .a(a),
+        .b(a),
+        .c(c)
+    );
+
     complex_multiplier dut(
         .clk(clk),
         .a(a),

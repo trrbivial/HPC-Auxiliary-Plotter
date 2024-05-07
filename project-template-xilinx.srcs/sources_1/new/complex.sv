@@ -2,6 +2,45 @@
 
 `include "complex.vh"
 
+
+// 11 cycles late from posedge to posedge
+module complex_adder (
+    input wire clk,
+    input wire cp_axis a,
+    input wire cp_axis b,
+    output wire cp_axis c
+);
+    cp ma, mb;
+    assign ma = a.meta;
+    assign mb = b.meta;
+
+    logic add_r_valid;
+    logic add_i_valid;
+
+    floating_add_0 floating_add_m0 (
+        .aclk(clk),
+        .s_axis_a_tdata(ma.r),
+        .s_axis_a_tvalid(a.valid),
+        .s_axis_b_tdata(mb.r),
+        .s_axis_b_tvalid(b.valid),
+        .m_axis_result_tdata(c.meta.r),
+        .m_axis_result_tvalid(add_r_valid)
+    );
+
+    floating_add_0 floating_add_m1 (
+        .aclk(clk),
+        .s_axis_a_tdata(ma.i),
+        .s_axis_a_tvalid(a.valid),
+        .s_axis_b_tdata(mb.i),
+        .s_axis_b_tvalid(b.valid),
+        .m_axis_result_tdata(c.meta.i),
+        .m_axis_result_tvalid(add_i_valid)
+    );
+
+    assign c.valid = add_r_valid & add_i_valid;
+endmodule
+
+// 17 cycles late from posedge to posedge
 module complex_multiplier #(
     parameter DATA_WIDTH = 32
 ) (
