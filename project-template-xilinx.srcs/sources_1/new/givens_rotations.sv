@@ -63,13 +63,13 @@ module givens_rotations # (
     );
 
     // s = 1 / sqrt(|a| ^ 2 + 1)
-    float_axis coef_s;
+    float_axis coef_s[FL_MUL_CYCS:0];
     floating_reciprocal_sqrt_0 reciprocal_sqrt_c3 (
         .aclk(clk), 
         .s_axis_a_tvalid(c3.valid),
         .s_axis_a_tdata(c3.meta.v),
-        .m_axis_result_tvalid(coef_s.valid),
-        .m_axis_result_tdata(coef_s.meta.v)
+        .m_axis_result_tvalid(coef_s[0].valid),
+        .m_axis_result_tdata(coef_s[0].meta.v)
     );
 
     // c = conj(a) / sqrt(|a| ^ 2 + 1) = conj(a) * s
@@ -78,8 +78,8 @@ module givens_rotations # (
         .aclk(clk), 
         .s_axis_a_tvalid(s[CALC_GIVENS_COEF_S_CYCS].valid),
         .s_axis_a_tdata(s[CALC_GIVENS_COEF_S_CYCS].meta.r.r[ROW_ID - 1].c[COL_ID].r),
-        .s_axis_b_tvalid(coef_s.valid),
-        .s_axis_b_tdata(coef_s.meta.v),
+        .s_axis_b_tvalid(coef_s[0].valid),
+        .s_axis_b_tdata(coef_s[0].meta.v),
         .m_axis_result_tvalid(coef_c_r.valid),
         .m_axis_result_tdata(coef_c_r.meta.v)
     );
@@ -87,18 +87,31 @@ module givens_rotations # (
         .aclk(clk), 
         .s_axis_a_tvalid(s[CALC_GIVENS_COEF_S_CYCS].valid),
         .s_axis_a_tdata(`neg_fl(s[CALC_GIVENS_COEF_S_CYCS].meta.r.r[ROW_ID - 1].c[COL_ID].i)),
-        .s_axis_b_tvalid(coef_s.valid),
-        .s_axis_b_tdata(coef_s.meta.v),
+        .s_axis_b_tvalid(coef_s[0].valid),
+        .s_axis_b_tdata(coef_s[0].meta.v),
         .m_axis_result_tvalid(coef_c_i.valid),
         .m_axis_result_tdata(coef_c_i.meta.v)
     );
+
+    genvar j;
+    generate 
+        for (j = 1; j <= FL_MUL_CYCS; j = j + 1) begin
+            always_ff @(posedge clk, posedge rst) begin
+                if (rst) begin
+                    coef_s[j].valid <= 0;
+                end else begin
+                    coef_s[j] <= coef_s[j - 1];
+                end
+            end
+        end
+    endgenerate
 
     // c, s from float to complex
     cp_axis coef_cp_c, coef_cp_s;
     assign coef_cp_c.meta = {coef_c_r.meta.v, coef_c_i.meta.v};
     assign coef_cp_c.valid = coef_c_r.valid & coef_c_i.valid;
-    assign coef_cp_s.meta = {coef_s.meta.v, 32'b0};
-    assign coef_cp_s.valid = coef_s.valid;
+    assign coef_cp_s.meta = {coef_s[FL_MUL_CYCS].meta.v, 32'b0};
+    assign coef_cp_s.valid = coef_s[FL_MUL_CYCS].valid;
 
     cp_axis tmp1[MAX_N - (COL_ID + 1) - 1:0];
     cp_axis tmp2[MAX_N - (COL_ID + 1) - 1:0];
@@ -137,13 +150,13 @@ module givens_rotations # (
             complex_multiplier cp_mul_4 (
                 clk, 
                 {s[CALC_GIVENS_COEF_C_CYCS].valid, s[CALC_GIVENS_COEF_C_CYCS].meta.q.r[k].c[ROW_ID - 1]},
-                coef_cp_c,
+                {coef_cp_c.valid, `conj(coef_cp_c.meta)},
                 tmp4[k]);
 
             complex_multiplier cp_mul_5 (
                 clk, 
                 {s[CALC_GIVENS_COEF_C_CYCS].valid, s[CALC_GIVENS_COEF_C_CYCS].meta.q.r[k].c[ROW_ID - 1]},
-                {coef_cp_s.valid, {`neg_fl(coef_cp_s.meta.r), coef_cp_s.meta.i}},
+                {coef_cp_s.valid, `neg_cp(coef_cp_s.meta)},
                 tmp5[k]);
 
         end
@@ -156,34 +169,50 @@ module givens_rotations # (
             case (i)
                 CALC_GIVENS_COEF_C_CYCS: begin
                     always_ff @(posedge clk or posedge rst) begin
-                        s[i] <= s[i - 1];
-                        s[i].meta.q.r[ROW_ID].c[ROW_ID - 1] <= coef_cp_s.meta;
-                        s[i].meta.q.r[ROW_ID].c[ROW_ID] <= `conj(coef_cp_c.meta);
+                        if (rst) begin
+                            s[i].valid <= 0;
+                        end else begin
+                            s[i] <= s[i - 1];
+                            s[i].meta.q.r[ROW_ID].c[ROW_ID - 1] <= `conj(coef_cp_s.meta);
+                            s[i].meta.q.r[ROW_ID].c[ROW_ID] <= coef_cp_c.meta;
+                        end
                     end
                 end
                 CALC_GIVENS_COEF_MUL_CYCS: begin
                     always_ff @(posedge clk or posedge rst) begin
-                        s[i] <= s[i - 1];
-                        for (int j = COL_ID + 1; j < MAX_N; j = j + 1) begin
-                            s[i].meta.r.r[ROW_ID - 1].c[j] <= tmp1[j - (COL_ID + 1)].meta;
-                            s[i].meta.r.r[ROW_ID].c[j] <= tmp2[j - (COL_ID + 1)].meta;
-                        end
-                        for (int j = 0; j < ROW_ID; j = j + 1) begin
-                            s[i].meta.q.r[j].c[ROW_ID - 1] <= tmp4[j].meta;
-                            s[i].meta.q.r[j].c[ROW_ID] <= tmp5[j].meta;
+                        if (rst) begin
+                            s[i].valid <= 0;
+                        end else begin
+                            s[i] <= s[i - 1];
+                            for (int j = COL_ID + 1; j < MAX_N; j = j + 1) begin
+                                s[i].meta.r.r[ROW_ID - 1].c[j] <= tmp1[j - (COL_ID + 1)].meta;
+                                s[i].meta.r.r[ROW_ID].c[j] <= tmp2[j - (COL_ID + 1)].meta;
+                            end
+                            for (int j = 0; j < ROW_ID; j = j + 1) begin
+                                s[i].meta.q.r[j].c[ROW_ID - 1] <= tmp4[j].meta;
+                                s[i].meta.q.r[j].c[ROW_ID] <= tmp5[j].meta;
+                            end
                         end
                     end
                 end
                 CALC_GIVENS_COEF_ADD_CYCS: begin
                     always_ff @(posedge clk or posedge rst) begin
-                        s[i] <= s[i - 1];
-                        s[i].meta.r.r[ROW_ID - 1].c[COL_ID] <= tmp3.meta;
-                        s[i].meta.r.r[ROW_ID].c[COL_ID] <= 0;
+                        if (rst) begin
+                            s[i].valid <= 0;
+                        end else begin
+                            s[i] <= s[i - 1];
+                            s[i].meta.r.r[ROW_ID - 1].c[COL_ID] <= tmp3.meta;
+                            s[i].meta.r.r[ROW_ID].c[COL_ID] <= 0;
+                        end
                     end
                 end
                 default: begin
                     always_ff @(posedge clk or posedge rst) begin
-                        s[i] <= s[i - 1];
+                        if (rst) begin
+                            s[i].valid <= 0;
+                        end else begin
+                            s[i] <= s[i - 1];
+                        end
                     end
                 end
             endcase
