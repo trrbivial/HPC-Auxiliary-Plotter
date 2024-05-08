@@ -135,3 +135,77 @@ module complex_mul_adder (
     complex_adder cp_add_0 (clk, t1, t2, c);
 endmodule
 
+// 6 + 11 cycles late from posedge to posedge
+module floating_mul_adder (
+    input wire clk,
+    input wire float_axis a1,
+    input wire float_axis b1,
+    input wire float_axis a2,
+    input wire float_axis b2,
+    output wire float_axis c
+);
+
+    float_axis t1, t2;
+    floating_mul_0 fl_mul_1 (
+        .aclk(clk), 
+        .s_axis_a_tvalid(a1.valid),
+        .s_axis_a_tdata(a1.meta.v),
+        .s_axis_b_tvalid(b1.valid),
+        .s_axis_b_tdata(b1.meta.v),
+        .m_axis_result_tvalid(t1.valid),
+        .m_axis_result_tdata(t1.meta.v)
+    );
+
+    floating_mul_0 fl_mul_2 (
+        .aclk(clk),
+        .s_axis_a_tvalid(a2.valid),
+        .s_axis_a_tdata(a2.meta.v),
+        .s_axis_b_tvalid(b2.valid),
+        .s_axis_b_tdata(b2.meta.v),
+        .m_axis_result_tvalid(t2.valid),
+        .m_axis_result_tdata(t2.meta.v)
+    );
+
+    floating_add_0 fl_add_0 (
+        .aclk(clk),
+        .s_axis_a_tvalid(t1.valid),
+        .s_axis_a_tdata(t1.meta.v),
+        .s_axis_b_tvalid(t2.valid),
+        .s_axis_b_tdata(t2.meta.v),
+        .m_axis_result_tvalid(c.valid),
+        .m_axis_result_tdata(c.meta.v)
+    );
+endmodule
+
+// 6 cycles late from posedge to posedge
+module complex_mul_float (
+    input wire clk,
+    input wire cp_axis a,
+    input wire float_axis k,
+    output wire cp_axis c
+);
+
+    logic v1, v2;
+    floating_mul_0 fl_mul_1 (
+        .aclk(clk), 
+        .s_axis_a_tvalid(a.valid),
+        .s_axis_a_tdata(a.meta.r),
+        .s_axis_b_tvalid(k.valid),
+        .s_axis_b_tdata(k.meta.v),
+        .m_axis_result_tvalid(v1),
+        .m_axis_result_tdata(c.meta.r)
+    );
+
+    floating_mul_0 fl_mul_2 (
+        .aclk(clk),
+        .s_axis_a_tvalid(a.valid),
+        .s_axis_a_tdata(a.meta.i),
+        .s_axis_b_tvalid(k.valid),
+        .s_axis_b_tdata(k.meta.v),
+        .m_axis_result_tvalid(v2),
+        .m_axis_result_tdata(c.meta.i)
+    );
+    assign c.valid = v1 & v2;
+
+endmodule
+
