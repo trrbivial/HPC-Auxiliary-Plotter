@@ -5,7 +5,7 @@
 module givens_rotations # (
     parameter ROW_ID = 1,
     parameter COL_ID = 0,
-    parameter MAX_N = MAX_DEP,
+    parameter MAX_N = MAX_DEP
 ) (
     input wire clk,
     input wire rst,
@@ -83,23 +83,23 @@ module givens_rotations # (
     cp_axis tmp1[MAX_N - (COL_ID + 1) - 1:0];
     cp_axis tmp2[MAX_N - (COL_ID + 1) - 1:0];
     cp_axis tmp3, tmp4, tmp5;
-    genvar i;
-    generate begin
-        for (i = COL_ID + 1; i < MAX_N; i = i + 1) begin
+    genvar k;
+    generate
+        for (k = COL_ID + 1; k < MAX_N; k = k + 1) begin
             complex_multiplier cp_mul_1 (
                 clk, 
-                {s[CALC_GIVENS_COEF_C_CYCS].valid, s[CALC_GIVENS_COEF_C_CYCS].meta.r.r[ROW_ID - 1].c[i]},
+                {s[CALC_GIVENS_COEF_C_CYCS].valid, s[CALC_GIVENS_COEF_C_CYCS].meta.r.r[ROW_ID - 1].c[k]},
                 coef_cp_c,
-                tmp1[i - (COL_ID + 1)]);
+                tmp1[k - (COL_ID + 1)]);
 
             complex_multiplier cp_mul_2 (
                 clk, 
-                {s[CALC_GIVENS_COEF_C_CYCS].valid, s[CALC_GIVENS_COEF_C_CYCS].meta.r.r[ROW_ID - 1].c[i]},
+                {s[CALC_GIVENS_COEF_C_CYCS].valid, s[CALC_GIVENS_COEF_C_CYCS].meta.r.r[ROW_ID - 1].c[k]},
                 {coef_cp_s.valid, {`neg_fl(coef_cp_s.meta.r), coef_cp_s.meta.i}},
-                tmp2[i - (COL_ID + 1)]);
+                tmp2[k - (COL_ID + 1)]);
 
         end
-    end
+    endgenerate
 
     complex_multiplier cp_mul_3 (
         clk,
@@ -124,24 +124,24 @@ module givens_rotations # (
 
 
     genvar i;
-    generate begin
+    generate
         for (i = 1; i <= CALC_GIVENS_ROTATIONS_CYCS; i = i + 1) begin
             case (i)
                 CALC_GIVENS_COEF_MUL_CYCS: begin
                     always_ff @(posedge clk or posedge rst) begin
                         s[i] <= s[i - 1];
-                        genvar j;
-                        generate begin
-                            for (j = COL_ID + 1; j < MAX_N; j = j + 1) begin
-                                s[i].meta.r.r[ROW_ID - 1].c[j] <= tmp1[j - (COL_ID + 1)].meta;
-                                s[i].meta.r.r[ROW_ID].c[j] <= tmp2[j - (COL_ID + 1)].meta;
-                            end
+                        for (int j = COL_ID + 1; j < MAX_N; j = j + 1) begin
+                            s[i].meta.r.r[ROW_ID - 1].c[j] <= tmp1[j - (COL_ID + 1)].meta;
+                            s[i].meta.r.r[ROW_ID].c[j] <= tmp2[j - (COL_ID + 1)].meta;
                         end
                     end
                 end
                 CALC_GIVENS_COEF_ADD_CYCS: begin
-                    s[i].meta.r.r[ROW_ID - 1].c[COL_ID] <= tmp5.meta;
-                    s[i].meta.r.r[ROW_ID].c[COL_ID] <= 0;
+                    always_ff @(posedge clk or posedge rst) begin
+                        s[i] <= s[i - 1];
+                        s[i].meta.r.r[ROW_ID - 1].c[COL_ID] <= tmp5.meta;
+                        s[i].meta.r.r[ROW_ID].c[COL_ID] <= 0;
+                    end
                 end
                 default: begin
                     always_ff @(posedge clk or posedge rst) begin
@@ -150,7 +150,7 @@ module givens_rotations # (
                 end
             endcase
         end
-    end
+    endgenerate
 
     assign out = s[CALC_GIVENS_ROTATIONS_CYCS];
 endmodule
