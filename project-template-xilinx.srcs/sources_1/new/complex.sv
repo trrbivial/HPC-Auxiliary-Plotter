@@ -119,3 +119,19 @@ module complex_multiplier #(
 
     assign c.valid = sub_valid & add_valid;
 endmodule
+
+// 11 + 17 cycles late from posedge to posedge
+module complex_mul_adder (
+    input wire clk,
+    input wire cp_axis a1,
+    input wire cp_axis b1,
+    input wire cp_axis a2,
+    input wire cp_axis b2,
+    output wire cp_axis c
+);
+    cp_axis t1, t2;
+    complex_multiplier cp_mul_1 (clk, a1, b1, t1);
+    complex_multiplier cp_mul_2 (clk, a2, b2, t2);
+    complex_adder cp_add_0 (clk, t1, t2, c);
+endmodule
+

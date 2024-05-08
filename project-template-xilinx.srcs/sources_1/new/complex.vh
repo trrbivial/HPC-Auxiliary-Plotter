@@ -45,7 +45,7 @@ typedef struct packed {
 
 // coefs of polynomial
 typedef struct packed {
-    cp a [MAX_DEG - 1:0];
+    cp [MAX_DEG - 1:0] a;
 } poly;
 
 typedef struct packed {
@@ -55,7 +55,7 @@ typedef struct packed {
 
 // roots of polynomial
 typedef struct packed {
-    cp x [MAX_DEG - 1:0];
+    cp [MAX_DEG - 1:0] x;
 } roots;
 
 typedef struct packed {
@@ -66,11 +66,11 @@ typedef struct packed {
 
 // matrix
 typedef struct packed {
-    cp c [MAX_DEG - 1:0];
+    cp [MAX_DEG - 1:0] c;
 } mat_row;
 
 typedef struct packed {
-    mat_row r [MAX_DEG - 1:0];
+    mat_row [MAX_DEG - 1:0] r;
 } mat;
 
 typedef struct packed {
@@ -92,9 +92,9 @@ typedef struct packed {
 
 `define should_handle(b) (b.valid)
 `define meta(b) (b.meta)
-`define neg_fl(b) ({b[31] ^ 1, b[30:0]})
-`define neg_cp(b) ({`neg_fl(b.r), `neg_fl(b.i)})
-`define conj(b) ({b.r, `neg_fl(b.i)})
+`define neg_fl(b) {b[31] ^ 1'b1, b[30:0]}
+`define neg_cp(b) {`neg_fl(b.r), `neg_fl(b.i)}
+`define conj(b) {b.r, `neg_fl(b.i)}
 
 
 typedef enum logic [2:0] {
