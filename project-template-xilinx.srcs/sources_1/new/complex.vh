@@ -23,6 +23,9 @@ localparam CALC_GIVENS_ROTATIONS_CYCS = CALC_GIVENS_SECOND_COEF_MUL_ADD_CYCS;
 localparam DATA_WIDTH = 32;
 localparam MAX_DEG = 6;
 
+localparam QR_DECOMP_CYCS = CALC_GIVENS_ROTATIONS_CYCS * (MAX_DEG - 1);
+localparam ITER_TIMES = 20;
+
 // floating point
 typedef struct packed {
     logic [DATA_WIDTH - 1:0] v;
@@ -101,10 +104,9 @@ typedef struct packed {
 
 typedef enum logic [2:0] {
     INIT,
-    STEP1_QR_DECOMP,
-    STEP2_CALC_NEW_MAT,
+    IN_BATCH,
     FIN,
     ERROR
-} roots_serial_status_t;
+} iteration_status_t;
 `endif
 
