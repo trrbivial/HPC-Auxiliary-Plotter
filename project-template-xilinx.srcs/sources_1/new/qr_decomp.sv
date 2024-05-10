@@ -13,17 +13,9 @@ module qr_decomp # (
 );
     qr_axis s[MAX_N - 1:0];
 
-    mat mat_identity;
-    always_comb begin
-        for (int i = 0; i < MAX_N; i = i + 1) begin
-            mat_identity.r[i] = 0;
-            mat_identity.r[i].c[i] = ONE_CP;
-        end
-    end
-
     assign s[0].valid = in.valid;
     assign s[0].meta.r = in.meta;
-    assign s[0].meta.q = mat_identity;
+    assign s[0].meta.a = in.meta;
 
     genvar i;
     generate 
