@@ -61,15 +61,15 @@ module givens_rotations # (
     // c = conj(a) / sqrt(|a| ^ 2 + |b| ^ 2)
     // s = b / sqrt(|a| ^ 2 + |b| ^ 2)
     cp_axis coef_c, coef_s;
-    cp_axis coef_c_tmp[CP_MUL_ADD_CYCS:0];
-    cp_axis coef_s_tmp[CP_MUL_ADD_CYCS:0];
+    cp_axis coef_c_tmp[CP_MUL_ADD_CYCS + 1:0];
+    cp_axis coef_s_tmp[CP_MUL_ADD_CYCS + 1:0];
 
     assign coef_c_tmp[0] = coef_c;
     assign coef_s_tmp[0] = coef_s;
 
     genvar k;
     generate 
-        for (k = 1; k <= CP_MUL_ADD_CYCS; k = k + 1) begin
+        for (k = 1; k <= CP_MUL_ADD_CYCS + 1; k = k + 1) begin
             always_ff @(posedge clk, posedge rst) begin
                 if (rst) begin
                     coef_c_tmp[k].valid <= 0;
@@ -182,18 +182,18 @@ module givens_rotations # (
                 complex_mul_adder cp_mul_add_3 (
                     clk, 
                     {s[CALC_GIVENS_COEF_MUL_ADD_CYCS].valid, s[CALC_GIVENS_COEF_MUL_ADD_CYCS].meta.a.r[k].c[COL_ID]},
-                    {coef_c_tmp[CP_MUL_ADD_CYCS].valid, `conj(coef_c_tmp[CP_MUL_ADD_CYCS].meta)},
+                    {coef_c_tmp[CP_MUL_ADD_CYCS + 1].valid, `conj(coef_c_tmp[CP_MUL_ADD_CYCS + 1].meta)},
                     {s[CALC_GIVENS_COEF_MUL_ADD_CYCS].valid, s[CALC_GIVENS_COEF_MUL_ADD_CYCS].meta.a.r[k].c[COL_ID + 1]},
-                    {coef_s_tmp[CP_MUL_ADD_CYCS].valid, `conj(coef_s_tmp[CP_MUL_ADD_CYCS].meta)},
+                    {coef_s_tmp[CP_MUL_ADD_CYCS + 1].valid, `conj(coef_s_tmp[CP_MUL_ADD_CYCS + 1].meta)},
                     tmp3_a[k]
                 );
 
                 complex_mul_adder cp_mul_add_4 (
                     clk, 
                     {s[CALC_GIVENS_COEF_MUL_ADD_CYCS].valid, s[CALC_GIVENS_COEF_MUL_ADD_CYCS].meta.a.r[k].c[COL_ID]},
-                    {coef_s_tmp[CP_MUL_ADD_CYCS].valid, `neg_cp(coef_s_tmp[CP_MUL_ADD_CYCS].meta)},
+                    {coef_s_tmp[CP_MUL_ADD_CYCS + 1].valid, `neg_cp(coef_s_tmp[CP_MUL_ADD_CYCS + 1].meta)},
                     {s[CALC_GIVENS_COEF_MUL_ADD_CYCS].valid, s[CALC_GIVENS_COEF_MUL_ADD_CYCS].meta.a.r[k].c[COL_ID + 1]},
-                    {coef_c_tmp[CP_MUL_ADD_CYCS].valid, coef_c_tmp[CP_MUL_ADD_CYCS].meta},
+                    {coef_c_tmp[CP_MUL_ADD_CYCS + 1].valid, coef_c_tmp[CP_MUL_ADD_CYCS + 1].meta},
                     tmp4_a[k]
                 );
             end

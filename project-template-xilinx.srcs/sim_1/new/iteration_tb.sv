@@ -2,7 +2,7 @@
 
 `include "complex.vh"
 
-module qr_decomp_tb();
+module iteration_tb();
 
     reg clk;
     reg rst;
@@ -14,7 +14,7 @@ module qr_decomp_tb();
     logic r1;
     initial begin
         $dumpfile("dump.vcd");
-        $dumpvars(0, qr_decomp_tb);
+        $dumpvars(0, iteration_tb);
         clk = 1'b0;
         rst = 1'b0;
         valid = 0;
@@ -56,11 +56,11 @@ module qr_decomp_tb();
     always #10 r1 = ~r1;
 
     mat_axis in;
-    qr_axis out;
+    roots_axis out;
     assign in.valid = valid;
     assign in.meta = r1 ? mat_r1 : mat_r2;
 
-    qr_decomp dut (
+    iteration dut (
         .clk(clk),
         .rst(rst),
         .in(in),

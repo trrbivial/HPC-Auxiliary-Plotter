@@ -16,6 +16,7 @@ module iteration # (
     logic output_from_batch;
     logic [15:0] cnt_cycs;
     logic [15:0] iter_times;
+    roots_axis out_reg;
 
     mat_axis qr_decomp_in;
     qr_axis qr_decomp_out;
@@ -23,8 +24,12 @@ module iteration # (
     qr_decomp m_qr_decomp (clk, rst, qr_decomp_in, qr_decomp_out);
 
     always_comb begin
-        batch_from_input = (stat == INIT && in.valid) || (stat == IN_BATCH && iter_times == 1 && cnt_cycs < QR_DECOMP_CYCS);
-        output_from_batch = (stat == IN_BATCH && iter_times == ITER_TIMES && cnt_cycs == QR_DECOMP_CYCS) || (stat == FIN);
+        output_from_batch = 
+            (stat == IN_BATCH && iter_times == ITER_TIMES && cnt_cycs == QR_DECOMP_CYCS) | 
+            (stat == FIN);
+        batch_from_input = 
+            (stat == INIT && in.valid) | 
+            (stat == IN_BATCH && iter_times == 1 && cnt_cycs < QR_DECOMP_CYCS);
 
         if (batch_from_input) begin
             qr_decomp_in = in;
@@ -33,14 +38,16 @@ module iteration # (
         end
 
         if (output_from_batch) begin
-            out.valid = qr_decomp_out.valid;
+            out_reg.valid = qr_decomp_out.valid;
             for (int i = 0; i < MAX_N; i = i + 1) begin
-                out.meta.x[i] = qr_decomp_out.meta.a.r[i].c[i];
+                out_reg.meta.x[i] = qr_decomp_out.meta.a.r[i].c[i];
             end
         end else begin
-            out.valid = 0;
+            out_reg.valid = 0;
         end
     end
+
+    assign out = out_reg;
     
     always_ff @(posedge clk, posedge rst) begin
         if (rst) begin
