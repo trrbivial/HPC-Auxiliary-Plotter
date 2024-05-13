@@ -1,4 +1,7 @@
 `timescale 1ns / 1ps
+
+`include "complex.vh"
+
 module mod_top(
     // 时钟
     input  wire clk_100m,           // 100M 输入时钟
@@ -152,5 +155,109 @@ module mod_top(
         .TMDS_Data_p (hdmi_tmds_p),
         .TMDS_Data_n (hdmi_tmds_n)
     );
+
+    mat mat_identity;
+    mat mat_r1;
+    mat mat_r2;
+    logic mat_valid;
+    logic r1;
+    always_comb begin
+        for (integer i = 0; i < MAX_DEG; i = i + 1) begin
+            for (integer j = 0; j < MAX_DEG; j = j + 1) begin
+                mat_identity.r[i].c[j] = (i == j) ? ONE_CP : 0;
+                mat_r1.r[i].c[j] = (i == j + 1) ? ONE_CP : 0;
+                mat_r2.r[i].c[j] = (i == j + 1) ? ONE_CP : 0;
+            end
+        end
+        mat_r1.r[0].c[0] = {32'h3F800000, 32'h40C00000};
+        mat_r1.r[0].c[1] = {32'h40000000, 32'h40A00000};
+        mat_r1.r[0].c[2] = {32'h40400000, 32'h40800000};
+        mat_r1.r[0].c[3] = {32'h40800000, 32'h40400000};
+        mat_r1.r[0].c[4] = {32'h40A00000, 32'h40000000};
+        mat_r1.r[0].c[5] = {32'h40C00000, 32'h3F800000};
+        mat_r2.r[0].c[0] = {32'h3F800000, 32'h0};
+        mat_r2.r[0].c[1] = {32'h40000000, 32'h0};
+        mat_r2.r[0].c[2] = {32'h40400000, 32'h0};
+        mat_r2.r[0].c[3] = {32'h40800000, 32'h0};
+        mat_r2.r[0].c[4] = {32'h40A00000, 32'h0};
+        mat_r2.r[0].c[5] = {32'h40C00000, 32'h0};
+    end
+
+    logic rsted;
+    logic clk, rst;
+    assign clk = clk_in;
+    assign rst = btn_rst;
+
+    always_ff @(posedge clk, posedge rst) begin
+        if (rst) begin
+            r1 <= 0;
+            mat_valid <= 0;
+            rsted <= 1;
+        end else begin
+            r1 <= r1 ^ 1'b1;
+            if (rsted) mat_valid <= 1;
+        end
+    end
+
+    mat_axis mat_in;
+    roots_axis roots_out;
+    assign mat_in.valid = mat_valid;
+    assign mat_in.meta = r1 ? mat_r1 : mat_r2;
+
+
+    iteration m_iterations (
+        .clk(clk),
+        .rst(rst),
+        .in(mat_in),
+        .out(roots_out)
+    );
+
+    logic [BRAM_1024_ADDR_WIDTH - 1:0] bram_a_addr;
+    logic bram_we;
+    logic [CP_DATA_WIDTH - 1:0] bram_a_data[MAX_DEG - 1:0];
+
+    logic [BRAM_1024_ADDR_WIDTH - 1:0] bram_b_addr[MAX_DEG - 1:0];
+    logic [CP_DATA_WIDTH - 1:0] bram_b_data[MAX_DEG - 1:0];
+
+    always_ff @(posedge clk, posedge rst) begin
+        if (rst) begin
+            for (int i = 0; i < MAX_DEG; i = i + 1) begin
+                bram_b_addr[i] <= 0;
+            end
+        end else begin
+            for (int i = 0; i < MAX_DEG; i = i + 1) begin
+                bram_b_addr[i] <= bram_b_addr[i] + 1;
+                if (bram_b_addr[i] == 10) begin
+                    bram_b_addr[i] <= 0;
+                end
+            end
+        end
+    end
+
+    roots2bram m_roots2bram (
+        .clk(clk),
+        .rst(rst),
+        .in(roots_out),
+        .bram_addr(bram_a_addr),
+        .bram_we(bram_we),
+        .bram_data(bram_a_data)
+    );
+
+
+    genvar i;
+    generate
+        for (i = 0; i < MAX_DEG; i = i + 1) begin
+            bram_of_1024_complex bram_i (
+                .clka(clk),
+                .addra(bram_a_addr),
+                .dina(bram_a_data[i]),
+                .wea(bram_we),
+
+                .clkb(clk),
+                .addrb(bram_b_addr[i]),
+                .doutb(bram_b_data[i])
+            );
+        end
+    endgenerate
 
 endmodule

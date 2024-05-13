@@ -24,7 +24,10 @@ localparam DATA_WIDTH = 32;
 localparam MAX_DEG = 6;
 
 localparam QR_DECOMP_CYCS = CALC_GIVENS_ROTATIONS_CYCS * (MAX_DEG - 1);
-localparam ITER_TIMES = 20;
+localparam ITER_TIMES = 2;
+
+localparam CP_DATA_WIDTH = 64;
+localparam BRAM_1024_ADDR_WIDTH = 10;
 
 // floating point
 typedef struct packed {
