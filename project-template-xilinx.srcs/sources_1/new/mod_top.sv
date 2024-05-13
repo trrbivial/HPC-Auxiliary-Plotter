@@ -73,8 +73,8 @@ module mod_top(
     ip_pll u_ip_pll(
         .clk_in1  (clk_in    ),  // 输入 100MHz 时钟
         .reset    (btn_rst   ),  // 复位信号，高有效
-        .clk_out1 (clk_hdmi  ),  // 50MHz 像素时钟
-        .locked   (clk_locked)   // 高表示 50MHz 时钟已经稳定输出
+        .clk_out1 (clk_hdmi  ),  // 74.250MHz 像素时钟
+        .locked   (clk_locked)   // 高表示 74.250MHz 时钟已经稳定输出
     );
 
     // 七段数码管扫描演示
@@ -132,7 +132,8 @@ module mod_top(
     assign video_blue = vdata >= 400 ? hdata[8:1] : 8'b0;
 
     assign video_clk = clk_hdmi;
-    video #(12, 800, 856, 976, 1040, 600, 637, 643, 666, 1, 1) u_video800x600at72 (
+
+    video #(16, VGA_HSIZE, VGA_HFP, VGA_HSP, VGA_HMAX, VGA_VSIZE, VGA_VFP, VGA_VSP, VGA_VMAX, 1, 1) u_video1080p30hz (
         .clk(video_clk), 
         .hdata(hdata), //横坐标
         .vdata(vdata), //纵坐标

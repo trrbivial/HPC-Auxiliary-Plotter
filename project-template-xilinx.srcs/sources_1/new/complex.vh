@@ -29,6 +29,36 @@ localparam ITER_TIMES = 2;
 localparam CP_DATA_WIDTH = 64;
 localparam BRAM_1024_ADDR_WIDTH = 10;
 
+
+localparam VGA_HSIZE = 1920;
+localparam VGA_H_FRONT_PORCH = 88;
+localparam VGA_H_SYNC_PULSE = 44;
+localparam VGA_H_BACK_PORCH = 148;
+
+// 2008 = 1920 + 88(Front Porch)
+localparam VGA_HFP = VGA_HSIZE + VGA_H_FRONT_PORCH;
+
+// 2052 = 1920 + 88 + 44(Sync pulse)
+localparam VGA_HSP = VGA_HFP + VGA_H_SYNC_PULSE;
+
+// 2200 = 1920 + 88 + 44 + 148(Back Porch)
+localparam VGA_HMAX = VGA_HSP + VGA_H_BACK_PORCH;
+
+localparam VGA_VSIZE = 1080;
+localparam VGA_V_FRONT_PORCH = 4;
+localparam VGA_V_SYNC_PULSE = 5;
+localparam VGA_V_BACK_PORCH = 36;
+
+// 1084 = 1080 + 4(Front Porch)
+localparam VGA_VFP = VGA_VSIZE + VGA_V_FRONT_PORCH;
+
+// 1089 = 1080 + 4 + 5(Sync pulse)
+localparam VGA_VSP = VGA_VFP + VGA_V_SYNC_PULSE;
+
+// 1125 = 1080 + 4 + 5 + 36(Back Porch)
+localparam VGA_VMAX = VGA_VSP + VGA_V_BACK_PORCH;
+
+
 // floating point
 typedef struct packed {
     logic [DATA_WIDTH - 1:0] v;
