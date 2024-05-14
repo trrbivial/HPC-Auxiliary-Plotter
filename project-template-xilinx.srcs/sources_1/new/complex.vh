@@ -30,8 +30,9 @@ localparam ITER_TIMES = 100;
 
 localparam CP_DATA_WIDTH = 64;
 localparam PIXEL_DATA_WIDTH = 4;
+localparam PACKED_PIXEL_DATA_WIDTH = 16;
 localparam BRAM_1024_ADDR_WIDTH = 10;
-localparam BRAM_1048576_ADDR_WIDTH = 20;
+localparam BRAM_524288_ADDR_WIDTH = 19;
 
 localparam ROOTS_TO_PIXELS_CYCS = CP_MUL_CYCS + CP_ADD_CYCS;
 

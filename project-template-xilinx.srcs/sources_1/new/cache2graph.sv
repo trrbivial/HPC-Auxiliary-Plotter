@@ -7,10 +7,13 @@ module cache2graph (
     input wire rst,
     input wire [BRAM_1024_ADDR_WIDTH - 1:0] rear,
     input wire [CP_DATA_WIDTH - 1:0] bram_data,
+    input wire [PACKED_PIXEL_DATA_WIDTH - 1:0] graph_memory_a_out_data,
 
     output wire [BRAM_1024_ADDR_WIDTH - 1:0] bram_addr[MAX_DEG - 1:0],
-    output wire [2:0] ind
-
+    output wire [2:0] ind,
+    output wire [BRAM_524288_ADDR_WIDTH - 1:0] graph_memory_a_addr,
+    output wire [PACKED_PIXEL_DATA_WIDTH - 1:0] graph_memory_a_in_data,
+    output wire graph_memory_a_we
 );
     logic is_head_eq_rear;
     assign is_head_eq_rear = bram_addr_reg[index] == rear;
@@ -28,6 +31,11 @@ module cache2graph (
 
     pixel now_pixel;
     logic [DATA_WIDTH - 1:0] now_pixel_index;
+    logic graph_memory_a_we_reg;
+
+    assign graph_memory_a_we = graph_memory_a_we_reg;
+    assign graph_memory_a_addr = now_pixel_index[BRAM_524288_ADDR_WIDTH + 1: 2];
+    
 
     pixel2graph_status_t stat;
 
@@ -35,6 +43,8 @@ module cache2graph (
         if (rst) begin
             stat <= IDLE;
             index <= 0;
+            now_pixel_index <= 0;
+            graph_memory_a_we_reg <= 0;
             for (int i = 0; i < MAX_DEG; i = i + 1) begin
                 bram_addr[i] <= 0;
             end

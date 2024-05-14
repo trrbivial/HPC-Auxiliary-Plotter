@@ -257,9 +257,13 @@ module mod_top(
         .rst(rst),
         .rear(bram_a_addr),
         .bram_data(bram_b_data[index]),
+        .graph_memory_a_out_data(graph_memory_a_out_data),
 
         .bram_addr(bram_b_addr),
-        .ind(index)
+        .ind(index),
+        .graph_memory_a_addr(graph_memory_a_addr),
+        .graph_memory_a_in_data(graph_memory_a_in_data),
+        .graph_memory_a_we(graph_memory_a_we)
     );
 
     genvar i;
@@ -278,34 +282,29 @@ module mod_top(
         end
     endgenerate
 
-    logic graph_memory_a_we[1:0];
-    logic [BRAM_1048576_ADDR_WIDTH - 1:0] graph_memory_a_addr[1:0];
-    logic [PIXEL_DATA_WIDTH - 1:0] graph_memory_a_data[1:0];
+    logic graph_memory_a_we;
+    logic [BRAM_524288_ADDR_WIDTH - 1:0] graph_memory_a_addr;
+    logic [PACKED_PIXEL_DATA_WIDTH - 1:0] graph_memory_a_in_data;
+    logic [PACKED_PIXEL_DATA_WIDTH - 1:0] graph_memory_a_out_data;
 
     logic clk_b;
-    logic [BRAM_1048576_ADDR_WIDTH - 1:0] graph_memory_b_addr[1:0];
-    logic [PIXEL_DATA_WIDTH - 1:0] graph_memory_b_data[1:0];
+    logic [BRAM_524288_ADDR_WIDTH - 1:0] graph_memory_b_addr;
+    logic [PACKED_PIXEL_DATA_WIDTH - 1:0] graph_memory_b_data;
 
     assign clk_b = video_clk;
 
+    bram_of_1080p_graph graph_memory (
+        .clka(clk),
+        .addra(graph_memory_a_addr),
+        .dina(graph_memory_a_in_data),
+        .douta(graph_memory_a_out_data),
+        .wea(graph_memory_a_we),
 
-    // bram0: 0 ~ 1048575 pixels (4 bits each pixel)
-    // bram1: 1048576 ~ 2097152 (1920 * 1080 = 2073600)
-    generate 
-        for (i = 0; i < 2; i = i + 1) begin
-            bram_of_1080p_graph graph_memory_i (
-                .clka(clk),
-                .addra(graph_memory_a_addr[i]),
-                .dina(graph_memory_a_data[i]),
-                .wea(graph_memory_a_we[i]),
+        .clkb(clk_b),
+        .addrb(graph_memory_b_addr),
+        .doutb(graph_memory_b_data)
+    );
 
-                .clkb(clk_b),
-                .addrb(graph_memory_b_addr[i]),
-                .doutb(graph_memory_b_data[i])
-            );
-
-        end
-    endgenerate
 
 
 endmodule
