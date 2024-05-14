@@ -25,11 +25,11 @@ module iteration # (
 
     always_comb begin
         output_from_batch = 
-            (stat == IN_BATCH && iter_times == ITER_TIMES && cnt_cycs == QR_DECOMP_CYCS) | 
-            (stat == FIN);
+            (stat == ST_ITER_IN_BATCH && iter_times == ITER_TIMES && cnt_cycs == QR_DECOMP_CYCS) | 
+            (stat == ST_ITER_FIN);
         batch_from_input = 
-            (stat == INIT && in.valid) | 
-            (stat == IN_BATCH && iter_times == 1 && cnt_cycs < QR_DECOMP_CYCS);
+            (stat == ST_ITER_INIT && in.valid) | 
+            (stat == ST_ITER_IN_BATCH && iter_times == 1 && cnt_cycs < QR_DECOMP_CYCS);
 
         if (batch_from_input) begin
             qr_decomp_in = in;
@@ -51,30 +51,30 @@ module iteration # (
     
     always_ff @(posedge clk, posedge rst) begin
         if (rst) begin
-            stat <= INIT;
+            stat <= ST_ITER_INIT;
         end else begin
             case (stat)
-                INIT: begin
+                ST_ITER_INIT: begin
                     if (in.valid) begin
-                        stat <= IN_BATCH;
+                        stat <= ST_ITER_IN_BATCH;
                         cnt_cycs <= 1;
                         iter_times <= 1;
                     end
                 end
-                IN_BATCH: begin
+                ST_ITER_IN_BATCH: begin
                     if (cnt_cycs == QR_DECOMP_CYCS) begin
                         cnt_cycs <= 1;
                         if (iter_times == ITER_TIMES) begin
-                            stat <= FIN;
+                            stat <= ST_ITER_FIN;
                         end
                         iter_times <= iter_times + 1;
                     end else begin
                         cnt_cycs <= cnt_cycs + 1;
                     end
                 end
-                FIN: begin
+                ST_ITER_FIN: begin
                     if (cnt_cycs == QR_DECOMP_CYCS) begin
-                        stat <= INIT;
+                        stat <= ST_ITER_INIT;
                     end else begin
                         cnt_cycs <= cnt_cycs + 1;
                     end

@@ -252,20 +252,6 @@ module mod_top(
         .bram_data(bram_a_data)
     );
 
-    cache2graph m_cache2graph (
-        .clk(clk),
-        .rst(rst),
-        .rear(bram_a_addr),
-        .bram_data(bram_b_data[index]),
-        .graph_memory_a_out_data(graph_memory_a_out_data),
-
-        .bram_addr(bram_b_addr),
-        .ind(index),
-        .graph_memory_a_addr(graph_memory_a_addr),
-        .graph_memory_a_in_data(graph_memory_a_in_data),
-        .graph_memory_a_we(graph_memory_a_we)
-    );
-
     genvar i;
     generate
         for (i = 0; i < MAX_DEG; i = i + 1) begin
@@ -281,6 +267,20 @@ module mod_top(
             );
         end
     endgenerate
+
+    cache2graph m_cache2graph (
+        .clk(clk),
+        .rst(rst),
+        .rear(bram_a_addr),
+        .bram_data(bram_b_data[index]),
+        .graph_memory_a_out_data(graph_memory_a_out_data),
+
+        .bram_addr(bram_b_addr),
+        .ind(index),
+        .graph_memory_a_addr(graph_memory_a_addr),
+        .graph_memory_a_in_data(graph_memory_a_in_data),
+        .graph_memory_a_we(graph_memory_a_we)
+    );
 
     logic graph_memory_a_we;
     logic [BRAM_524288_ADDR_WIDTH - 1:0] graph_memory_a_addr;

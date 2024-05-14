@@ -164,19 +164,20 @@ typedef struct packed {
 
 
 typedef enum logic [2:0] {
-    INIT,
-    IN_BATCH,
-    FIN,
-    ERROR
+    ST_ITER_INIT,
+    ST_ITER_IN_BATCH,
+    ST_ITER_FIN,
+    ST_ITER_ERROR
 } iteration_status_t;
 
 typedef enum logic [2:0] {
-    IDLE,
-    CHECK,
-    READ_PIXEL,
+    ST_P2G_IDLE,
+    ST_P2G_CHECK,
+    ST_P2G_READ_PIXEL,
+    ST_P2G_WRITE_PIXEL,
 
-    NEXT,
-    ERROR
+    ST_P2G_NEXT,
+    ST_P2G_ERROR
 
 } pixel2graph_status_t;
 

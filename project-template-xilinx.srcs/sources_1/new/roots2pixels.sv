@@ -15,14 +15,13 @@ module roots2pixels # (
     output wire pixels_axis out
 );
 
-    assign s[0] = in;
     cp_axis tmp1[MAX_DEG - 1:0], tmp2[MAX_DEG - 1:0];
     pixel_axis tmp3[MAX_DEG - 1:0];
 
     genvar i;
     generate
         for (i = 0; i < MAX_DEG; i = i + 1) begin
-            complex_suber m_cp_suber_i (clk, s[0].meta.x[i], offset, tmp1[i]);
+            complex_suber m_cp_suber_i (clk, {in.valid, in.meta.x[i]}, offset, tmp1[i]);
             complex_mul_float m_cp_mul_fl_i (clk, tmp1[i], scalar, tmp2[i]);
             complex2pixel m_cp_to_pixel_i (clk, tmp2[i], tmp3[i]);
         end
