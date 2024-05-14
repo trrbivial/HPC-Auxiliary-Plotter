@@ -2,6 +2,8 @@
 `define _COMPLEX_HDR_VH_
 
 localparam ONE_FL = 32'h3F800000;
+localparam ONE_HUNDRED_FL = 32'h42C80000;
+localparam NEG_0_5 = 32'hBF000000; // -0.5
 localparam ONE_CP = {ONE_FL, 32'b0};
 
 localparam FL_MUL_CYCS = 6;
@@ -24,10 +26,14 @@ localparam DATA_WIDTH = 32;
 localparam MAX_DEG = 6;
 
 localparam QR_DECOMP_CYCS = CALC_GIVENS_ROTATIONS_CYCS * (MAX_DEG - 1);
-localparam ITER_TIMES = 2;
+localparam ITER_TIMES = 100;
 
 localparam CP_DATA_WIDTH = 64;
+localparam PIXEL_DATA_WIDTH = 4;
 localparam BRAM_1024_ADDR_WIDTH = 10;
+localparam BRAM_1048576_ADDR_WIDTH = 20;
+
+localparam ROOTS_TO_PIXELS_CYCS = CP_MUL_CYCS + CP_ADD_CYCS;
 
 
 localparam VGA_HSIZE = 1920;
@@ -101,6 +107,26 @@ typedef struct packed {
     roots meta;
 } roots_axis;
 
+// pixel parsed from roots
+typedef struct packed {
+    logic [DATA_WIDTH - 1:0] x;
+    logic [DATA_WIDTH - 1:0] y;
+} pixel;
+
+typedef struct packed {
+    logic valid;
+    pixel meta;
+} pixel_axis;
+
+typedef struct packed {
+    pixel [MAX_DEG - 1:0] p;
+} pixels;
+
+typedef struct packed {
+    logic valid;
+    pixels meta;
+} pixels_axis;
+
 
 // matrix
 typedef struct packed {
@@ -128,6 +154,7 @@ typedef struct packed {
 } qr_axis;
 
 
+
 `define should_handle(b) (b.valid)
 `define meta(b) (b.meta)
 `define neg_fl(b) {b[31] ^ 1'b1, b[30:0]}
@@ -141,5 +168,18 @@ typedef enum logic [2:0] {
     FIN,
     ERROR
 } iteration_status_t;
+
+typedef enum logic [2:0] {
+    IDLE,
+    CHECK,
+    READ_PIXEL,
+
+    NEXT,
+    ERROR
+
+} pixel2graph_status_t;
+
+
 `endif
+
 

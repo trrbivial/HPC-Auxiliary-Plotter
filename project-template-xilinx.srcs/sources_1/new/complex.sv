@@ -2,6 +2,68 @@
 
 `include "complex.vh"
 
+// 6 cycles late from posedge to posedge
+module complex2pixel (
+    input wire clk,
+    input wire cp_axis in,
+    output wire pixel_axis out
+);
+
+    logic v1, v2;
+    floating_to_integer_0 fl2int_1 (
+        .aclk(clk), 
+        .s_axis_a_tvalid(in.valid),
+        .s_axis_a_tdata(in.meta.r),
+        .m_axis_result_tvalid(v1),
+        .m_axis_result_tdata(out.meta.x)
+    );
+    floating_to_integer_0 fl2int_2 (
+        .aclk(clk), 
+        .s_axis_a_tvalid(in.valid),
+        .s_axis_a_tdata(in.meta.i),
+        .m_axis_result_tvalid(v2),
+        .m_axis_result_tdata(out.meta.y)
+    );
+    assign out.valid = v1 & v2;
+endmodule
+
+
+// 11 cycles late from posedge to posedge
+module complex_suber (
+    input wire clk,
+    input wire cp_axis a,
+    input wire cp_axis b,
+    output wire cp_axis c
+);
+    cp ma, mb;
+    assign ma = a.meta;
+    assign mb = b.meta;
+
+    logic add_r_valid;
+    logic add_i_valid;
+
+    floating_sub_0 floating_sub_m0 (
+        .aclk(clk),
+        .s_axis_a_tdata(ma.r),
+        .s_axis_a_tvalid(a.valid),
+        .s_axis_b_tdata(mb.r),
+        .s_axis_b_tvalid(b.valid),
+        .m_axis_result_tdata(c.meta.r),
+        .m_axis_result_tvalid(add_r_valid)
+    );
+
+    floating_sub_0 floating_sub_m1 (
+        .aclk(clk),
+        .s_axis_a_tdata(ma.i),
+        .s_axis_a_tvalid(a.valid),
+        .s_axis_b_tdata(mb.i),
+        .s_axis_b_tvalid(b.valid),
+        .m_axis_result_tdata(c.meta.i),
+        .m_axis_result_tvalid(add_i_valid)
+    );
+
+    assign c.valid = add_r_valid & add_i_valid;
+endmodule
 
 // 11 cycles late from posedge to posedge
 module complex_adder (

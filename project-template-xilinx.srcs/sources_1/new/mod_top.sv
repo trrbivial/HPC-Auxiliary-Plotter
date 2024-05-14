@@ -76,6 +76,9 @@ module mod_top(
         .clk_out1 (clk_hdmi  ),  // 74.250MHz 像素时钟
         .locked   (clk_locked)   // 高表示 74.250MHz 时钟已经稳定输出
     );
+    logic clk, rst;
+    assign clk = clk_in;
+    assign rst = btn_rst;
 
     // 七段数码管扫描演示
     reg [31:0] number;
@@ -114,6 +117,9 @@ module mod_top(
         .led_bit (led_bit     ),
         .led_com (led_com     )
     );
+
+
+
 
     // 图像输出演示，分辨率 800x600@72Hz，像素时钟为 50MHz，显示渐变色彩条
     wire [11:0] hdata;  // 当前横坐标
@@ -185,9 +191,6 @@ module mod_top(
     end
 
     logic rsted;
-    logic clk, rst;
-    assign clk = clk_in;
-    assign rst = btn_rst;
 
     always_ff @(posedge clk, posedge rst) begin
         if (rst) begin
@@ -202,8 +205,21 @@ module mod_top(
 
     mat_axis mat_in;
     roots_axis roots_out;
+    pixels_axis pixels_out;
     assign mat_in.valid = mat_valid;
     assign mat_in.meta = r1 ? mat_r1 : mat_r2;
+
+    cp_axis screen_offset;
+    float_axis screen_scalar;
+
+    always_ff @(posedge clk, posedge rst) begin
+        if (rst) begin
+            screen_offset <= {1'b1, {NEG_0_5, NEG_0_5}};
+            screen_scalar <= {1'b1, ONE_HUNDRED_FL};
+        end else begin
+
+        end
+    end
 
 
     iteration m_iterations (
@@ -212,38 +228,39 @@ module mod_top(
         .in(mat_in),
         .out(roots_out)
     );
+    roots2pixels m_roots2pixels (
+        .clk(clk),
+        .rst(rst),
+        .in(roots_out),
+        .out(pixels_out)
+    );
 
     logic [BRAM_1024_ADDR_WIDTH - 1:0] bram_a_addr;
     logic bram_we;
     logic [CP_DATA_WIDTH - 1:0] bram_a_data[MAX_DEG - 1:0];
 
+    logic [2:0] index;
     logic [BRAM_1024_ADDR_WIDTH - 1:0] bram_b_addr[MAX_DEG - 1:0];
     logic [CP_DATA_WIDTH - 1:0] bram_b_data[MAX_DEG - 1:0];
 
-    always_ff @(posedge clk, posedge rst) begin
-        if (rst) begin
-            for (int i = 0; i < MAX_DEG; i = i + 1) begin
-                bram_b_addr[i] <= 0;
-            end
-        end else begin
-            for (int i = 0; i < MAX_DEG; i = i + 1) begin
-                bram_b_addr[i] <= bram_b_addr[i] + 1;
-                if (bram_b_addr[i] == 10) begin
-                    bram_b_addr[i] <= 0;
-                end
-            end
-        end
-    end
-
-    roots2bram m_roots2bram (
+    pixels2bram m_pixels2bram (
         .clk(clk),
         .rst(rst),
-        .in(roots_out),
+        .in(pixels_out),
         .bram_addr(bram_a_addr),
         .bram_we(bram_we),
         .bram_data(bram_a_data)
     );
 
+    cache2graph m_cache2graph (
+        .clk(clk),
+        .rst(rst),
+        .rear(bram_a_addr),
+        .bram_data(bram_b_data[index]),
+
+        .bram_addr(bram_b_addr),
+        .ind(index)
+    );
 
     genvar i;
     generate
@@ -260,5 +277,35 @@ module mod_top(
             );
         end
     endgenerate
+
+    logic graph_memory_a_we[1:0];
+    logic [BRAM_1048576_ADDR_WIDTH - 1:0] graph_memory_a_addr[1:0];
+    logic [PIXEL_DATA_WIDTH - 1:0] graph_memory_a_data[1:0];
+
+    logic clk_b;
+    logic [BRAM_1048576_ADDR_WIDTH - 1:0] graph_memory_b_addr[1:0];
+    logic [PIXEL_DATA_WIDTH - 1:0] graph_memory_b_data[1:0];
+
+    assign clk_b = video_clk;
+
+
+    // bram0: 0 ~ 1048575 pixels (4 bits each pixel)
+    // bram1: 1048576 ~ 2097152 (1920 * 1080 = 2073600)
+    generate 
+        for (i = 0; i < 2; i = i + 1) begin
+            bram_of_1080p_graph graph_memory_i (
+                .clka(clk),
+                .addra(graph_memory_a_addr[i]),
+                .dina(graph_memory_a_data[i]),
+                .wea(graph_memory_a_we[i]),
+
+                .clkb(clk_b),
+                .addrb(graph_memory_b_addr[i]),
+                .doutb(graph_memory_b_data[i])
+            );
+
+        end
+    endgenerate
+
 
 endmodule
