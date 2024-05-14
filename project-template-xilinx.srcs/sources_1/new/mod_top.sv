@@ -268,6 +268,15 @@ module mod_top(
         end
     endgenerate
 
+    logic graph_memory_a_we;
+    logic [BRAM_524288_ADDR_WIDTH - 1:0] graph_memory_a_addr;
+    logic [PACKED_PIXEL_DATA_WIDTH - 1:0] graph_memory_a_in_data;
+    logic [PACKED_PIXEL_DATA_WIDTH - 1:0] graph_memory_a_out_data;
+
+    logic clk_b;
+    logic [BRAM_524288_ADDR_WIDTH - 1:0] graph_memory_b_addr;
+    logic [PACKED_PIXEL_DATA_WIDTH - 1:0] graph_memory_b_data;
+
     cache2graph m_cache2graph (
         .clk(clk),
         .rst(rst),
@@ -282,16 +291,7 @@ module mod_top(
         .graph_memory_a_we(graph_memory_a_we)
     );
 
-    logic graph_memory_a_we;
-    logic [BRAM_524288_ADDR_WIDTH - 1:0] graph_memory_a_addr;
-    logic [PACKED_PIXEL_DATA_WIDTH - 1:0] graph_memory_a_in_data;
-    logic [PACKED_PIXEL_DATA_WIDTH - 1:0] graph_memory_a_out_data;
-
-    logic clk_b;
-    logic [BRAM_524288_ADDR_WIDTH - 1:0] graph_memory_b_addr;
-    logic [PACKED_PIXEL_DATA_WIDTH - 1:0] graph_memory_b_data;
-
-    assign clk_b = video_clk;
+    assign clk_b = clk;
 
     bram_of_1080p_graph graph_memory (
         .clka(clk),
@@ -302,9 +302,10 @@ module mod_top(
 
         .clkb(clk_b),
         .addrb(graph_memory_b_addr),
-        .doutb(graph_memory_b_data)
+        .dinb(16'b0),
+        .doutb(graph_memory_b_data),
+        .web(1'b0)
     );
-
 
 
 endmodule
