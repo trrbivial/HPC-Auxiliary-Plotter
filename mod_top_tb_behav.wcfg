@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="mod_top_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="\$unit_complex_sv " />
+            <top_module name="\$unit_roots2bram_sv " />
+            <top_module name="dvi_constants" />
+            <top_module name="glbl" />
+            <top_module name="mod_top_tb" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="12917554fs"></ZoomStartTime>
+      <ZoomEndTime time="13035255fs"></ZoomEndTime>
+      <Cursor1Time time="12605000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="273"></NameColumnWidth>
+      <ValueColumnWidth column_width="215"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="17" />
+   <wvobject type="logic" fp_name="/mod_top_tb/clk">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/mod_top_tb/rst">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/mod_top_tb/mat_identity">
+      <obj_property name="ElementShortName">mat_identity</obj_property>
+      <obj_property name="ObjectShortName">mat_identity</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/mod_top_tb/mat_r1">
+      <obj_property name="ElementShortName">mat_r1</obj_property>
+      <obj_property name="ObjectShortName">mat_r1</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/mod_top_tb/mat_r2">
+      <obj_property name="ElementShortName">mat_r2</obj_property>
+      <obj_property name="ObjectShortName">mat_r2</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/mod_top_tb/valid">
+      <obj_property name="ElementShortName">valid</obj_property>
+      <obj_property name="ObjectShortName">valid</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/mod_top_tb/r1">
+      <obj_property name="ElementShortName">r1</obj_property>
+      <obj_property name="ObjectShortName">r1</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/mod_top_tb/dut/bram_a_addr">
+      <obj_property name="ElementShortName">bram_a_addr[9:0]</obj_property>
+      <obj_property name="ObjectShortName">bram_a_addr[9:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/mod_top_tb/dut/bram_we">
+      <obj_property name="ElementShortName">bram_we</obj_property>
+      <obj_property name="ObjectShortName">bram_we</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/mod_top_tb/dut/bram_a_data">
+      <obj_property name="ElementShortName">bram_a_data[5:0][63:0]</obj_property>
+      <obj_property name="ObjectShortName">bram_a_data[5:0][63:0]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/mod_top_tb/dut/bram_b_addr">
+      <obj_property name="ElementShortName">bram_b_addr[5:0][9:0]</obj_property>
+      <obj_property name="ObjectShortName">bram_b_addr[5:0][9:0]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/mod_top_tb/dut/bram_b_data">
+      <obj_property name="ElementShortName">bram_b_data[5:0][63:0]</obj_property>
+      <obj_property name="ObjectShortName">bram_b_data[5:0][63:0]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/mod_top_tb/dut/m_iterations/stat">
+      <obj_property name="ElementShortName">stat[2:0]</obj_property>
+      <obj_property name="ObjectShortName">stat[2:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/mod_top_tb/dut/m_iterations/batch_from_input">
+      <obj_property name="ElementShortName">batch_from_input</obj_property>
+      <obj_property name="ObjectShortName">batch_from_input</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/mod_top_tb/dut/m_iterations/output_from_batch">
+      <obj_property name="ElementShortName">output_from_batch</obj_property>
+      <obj_property name="ObjectShortName">output_from_batch</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/mod_top_tb/dut/m_iterations/cnt_cycs">
+      <obj_property name="ElementShortName">cnt_cycs[15:0]</obj_property>
+      <obj_property name="ObjectShortName">cnt_cycs[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/mod_top_tb/dut/m_iterations/iter_times">
+      <obj_property name="ElementShortName">iter_times[15:0]</obj_property>
+      <obj_property name="ObjectShortName">iter_times[15:0]</obj_property>
+   </wvobject>
+</wave_config>
