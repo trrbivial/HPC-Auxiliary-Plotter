@@ -5,6 +5,7 @@ localparam ONE_FL = 32'h3F800000;
 localparam ONE_HUNDRED_FL = 32'h42C80000;
 localparam NEG_0_5 = 32'hBF000000; // -0.5
 localparam ONE_CP = {ONE_FL, 32'b0};
+localparam PI = 32'h40490FDB;
 
 localparam FL_MUL_CYCS = 6;
 localparam FL_ADD_CYCS = 11;
@@ -24,6 +25,8 @@ localparam CALC_GIVENS_ROTATIONS_CYCS = CALC_GIVENS_SECOND_COEF_MUL_ADD_CYCS;
 
 localparam DATA_WIDTH = 32;
 localparam MAX_DEG = 6;
+localparam SAMPLING_DIV_N = 32'd2000;
+localparam SAMPLING_STEP_COEF = 32'h3A03126F; // 1/2000
 
 localparam QR_DECOMP_CYCS = CALC_GIVENS_ROTATIONS_CYCS * (MAX_DEG - 1);
 localparam ITER_TIMES = 100;
@@ -90,13 +93,34 @@ typedef struct packed {
 
 // coefs of polynomial
 typedef struct packed {
-    cp [MAX_DEG - 1:0] a;
+    cp [MAX_DEG:0] a;
 } poly;
 
 typedef struct packed {
     logic valid;
     poly meta;
 } poly_axis;
+
+typedef struct packed {
+    logic mode;
+    float range;
+} sample_mode;
+
+typedef struct packed {
+    logic valid;
+    sample_mode meta;
+} sample_mode_axis;
+
+typedef struct packed {
+    poly [MAX_DEG:0] p;
+} coef;
+
+typedef struct packed {
+    logic valid;
+    coef t1;
+    coef t2;
+    sample_mode spm;
+} coef_axis;
 
 // roots of polynomial
 typedef struct packed {
@@ -180,6 +204,23 @@ typedef enum logic [2:0] {
     ST_P2G_ERROR
 
 } pixel2graph_status_t;
+
+typedef enum logic [3:0] {
+    ST_SYS_IDLE,
+    ST_SYS_RESET_ALL,
+    ST_SYS_INPUT_CHOOSE_MODE,
+    ST_SYS_MODE1_INPUT,
+    ST_SYS_MODE1_RESET,
+    ST_SYS_MODE1_RUNNING,
+    ST_SYS_MODE1_FINISH
+} system_status_t;
+
+typedef enum logic [2:0] {
+    ST_SAMP_IDLE,
+    ST_SAMP_CALC_STEP,
+    ST_SAMP_SAMPLING,
+    ST_SAMP_FIN
+} sampling_status_t;
 
 
 `endif

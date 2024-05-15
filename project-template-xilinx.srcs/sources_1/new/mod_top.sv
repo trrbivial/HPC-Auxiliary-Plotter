@@ -80,6 +80,21 @@ module mod_top(
     assign clk = clk_in;
     assign rst = btn_rst;
 
+    system_status_t sys_stat;
+    system_status m_system_status (
+        .clk(clk),
+        .rst(rst),
+        .calc_mode(2'b01),
+        .mode1_input_finish(1'b1),
+        .mode1_moved_or_scaled(1'b0),
+        .mode1_calc_finish(1'b0),
+        .mode1_exit(1'b0),
+
+        .system_status(sys_stat)
+    );
+
+
+
     // 七段数码管扫描演示
     reg [31:0] number;
     dpy_scan u_dpy_scan (
@@ -163,6 +178,7 @@ module mod_top(
         .TMDS_Data_n (hdmi_tmds_n)
     );
 
+    /*
     mat mat_identity;
     mat mat_r1;
     mat mat_r2;
@@ -208,6 +224,7 @@ module mod_top(
     pixels_axis pixels_out;
     assign mat_in.valid = mat_valid;
     assign mat_in.meta = r1 ? mat_r1 : mat_r2;
+    */
 
     cp_axis screen_offset;
     float_axis screen_scalar;
@@ -221,13 +238,35 @@ module mod_top(
         end
     end
 
+    poly_axis poly_in;
+    roots_axis roots_out;
+    logic iter_in_ready;
 
+    generate_poly m_gen_poly (
+        .clk(clk & iter_in_ready),
+        .rst(rst),
+
+
+        .out(poly_in)
+    );
+
+    iteration_simple m_iterations(
+        .clk(clk),
+        .rst(rst),
+        .in(poly_in),
+
+        .out(roots_out),
+        .in_ready(iter_in_ready)
+    );
+
+    /*
     iteration m_iterations (
         .clk(clk),
         .rst(rst),
         .in(mat_in),
         .out(roots_out)
     );
+    */
     roots2pixels m_roots2pixels (
         .clk(clk),
         .rst(rst),
@@ -273,24 +312,46 @@ module mod_top(
     logic [PACKED_PIXEL_DATA_WIDTH - 1:0] graph_memory_a_in_data;
     logic [PACKED_PIXEL_DATA_WIDTH - 1:0] graph_memory_a_out_data;
 
-    logic clk_b;
-    logic [BRAM_524288_ADDR_WIDTH - 1:0] graph_memory_b_addr;
-    logic [PACKED_PIXEL_DATA_WIDTH - 1:0] graph_memory_b_data;
+    logic graph_memory_a_we_0;
+    logic [BRAM_524288_ADDR_WIDTH - 1:0] graph_memory_a_addr_0;
+    logic [PACKED_PIXEL_DATA_WIDTH - 1:0] graph_memory_a_in_data_0;
+    logic [PACKED_PIXEL_DATA_WIDTH - 1:0] graph_memory_a_out_data_0;
+    logic graph_memory_op_finished_0;
+
+    assign graph_memory_a_out_data_0 = 
+        !graph_memory_op_finished_0 ? graph_memory_a_out_data :
+        0;
+
 
     cache2graph m_cache2graph (
         .clk(clk),
         .rst(rst),
         .rear(bram_a_addr),
         .bram_data(bram_b_data[index]),
-        .graph_memory_a_out_data(graph_memory_a_out_data),
+        .graph_memory_a_out_data(graph_memory_a_out_data_0),
 
         .bram_addr(bram_b_addr),
         .ind(index),
-        .graph_memory_a_addr(graph_memory_a_addr),
-        .graph_memory_a_in_data(graph_memory_a_in_data),
-        .graph_memory_a_we(graph_memory_a_we)
+        .graph_memory_a_addr(graph_memory_a_addr_0),
+        .graph_memory_a_in_data(graph_memory_a_in_data_0),
+        .graph_memory_a_we(graph_memory_a_we_0),
+        .graph_memory_op_finished(graph_memory_op_finished_0)
     );
 
+    assign graph_memory_a_we = 
+        !graph_memory_op_finished_0 ? graph_memory_a_we_0 :
+        0;
+    assign graph_memory_a_addr = 
+        !graph_memory_op_finished_0 ? graph_memory_a_addr_0 :
+        0;
+    assign graph_memory_a_in_data = 
+        !graph_memory_op_finished_0 ? graph_memory_a_in_data_0 :
+        0;
+
+
+    logic clk_b;
+    logic [BRAM_524288_ADDR_WIDTH - 1:0] graph_memory_b_addr;
+    logic [PACKED_PIXEL_DATA_WIDTH - 1:0] graph_memory_b_data;
     assign clk_b = clk;
 
     bram_of_1080p_graph graph_memory (

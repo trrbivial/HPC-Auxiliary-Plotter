@@ -13,13 +13,15 @@ module cache2graph (
     output wire [2:0] ind,
     output wire [BRAM_524288_ADDR_WIDTH - 1:0] graph_memory_a_addr,
     output wire [PACKED_PIXEL_DATA_WIDTH - 1:0] graph_memory_a_in_data,
-    output wire graph_memory_a_we
+    output wire graph_memory_a_we,
+    output wire graph_memory_op_finished
 );
     logic [2:0] index;
     logic [BRAM_1024_ADDR_WIDTH - 1:0] bram_addr_reg[MAX_DEG - 1:0];
 
     logic is_head_eq_rear;
     assign is_head_eq_rear = bram_addr_reg[index] == rear;
+    assign graph_memory_op_finished = is_head_eq_rear;
 
 
     assign ind = index;
