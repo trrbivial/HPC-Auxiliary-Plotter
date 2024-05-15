@@ -307,20 +307,26 @@ module mod_top(
         end
     endgenerate
 
-    logic graph_memory_a_we;
-    logic [BRAM_524288_ADDR_WIDTH - 1:0] graph_memory_a_addr;
-    logic [PACKED_PIXEL_DATA_WIDTH - 1:0] graph_memory_a_in_data;
-    logic [PACKED_PIXEL_DATA_WIDTH - 1:0] graph_memory_a_out_data;
+    wbm_signal_send wbm_o[GM_MASTER_COUNT - 1:0];
+    wbm_signal_recv wbm_i[GM_MASTER_COUNT - 1:0];
 
-    logic graph_memory_a_we_0;
-    logic [BRAM_524288_ADDR_WIDTH - 1:0] graph_memory_a_addr_0;
-    logic [PACKED_PIXEL_DATA_WIDTH - 1:0] graph_memory_a_in_data_0;
-    logic [PACKED_PIXEL_DATA_WIDTH - 1:0] graph_memory_a_out_data_0;
-    logic graph_memory_op_finished_0;
+    wbm_signal_send wbs_i;
+    wbm_signal_recv wbs_o;
 
-    assign graph_memory_a_out_data_0 = 
-        !graph_memory_op_finished_0 ? graph_memory_a_out_data :
-        0;
+    always_comb begin 
+        wbs_o.ack = 1;
+    end
+
+    wb_arbiter wb_arbiter_i (
+        .clk(clk),
+        .rst(rst),
+
+        .wbm_i(wbm_o),
+        .wbm_o(wbm_i),
+
+        .wbs_i(wbs_o),
+        .wbs_o(wbs_i)
+    );
 
 
     cache2graph m_cache2graph (
@@ -328,26 +334,12 @@ module mod_top(
         .rst(rst),
         .rear(bram_a_addr),
         .bram_data(bram_b_data[index]),
-        .graph_memory_a_out_data(graph_memory_a_out_data_0),
+        .wbm_i(wbm_i[0]),
 
         .bram_addr(bram_b_addr),
         .ind(index),
-        .graph_memory_a_addr(graph_memory_a_addr_0),
-        .graph_memory_a_in_data(graph_memory_a_in_data_0),
-        .graph_memory_a_we(graph_memory_a_we_0),
-        .graph_memory_op_finished(graph_memory_op_finished_0)
+        .wbm_o(wbm_o[0])
     );
-
-    assign graph_memory_a_we = 
-        !graph_memory_op_finished_0 ? graph_memory_a_we_0 :
-        0;
-    assign graph_memory_a_addr = 
-        !graph_memory_op_finished_0 ? graph_memory_a_addr_0 :
-        0;
-    assign graph_memory_a_in_data = 
-        !graph_memory_op_finished_0 ? graph_memory_a_in_data_0 :
-        0;
-
 
     logic clk_b;
     logic [BRAM_524288_ADDR_WIDTH - 1:0] graph_memory_b_addr;
@@ -356,10 +348,10 @@ module mod_top(
 
     bram_of_1080p_graph graph_memory (
         .clka(clk),
-        .addra(graph_memory_a_addr),
-        .dina(graph_memory_a_in_data),
-        .douta(graph_memory_a_out_data),
-        .wea(graph_memory_a_we),
+        .addra(wbs_i.adr),
+        .dina(wbs_i.dat),
+        .douta(wbs_o.dat),
+        .wea(wbs_i.we),
 
         .clkb(clk_b),
         .addrb(graph_memory_b_addr),

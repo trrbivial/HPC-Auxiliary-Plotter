@@ -21,10 +21,9 @@ module generate_poly # (
     always_comb begin
         offset = 0;
         offset[31] = 1'b1;
-        for (int i = MAX_DEG; i >= 0; i = i - 1) begin
+        for (int i = 0; i <= MAX_DEG; i = i + 1) begin
             if (tmp3[i].meta != 0) begin
                 offset = MAX_DEG - i;
-                break;
             end
         end
     end

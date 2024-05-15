@@ -41,6 +41,8 @@ localparam BRAM_524288_ADDR_WIDTH = 19;
 
 localparam ROOTS_TO_PIXELS_CYCS = CP_MUL_CYCS + CP_ADD_CYCS;
 
+localparam GM_MASTER_COUNT = 2;
+
 
 localparam VGA_HSIZE = 1920;
 localparam VGA_H_FRONT_PORCH = 88;
@@ -200,7 +202,9 @@ typedef enum logic [2:0] {
     ST_P2G_IDLE,
     ST_P2G_CHECK,
     ST_P2G_READ_PIXEL,
+    ST_P2G_WAIT_READ_ACK,
     ST_P2G_WRITE_PIXEL,
+    ST_P2G_WAIT_WRITE_ACK,
 
     ST_P2G_NEXT,
     ST_P2G_ERROR
@@ -223,6 +227,21 @@ typedef enum logic [2:0] {
     ST_SAMP_SAMPLING,
     ST_SAMP_FIN
 } sampling_status_t;
+
+// master signal input
+typedef struct packed {
+    logic ack;
+    logic [PACKED_PIXEL_DATA_WIDTH - 1:0] dat;
+} wbm_signal_recv;
+
+// master signal output
+typedef struct packed {
+    logic cyc;
+    logic stb;
+    logic [BRAM_524288_ADDR_WIDTH - 1:0] adr;
+    logic [PACKED_PIXEL_DATA_WIDTH - 1:0] dat;
+    logic we;
+} wbm_signal_send;
 
 
 `endif
