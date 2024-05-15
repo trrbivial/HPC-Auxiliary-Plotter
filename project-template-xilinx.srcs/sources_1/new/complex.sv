@@ -102,6 +102,7 @@ module complex_adder (
     assign c.valid = add_r_valid & add_i_valid;
 endmodule
 
+
 // 17 cycles late from posedge to posedge
 module complex_multiplier #(
     parameter DATA_WIDTH = 32
@@ -269,5 +270,19 @@ module complex_mul_float (
     );
     assign c.valid = v1 & v2;
 
+endmodule
+
+module complex_ax_plus_b #(
+    parameter DATA_WIDTH = 32
+) (
+    input wire clk,
+    input wire cp_axis a,
+    input wire cp_axis x,
+    input wire cp_axis b,
+    output wire cp_axis c 
+);
+    cp_axis c0;
+    complex_multiplier cp_mul (clk, a, x, c0);
+    complex_adder cp_add (clk, c0, b, c);
 endmodule
 

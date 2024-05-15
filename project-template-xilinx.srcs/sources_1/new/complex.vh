@@ -28,6 +28,8 @@ localparam MAX_DEG = 6;
 localparam SAMPLING_DIV_N = 32'd2000;
 localparam SAMPLING_STEP_COEF = 32'h3A03126F; // 1/2000
 
+localparam POLY_X_HOLD_CYCS = CP_MUL_ADD_CYCS * (MAX_DEG - 1);
+
 localparam QR_DECOMP_CYCS = CALC_GIVENS_ROTATIONS_CYCS * (MAX_DEG - 1);
 localparam ITER_TIMES = 100;
 

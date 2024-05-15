@@ -245,12 +245,10 @@ module mod_top(
     generate_poly m_gen_poly (
         .clk(clk & iter_in_ready),
         .rst(rst),
-
-
         .out(poly_in)
     );
 
-    iteration_simple m_iterations(
+    iteration_simple m_iterations (
         .clk(clk),
         .rst(rst),
         .in(poly_in),

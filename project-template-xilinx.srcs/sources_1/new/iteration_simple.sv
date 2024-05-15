@@ -38,7 +38,21 @@ module iteration_simple # (
         end
     endgenerate
     assign qr_decomp_out = s[QR_DECOMP_CYCS];
-    assign in_ready = (stat == ST_ITER_INIT) | batch_from_input;
+
+    logic in_ready_reg;
+    always_ff @(negedge clk, posedge rst) begin
+        if (rst) begin
+            in_ready_reg <= 1;
+        end else begin
+            if (stat == ST_ITER_INIT || batch_from_input) begin
+                in_ready_reg <= 1;
+            end else begin
+                in_ready_reg <= 0;
+            end
+        end
+    end
+
+    assign in_ready = in_ready_reg;
 
     always_comb begin
         output_from_batch = 
