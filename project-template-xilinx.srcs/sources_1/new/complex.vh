@@ -2,6 +2,7 @@
 `define _COMPLEX_HDR_VH_
 
 localparam ONE_FL = 32'h3F800000;
+localparam FIFTEEN_FL = 32'h41700000; // 15
 localparam ONE_HUNDRED_FL = 32'h42C80000;
 localparam NEG_0_5 = 32'hBF000000; // -0.5
 localparam ONE_CP = {ONE_FL, 32'b0};

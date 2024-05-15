@@ -45,11 +45,12 @@ module generate_poly # (
             );
 
         end
-        assign tmp4[MAX_DEG] = 
-            offset[31] ? {1'b1, ONE_CP} :
-            tmp3[i - offset];
-        assign tmp5[MAX_DEG] = {1'b1, ONE_CP};
     endgenerate
+
+    assign tmp4[MAX_DEG] = 
+        offset[31] ? {1'b1, ONE_CP} :
+        tmp3[MAX_DEG - offset];
+    assign tmp5[MAX_DEG] = {1'b1, ONE_CP};
 
     generate
         for (i = 0; i < MAX_DEG; i = i + 1) begin

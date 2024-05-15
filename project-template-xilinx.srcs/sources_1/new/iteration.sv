@@ -9,7 +9,9 @@ module iteration # (
     input wire clk,
     input wire rst,
     input wire mat_axis in,
-    output wire roots_axis out
+ 
+    output wire roots_axis out,
+    output wire in_ready
 );
     iteration_status_t stat;
     logic batch_from_input;
@@ -22,6 +24,22 @@ module iteration # (
     qr_axis qr_decomp_out;
 
     qr_decomp m_qr_decomp (clk, rst, qr_decomp_in, qr_decomp_out);
+
+    logic in_ready_reg;
+    assign in_ready = in_ready_reg;
+
+    always_ff @(negedge clk, posedge rst) begin
+        if (rst) begin
+            in_ready_reg <= 1;
+        end else begin
+            if (stat == ST_ITER_INIT || batch_from_input) begin
+                in_ready_reg <= 1;
+            end else begin
+                in_ready_reg <= 0;
+            end
+        end
+    end
+
 
     always_comb begin
         output_from_batch = 

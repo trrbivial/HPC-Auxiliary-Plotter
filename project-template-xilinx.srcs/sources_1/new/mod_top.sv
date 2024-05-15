@@ -137,8 +137,8 @@ module mod_top(
 
 
     // 图像输出演示，分辨率 800x600@72Hz，像素时钟为 50MHz，显示渐变色彩条
-    wire [11:0] hdata;  // 当前横坐标
-    wire [11:0] vdata;  // 当前纵坐标
+    wire [15:0] hdata;  // 当前横坐标
+    wire [15:0] vdata;  // 当前纵坐标
     wire [7:0] video_red; // 红色分量
     wire [7:0] video_green; // 绿色分量
     wire [7:0] video_blue; // 蓝色分量
@@ -178,61 +178,15 @@ module mod_top(
         .TMDS_Data_n (hdmi_tmds_n)
     );
 
-    /*
-    mat mat_identity;
-    mat mat_r1;
-    mat mat_r2;
-    logic mat_valid;
-    logic r1;
-    always_comb begin
-        for (integer i = 0; i < MAX_DEG; i = i + 1) begin
-            for (integer j = 0; j < MAX_DEG; j = j + 1) begin
-                mat_identity.r[i].c[j] = (i == j) ? ONE_CP : 0;
-                mat_r1.r[i].c[j] = (i == j + 1) ? ONE_CP : 0;
-                mat_r2.r[i].c[j] = (i == j + 1) ? ONE_CP : 0;
-            end
-        end
-        mat_r1.r[0].c[0] = {32'h3F800000, 32'h40C00000};
-        mat_r1.r[0].c[1] = {32'h40000000, 32'h40A00000};
-        mat_r1.r[0].c[2] = {32'h40400000, 32'h40800000};
-        mat_r1.r[0].c[3] = {32'h40800000, 32'h40400000};
-        mat_r1.r[0].c[4] = {32'h40A00000, 32'h40000000};
-        mat_r1.r[0].c[5] = {32'h40C00000, 32'h3F800000};
-        mat_r2.r[0].c[0] = {32'h3F800000, 32'h0};
-        mat_r2.r[0].c[1] = {32'h40000000, 32'h0};
-        mat_r2.r[0].c[2] = {32'h40400000, 32'h0};
-        mat_r2.r[0].c[3] = {32'h40800000, 32'h0};
-        mat_r2.r[0].c[4] = {32'h40A00000, 32'h0};
-        mat_r2.r[0].c[5] = {32'h40C00000, 32'h0};
-    end
-
+    cp_axis screen_offset;
+    float_axis screen_scalar;
     logic rsted;
 
     always_ff @(posedge clk, posedge rst) begin
         if (rst) begin
-            r1 <= 0;
-            mat_valid <= 0;
-            rsted <= 1;
-        end else begin
-            r1 <= r1 ^ 1'b1;
-            if (rsted) mat_valid <= 1;
-        end
-    end
-
-    mat_axis mat_in;
-    roots_axis roots_out;
-    pixels_axis pixels_out;
-    assign mat_in.valid = mat_valid;
-    assign mat_in.meta = r1 ? mat_r1 : mat_r2;
-    */
-
-    cp_axis screen_offset;
-    float_axis screen_scalar;
-
-    always_ff @(posedge clk, posedge rst) begin
-        if (rst) begin
             screen_offset <= {1'b1, {NEG_0_5, NEG_0_5}};
-            screen_scalar <= {1'b1, ONE_HUNDRED_FL};
+            screen_scalar <= {1'b1, FIFTEEN_FL};
+            rsted <= 1;
         end else begin
 
         end
@@ -240,8 +194,28 @@ module mod_top(
 
     coef_axis coef_in;
     poly_axis poly_in;
+    mat_axis mat_in;
     roots_axis roots_out;
     logic iter_in_ready;
+
+    always_comb begin
+        coef_in = 0;
+        if (rsted) begin
+            coef_in.valid = 1;
+            coef_in.spm.mode = 1;
+            coef_in.spm.range = ONE_HUNDRED_FL;
+            coef_in.t1.p[0].a[1] = {32'b0, `neg_fl(ONE_FL)};
+            coef_in.t1.p[0].a[0] = ONE_CP; 
+
+            coef_in.t1.p[2].a[0] = {32'b0, `neg_fl(ONE_FL)};
+            coef_in.t1.p[3].a[0] = ONE_CP;
+            coef_in.t1.p[4].a[0] = {32'b0, `neg_fl(ONE_FL)};
+            coef_in.t1.p[5].a[0] = {32'b0, ONE_FL};
+            coef_in.t1.p[6].a[0] = ONE_CP;
+
+            coef_in.t2.p[5].a[1] = ONE_CP;
+        end
+    end
 
     generate_poly m_gen_poly (
         .clk(clk & iter_in_ready),
@@ -250,6 +224,7 @@ module mod_top(
         .out(poly_in)
     );
 
+    /*
     iteration_simple m_iterations (
         .clk(clk),
         .rst(rst),
@@ -258,19 +233,33 @@ module mod_top(
         .out(roots_out),
         .in_ready(iter_in_ready)
     );
+    */
 
-    /*
+    poly2mat m_poly2mat (
+        .clk(clk),
+        .rst(rst),
+        .in(poly_in),
+        .out(mat_in)
+    );
+
     iteration m_iterations (
         .clk(clk),
         .rst(rst),
         .in(mat_in),
-        .out(roots_out)
+
+        .out(roots_out),
+        .in_ready(iter_in_ready)
     );
-    */
+
+    pixels_axis pixels_out;
+
     roots2pixels m_roots2pixels (
         .clk(clk),
         .rst(rst),
         .in(roots_out),
+        .offset(screen_offset),
+        .scalar(screen_scalar),
+
         .out(pixels_out)
     );
 
