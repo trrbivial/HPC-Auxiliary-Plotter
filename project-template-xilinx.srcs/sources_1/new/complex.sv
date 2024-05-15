@@ -286,3 +286,76 @@ module complex_ax_plus_b #(
     complex_adder cp_add (clk, c0, b, c);
 endmodule
 
+module complex_norm (
+    input wire clk,
+    input wire cp_axis a,
+    output wire float_axis norm
+);
+    float_axis c1, c2;
+    floating_mul_0 fl_mul_1 (
+        .aclk(clk), 
+        .s_axis_a_tvalid(a.valid),
+        .s_axis_a_tdata(a.meta.r),
+        .s_axis_b_tvalid(a.valid),
+        .s_axis_b_tdata(a.meta.r),
+        .m_axis_result_tvalid(c1.valid),
+        .m_axis_result_tdata(c1.meta)
+    );
+
+    floating_mul_0 fl_mul_2 (
+        .aclk(clk),
+        .s_axis_a_tvalid(a.valid),
+        .s_axis_a_tdata(a.meta.i),
+        .s_axis_b_tvalid(a.valid),
+        .s_axis_b_tdata(a.meta.i),
+        .m_axis_result_tvalid(c2.valid),
+        .m_axis_result_tdata(c2.meta)
+    );
+
+    floating_add_0 fl_add_0 (
+        .aclk(clk),
+        .s_axis_a_tvalid(c1.valid),
+        .s_axis_a_tdata(c1.meta),
+        .s_axis_b_tvalid(c2.valid),
+        .s_axis_b_tdata(c2.meta),
+        .m_axis_result_tvalid(norm.valid),
+        .m_axis_result_tdata(norm.meta)
+    );
+
+endmodule
+
+module complex_diver (
+    input wire clk,
+    input wire cp_axis a,
+    input wire cp_axis b,
+    output wire cp_axis c 
+);
+    cp_axis c0;
+    float_axis c1;
+    complex_multiplier cp_mul_0 (clk, a, {b.valid, `conj(b.meta)}, c0);
+    complex_norm cp_norm_0 (clk, b, c1);
+
+    logic vr, vi;
+    floating_div_0 fl_div_0 (
+        .aclk(clk),
+        .s_axis_a_tvalid(c0.valid),
+        .s_axis_a_tdata(c0.meta.r),
+        .s_axis_b_tvalid(c1.valid),
+        .s_axis_b_tdata(c1.meta),
+        .m_axis_result_tvalid(vr),
+        .m_axis_result_tdata(c.meta.r)
+    );
+
+    floating_div_0 fl_div_1 (
+        .aclk(clk),
+        .s_axis_a_tvalid(c0.valid),
+        .s_axis_a_tdata(c0.meta.i),
+        .s_axis_b_tvalid(c1.valid),
+        .s_axis_b_tdata(c1.meta),
+        .m_axis_result_tvalid(vi),
+        .m_axis_result_tdata(c.meta.i)
+    );
+
+    assign c.valid = vr & vi;
+    
+endmodule

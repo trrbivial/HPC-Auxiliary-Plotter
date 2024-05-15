@@ -238,6 +238,7 @@ module mod_top(
         end
     end
 
+    coef_axis coef_in;
     poly_axis poly_in;
     roots_axis roots_out;
     logic iter_in_ready;
@@ -245,6 +246,7 @@ module mod_top(
     generate_poly m_gen_poly (
         .clk(clk & iter_in_ready),
         .rst(rst),
+        .in(coef_in),
         .out(poly_in)
     );
 

@@ -12,13 +12,13 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="2121700fs"></ZoomStartTime>
-      <ZoomEndTime time="2239401fs"></ZoomEndTime>
-      <Cursor1Time time="2165000fs"></Cursor1Time>
+      <ZoomStartTime time="1618030fs"></ZoomStartTime>
+      <ZoomEndTime time="1740394fs"></ZoomEndTime>
+      <Cursor1Time time="1720000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="273"></NameColumnWidth>
-      <ValueColumnWidth column_width="215"></ValueColumnWidth>
+      <ValueColumnWidth column_width="211"></ValueColumnWidth>
    </column_width_setting>
    <WVObjectSize size="11" />
    <wvobject type="logic" fp_name="/generate_poly_tb/clk">
@@ -41,221 +41,6 @@
       <obj_property name="ElementShortName">coef_in</obj_property>
       <obj_property name="ObjectShortName">coef_in</obj_property>
       <obj_property name="isExpanded"></obj_property>
-      <wvobject type="logic" fp_name="/generate_poly_tb/coef_in.valid">
-         <obj_property name="ElementShortName">.valid</obj_property>
-         <obj_property name="ObjectShortName">.valid</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/generate_poly_tb/coef_in.t1">
-         <obj_property name="ElementShortName">.t1</obj_property>
-         <obj_property name="ObjectShortName">.t1</obj_property>
-         <obj_property name="isExpanded"></obj_property>
-         <wvobject type="array" fp_name="/generate_poly_tb/coef_in.t1.p">
-            <obj_property name="ElementShortName">.p[6:0]</obj_property>
-            <obj_property name="ObjectShortName">.p[6:0]</obj_property>
-            <obj_property name="isExpanded"></obj_property>
-            <wvobject type="array" fp_name="/generate_poly_tb/coef_in.t1.p[6]">
-               <obj_property name="ElementShortName">[6]</obj_property>
-               <obj_property name="ObjectShortName">[6]</obj_property>
-               <obj_property name="Radix">REALRADIX</obj_property>
-               <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-               <obj_property name="radix_fractionWidth">24</obj_property>
-               <obj_property name="radix_otherWidth">8</obj_property>
-               <obj_property name="isExpanded"></obj_property>
-               <wvobject type="array" fp_name="/generate_poly_tb/coef_in.t1.p[6].a">
-                  <obj_property name="ElementShortName">.a[6:0]</obj_property>
-                  <obj_property name="ObjectShortName">.a[6:0]</obj_property>
-                  <obj_property name="isExpanded"></obj_property>
-                  <wvobject type="array" fp_name="/generate_poly_tb/coef_in.t1.p[6].a[6]">
-                     <obj_property name="ElementShortName">[6]</obj_property>
-                     <obj_property name="ObjectShortName">[6]</obj_property>
-                     <obj_property name="Radix">REALRADIX</obj_property>
-                     <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-                     <obj_property name="radix_fractionWidth">24</obj_property>
-                     <obj_property name="radix_otherWidth">8</obj_property>
-                  </wvobject>
-                  <wvobject type="array" fp_name="/generate_poly_tb/coef_in.t1.p[6].a[5]">
-                     <obj_property name="ElementShortName">[5]</obj_property>
-                     <obj_property name="ObjectShortName">[5]</obj_property>
-                     <obj_property name="Radix">REALRADIX</obj_property>
-                     <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-                     <obj_property name="radix_fractionWidth">24</obj_property>
-                     <obj_property name="radix_otherWidth">8</obj_property>
-                  </wvobject>
-                  <wvobject type="array" fp_name="/generate_poly_tb/coef_in.t1.p[6].a[4]">
-                     <obj_property name="ElementShortName">[4]</obj_property>
-                     <obj_property name="ObjectShortName">[4]</obj_property>
-                     <obj_property name="Radix">REALRADIX</obj_property>
-                     <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-                     <obj_property name="radix_fractionWidth">24</obj_property>
-                     <obj_property name="radix_otherWidth">8</obj_property>
-                  </wvobject>
-                  <wvobject type="array" fp_name="/generate_poly_tb/coef_in.t1.p[6].a[3]">
-                     <obj_property name="ElementShortName">[3]</obj_property>
-                     <obj_property name="ObjectShortName">[3]</obj_property>
-                     <obj_property name="Radix">REALRADIX</obj_property>
-                     <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-                     <obj_property name="radix_fractionWidth">24</obj_property>
-                     <obj_property name="radix_otherWidth">8</obj_property>
-                  </wvobject>
-                  <wvobject type="array" fp_name="/generate_poly_tb/coef_in.t1.p[6].a[2]">
-                     <obj_property name="ElementShortName">[2]</obj_property>
-                     <obj_property name="ObjectShortName">[2]</obj_property>
-                     <obj_property name="Radix">REALRADIX</obj_property>
-                     <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-                     <obj_property name="radix_fractionWidth">24</obj_property>
-                     <obj_property name="radix_otherWidth">8</obj_property>
-                  </wvobject>
-                  <wvobject type="array" fp_name="/generate_poly_tb/coef_in.t1.p[6].a[1]">
-                     <obj_property name="ElementShortName">[1]</obj_property>
-                     <obj_property name="ObjectShortName">[1]</obj_property>
-                     <obj_property name="Radix">REALRADIX</obj_property>
-                     <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-                     <obj_property name="radix_fractionWidth">24</obj_property>
-                     <obj_property name="radix_otherWidth">8</obj_property>
-                  </wvobject>
-                  <wvobject type="array" fp_name="/generate_poly_tb/coef_in.t1.p[6].a[0]">
-                     <obj_property name="ElementShortName">[0]</obj_property>
-                     <obj_property name="ObjectShortName">[0]</obj_property>
-                     <obj_property name="Radix">REALRADIX</obj_property>
-                     <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-                     <obj_property name="radix_fractionWidth">24</obj_property>
-                     <obj_property name="radix_otherWidth">8</obj_property>
-                  </wvobject>
-               </wvobject>
-            </wvobject>
-            <wvobject type="array" fp_name="/generate_poly_tb/coef_in.t1.p[5]">
-               <obj_property name="ElementShortName">[5]</obj_property>
-               <obj_property name="ObjectShortName">[5]</obj_property>
-               <obj_property name="Radix">REALRADIX</obj_property>
-               <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-               <obj_property name="radix_fractionWidth">24</obj_property>
-               <obj_property name="radix_otherWidth">8</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/generate_poly_tb/coef_in.t1.p[4]">
-               <obj_property name="ElementShortName">[4]</obj_property>
-               <obj_property name="ObjectShortName">[4]</obj_property>
-               <obj_property name="Radix">REALRADIX</obj_property>
-               <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-               <obj_property name="radix_fractionWidth">24</obj_property>
-               <obj_property name="radix_otherWidth">8</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/generate_poly_tb/coef_in.t1.p[3]">
-               <obj_property name="ElementShortName">[3]</obj_property>
-               <obj_property name="ObjectShortName">[3]</obj_property>
-               <obj_property name="Radix">REALRADIX</obj_property>
-               <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-               <obj_property name="radix_fractionWidth">24</obj_property>
-               <obj_property name="radix_otherWidth">8</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/generate_poly_tb/coef_in.t1.p[2]">
-               <obj_property name="ElementShortName">[2]</obj_property>
-               <obj_property name="ObjectShortName">[2]</obj_property>
-               <obj_property name="Radix">REALRADIX</obj_property>
-               <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-               <obj_property name="radix_fractionWidth">24</obj_property>
-               <obj_property name="radix_otherWidth">8</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/generate_poly_tb/coef_in.t1.p[1]">
-               <obj_property name="ElementShortName">[1]</obj_property>
-               <obj_property name="ObjectShortName">[1]</obj_property>
-               <obj_property name="Radix">REALRADIX</obj_property>
-               <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-               <obj_property name="radix_fractionWidth">24</obj_property>
-               <obj_property name="radix_otherWidth">8</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/generate_poly_tb/coef_in.t1.p[0]">
-               <obj_property name="ElementShortName">[0]</obj_property>
-               <obj_property name="ObjectShortName">[0]</obj_property>
-               <obj_property name="Radix">REALRADIX</obj_property>
-               <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-               <obj_property name="radix_fractionWidth">24</obj_property>
-               <obj_property name="radix_otherWidth">8</obj_property>
-            </wvobject>
-         </wvobject>
-      </wvobject>
-      <wvobject type="array" fp_name="/generate_poly_tb/coef_in.t2">
-         <obj_property name="ElementShortName">.t2</obj_property>
-         <obj_property name="ObjectShortName">.t2</obj_property>
-         <obj_property name="isExpanded"></obj_property>
-         <wvobject type="array" fp_name="/generate_poly_tb/coef_in.t2.p">
-            <obj_property name="ElementShortName">.p[6:0]</obj_property>
-            <obj_property name="ObjectShortName">.p[6:0]</obj_property>
-            <obj_property name="isExpanded"></obj_property>
-            <wvobject type="array" fp_name="/generate_poly_tb/coef_in.t2.p[6]">
-               <obj_property name="ElementShortName">[6]</obj_property>
-               <obj_property name="ObjectShortName">[6]</obj_property>
-               <obj_property name="Radix">REALRADIX</obj_property>
-               <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-               <obj_property name="radix_fractionWidth">24</obj_property>
-               <obj_property name="radix_otherWidth">8</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/generate_poly_tb/coef_in.t2.p[5]">
-               <obj_property name="ElementShortName">[5]</obj_property>
-               <obj_property name="ObjectShortName">[5]</obj_property>
-               <obj_property name="Radix">REALRADIX</obj_property>
-               <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-               <obj_property name="radix_fractionWidth">24</obj_property>
-               <obj_property name="radix_otherWidth">8</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/generate_poly_tb/coef_in.t2.p[4]">
-               <obj_property name="ElementShortName">[4]</obj_property>
-               <obj_property name="ObjectShortName">[4]</obj_property>
-               <obj_property name="Radix">REALRADIX</obj_property>
-               <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-               <obj_property name="radix_fractionWidth">24</obj_property>
-               <obj_property name="radix_otherWidth">8</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/generate_poly_tb/coef_in.t2.p[3]">
-               <obj_property name="ElementShortName">[3]</obj_property>
-               <obj_property name="ObjectShortName">[3]</obj_property>
-               <obj_property name="Radix">REALRADIX</obj_property>
-               <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-               <obj_property name="radix_fractionWidth">24</obj_property>
-               <obj_property name="radix_otherWidth">8</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/generate_poly_tb/coef_in.t2.p[2]">
-               <obj_property name="ElementShortName">[2]</obj_property>
-               <obj_property name="ObjectShortName">[2]</obj_property>
-               <obj_property name="Radix">REALRADIX</obj_property>
-               <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-               <obj_property name="radix_fractionWidth">24</obj_property>
-               <obj_property name="radix_otherWidth">8</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/generate_poly_tb/coef_in.t2.p[1]">
-               <obj_property name="ElementShortName">[1]</obj_property>
-               <obj_property name="ObjectShortName">[1]</obj_property>
-               <obj_property name="Radix">REALRADIX</obj_property>
-               <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-               <obj_property name="radix_fractionWidth">24</obj_property>
-               <obj_property name="radix_otherWidth">8</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/generate_poly_tb/coef_in.t2.p[0]">
-               <obj_property name="ElementShortName">[0]</obj_property>
-               <obj_property name="ObjectShortName">[0]</obj_property>
-               <obj_property name="Radix">REALRADIX</obj_property>
-               <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-               <obj_property name="radix_fractionWidth">24</obj_property>
-               <obj_property name="radix_otherWidth">8</obj_property>
-            </wvobject>
-         </wvobject>
-      </wvobject>
-      <wvobject type="array" fp_name="/generate_poly_tb/coef_in.spm">
-         <obj_property name="ElementShortName">.spm</obj_property>
-         <obj_property name="ObjectShortName">.spm</obj_property>
-         <obj_property name="isExpanded"></obj_property>
-         <wvobject type="logic" fp_name="/generate_poly_tb/coef_in.spm.mode">
-            <obj_property name="ElementShortName">.mode</obj_property>
-            <obj_property name="ObjectShortName">.mode</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/generate_poly_tb/coef_in.spm.range">
-            <obj_property name="ElementShortName">.range</obj_property>
-            <obj_property name="ObjectShortName">.range</obj_property>
-            <obj_property name="Radix">REALRADIX</obj_property>
-            <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-            <obj_property name="radix_fractionWidth">24</obj_property>
-            <obj_property name="radix_otherWidth">8</obj_property>
-         </wvobject>
-      </wvobject>
    </wvobject>
    <wvobject type="array" fp_name="/generate_poly_tb/poly_out">
       <obj_property name="ElementShortName">poly_out</obj_property>
@@ -336,85 +121,25 @@
       <obj_property name="ElementShortName">t1</obj_property>
       <obj_property name="ObjectShortName">t1</obj_property>
       <obj_property name="isExpanded"></obj_property>
-      <wvobject type="logic" fp_name="/generate_poly_tb/m_generate_poly/t1.valid">
-         <obj_property name="ElementShortName">.valid</obj_property>
-         <obj_property name="ObjectShortName">.valid</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/generate_poly_tb/m_generate_poly/t1.meta">
-         <obj_property name="ElementShortName">.meta</obj_property>
-         <obj_property name="ObjectShortName">.meta</obj_property>
-         <obj_property name="Radix">REALRADIX</obj_property>
-         <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-         <obj_property name="radix_fractionWidth">24</obj_property>
-         <obj_property name="radix_otherWidth">8</obj_property>
-      </wvobject>
    </wvobject>
    <wvobject type="array" fp_name="/generate_poly_tb/m_generate_poly/t2">
       <obj_property name="ElementShortName">t2</obj_property>
       <obj_property name="ObjectShortName">t2</obj_property>
       <obj_property name="isExpanded"></obj_property>
-      <wvobject type="logic" fp_name="/generate_poly_tb/m_generate_poly/t2.valid">
-         <obj_property name="ElementShortName">.valid</obj_property>
-         <obj_property name="ObjectShortName">.valid</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/generate_poly_tb/m_generate_poly/t2.meta">
-         <obj_property name="ElementShortName">.meta</obj_property>
-         <obj_property name="ObjectShortName">.meta</obj_property>
-         <obj_property name="Radix">REALRADIX</obj_property>
-         <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-         <obj_property name="radix_fractionWidth">24</obj_property>
-         <obj_property name="radix_otherWidth">8</obj_property>
-      </wvobject>
    </wvobject>
    <wvobject type="array" fp_name="/generate_poly_tb/m_generate_poly/tmp1[6]">
       <obj_property name="ElementShortName">[6]</obj_property>
       <obj_property name="ObjectShortName">[6]</obj_property>
       <obj_property name="isExpanded"></obj_property>
-      <wvobject type="logic" fp_name="/generate_poly_tb/m_generate_poly/tmp1[6].valid">
-         <obj_property name="ElementShortName">.valid</obj_property>
-         <obj_property name="ObjectShortName">.valid</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/generate_poly_tb/m_generate_poly/tmp1[6].meta">
-         <obj_property name="ElementShortName">.meta</obj_property>
-         <obj_property name="ObjectShortName">.meta</obj_property>
-         <obj_property name="Radix">REALRADIX</obj_property>
-         <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-         <obj_property name="radix_fractionWidth">24</obj_property>
-         <obj_property name="radix_otherWidth">8</obj_property>
-      </wvobject>
    </wvobject>
    <wvobject type="array" fp_name="/generate_poly_tb/m_generate_poly/tmp2[6]">
       <obj_property name="ElementShortName">[6]</obj_property>
       <obj_property name="ObjectShortName">[6]</obj_property>
       <obj_property name="isExpanded"></obj_property>
-      <wvobject type="logic" fp_name="/generate_poly_tb/m_generate_poly/tmp2[6].valid">
-         <obj_property name="ElementShortName">.valid</obj_property>
-         <obj_property name="ObjectShortName">.valid</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/generate_poly_tb/m_generate_poly/tmp2[6].meta">
-         <obj_property name="ElementShortName">.meta</obj_property>
-         <obj_property name="ObjectShortName">.meta</obj_property>
-         <obj_property name="Radix">REALRADIX</obj_property>
-         <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-         <obj_property name="radix_fractionWidth">24</obj_property>
-         <obj_property name="radix_otherWidth">8</obj_property>
-      </wvobject>
    </wvobject>
    <wvobject type="array" fp_name="/generate_poly_tb/m_generate_poly/tmp3[6]">
       <obj_property name="ElementShortName">[6]</obj_property>
       <obj_property name="ObjectShortName">[6]</obj_property>
       <obj_property name="isExpanded"></obj_property>
-      <wvobject type="logic" fp_name="/generate_poly_tb/m_generate_poly/tmp3[6].valid">
-         <obj_property name="ElementShortName">.valid</obj_property>
-         <obj_property name="ObjectShortName">.valid</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/generate_poly_tb/m_generate_poly/tmp3[6].meta">
-         <obj_property name="ElementShortName">.meta</obj_property>
-         <obj_property name="ObjectShortName">.meta</obj_property>
-         <obj_property name="Radix">REALRADIX</obj_property>
-         <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-         <obj_property name="radix_fractionWidth">24</obj_property>
-         <obj_property name="radix_otherWidth">8</obj_property>
-      </wvobject>
    </wvobject>
 </wave_config>
