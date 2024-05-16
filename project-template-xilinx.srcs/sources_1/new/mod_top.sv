@@ -302,8 +302,13 @@ module mod_top(
     wbm_signal_send wbs_i;
     wbm_signal_recv wbs_o;
 
-    always_comb begin 
-        wbs_o.ack = 1;
+    always_ff @(posedge clk, posedge rst) begin
+        if (rst) begin
+            wbs_o.ack <= 0;
+        end else begin
+            if (wbs_i.cyc && wbs_i.stb) wbs_o.ack <= 1;
+            if (wbs_o.ack) wbs_o.ack <= 0;
+        end
     end
 
     wb_arbiter wb_arbiter_i (
