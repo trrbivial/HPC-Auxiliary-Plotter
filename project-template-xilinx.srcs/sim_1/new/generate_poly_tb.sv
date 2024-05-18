@@ -56,9 +56,10 @@ module generate_poly_tb();
 
     poly_axis poly_out;
     generate_poly m_generate_poly (
-        clk & iter_ready,
+        clk,
         rst,
         coef_in,
+        iter_ready,
         poly_out
     );
 

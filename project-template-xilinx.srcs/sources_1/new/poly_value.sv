@@ -9,6 +9,7 @@ module poly_value # (
     input wire rst,
     input wire poly_axis p,
     input wire cp_axis x,
+
     output wire cp_axis y
 );
     cp_axis s[POLY_X_HOLD_CYCS:0];

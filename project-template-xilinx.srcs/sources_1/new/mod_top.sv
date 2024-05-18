@@ -73,8 +73,8 @@ module mod_top(
     ip_pll u_ip_pll(
         .clk_in1  (clk_in    ),  // 输入 100MHz 时钟
         .reset    (btn_rst   ),  // 复位信号，高有效
-        .clk_out1 (clk_hdmi  ),  // 74.250MHz 像素时钟
-        .locked   (clk_locked)   // 高表示 74.250MHz 时钟已经稳定输出
+        .clk_out1 (clk_hdmi  ),  // 148.500MHz 像素时钟
+        .locked   (clk_locked)   // 高表示 148.500MHz 时钟已经稳定输出
     );
     logic clk, rst;
     assign clk = clk_in;
@@ -134,27 +134,25 @@ module mod_top(
     );
 
 
-
-
-    // 图像输出演示，分辨率 800x600@72Hz，像素时钟为 50MHz，显示渐变色彩条
+    // 图像输出，分辨率 1920x1080@60Hz，像素时钟为 148.500MHz
     wire [15:0] hdata;  // 当前横坐标
     wire [15:0] vdata;  // 当前纵坐标
+
+    wire [3:0] video_gray4; // 像素
+    wire [7:0] video_gray8; // 灰度
+
+    wire video_clk;     // 像素时钟
+    wire video_hsync;   // 行同步信号
+    wire video_vsync;   // 场同步信号
+    logic video_de;
+
     wire [7:0] video_red; // 红色分量
     wire [7:0] video_green; // 绿色分量
     wire [7:0] video_blue; // 蓝色分量
-    wire video_clk; // 像素时钟
-    wire video_hsync;
-    wire video_vsync;
-
-    // 生成彩条数据，分别取坐标低位作为 RGB 值
-    // 警告：该图像生成方式仅供演示，请勿使用横纵坐标驱动大量逻辑！！
-    assign video_red = vdata < 200 ? hdata[8:1] : 8'b0;
-    assign video_green = vdata >= 200 && vdata < 400 ? hdata[8:1] : 8'b0;
-    assign video_blue = vdata >= 400 ? hdata[8:1] : 8'b0;
 
     assign video_clk = clk_hdmi;
 
-    video #(16, VGA_HSIZE, VGA_HFP, VGA_HSP, VGA_HMAX, VGA_VSIZE, VGA_VFP, VGA_VSP, VGA_VMAX, 1, 1) u_video1080p30hz (
+    video #(16, VGA_HSIZE, VGA_HFP, VGA_HSP, VGA_HMAX, VGA_VSIZE, VGA_VFP, VGA_VSP, VGA_VMAX, 1, 1) u_video1080p60hz (
         .clk(video_clk), 
         .hdata(hdata), //横坐标
         .vdata(vdata), //纵坐标
@@ -163,13 +161,26 @@ module mod_top(
         .data_enable(video_de)
     );
 
+    // 遍历 BRAM 地址，以得到存放的像素点
+    // 注意根据 横坐标、纵坐标 预读取数据，以保证同步信号
+    wire [20:0] gm_addrb;
+    travel_forward #(16, 1, VGA_HSIZE, VGA_HMAX, VGA_VSIZE, VGA_VMAX) m_travel_forward (
+        .clk(video_clk),
+        .hdata(hdata),
+        .vdata(vdata),
+        .addr(gm_addrb)
+    );
+
+    // 将像素映射为灰度
+    assign video_gray8 = {video_gray4, 4'b0000};
+
     // 把 RGB 转化为 HDMI TMDS 信号并输出
     ip_rgb2dvi u_ip_rgb2dvi (
         .PixelClk   (video_clk),
         .vid_pVDE   (video_de),
         .vid_pHSync (video_hsync),
         .vid_pVSync (video_vsync),
-        .vid_pData  ({video_red, video_blue, video_green}),
+        .vid_pData  ({video_gray8, video_gray8, video_gray8}),
         .aRst       (~clk_locked),
 
         .TMDS_Clk_p  (hdmi_tmds_c_p),
@@ -204,36 +215,32 @@ module mod_top(
             coef_in.valid = 1;
             coef_in.spm.mode = 1;
             coef_in.spm.range = ONE_HUNDRED_FL;
-            coef_in.t1.p[0].a[1] = {32'b0, `neg_fl(ONE_FL)};
-            coef_in.t1.p[0].a[0] = ONE_CP; 
+            coef_in.p_t1.a[1] = {32'b0, `neg_fl(ONE_FL)};
+            coef_in.p_t1.a[0] = ONE_CP; 
+            coef_in.ind_t1 = 0;
 
-            coef_in.t1.p[2].a[0] = {32'b0, `neg_fl(ONE_FL)};
-            coef_in.t1.p[3].a[0] = ONE_CP;
-            coef_in.t1.p[4].a[0] = {32'b0, `neg_fl(ONE_FL)};
-            coef_in.t1.p[5].a[0] = {32'b0, ONE_FL};
-            coef_in.t1.p[6].a[0] = ONE_CP;
+            coef_in.p_t2.a[1] = ONE_CP;
+            coef_in.p_t2.a[0] = {32'b0, ONE_FL};
+            coef_in.ind_t2 = 5;
 
-            coef_in.t2.p[5].a[1] = ONE_CP;
+            coef_in.p_c.a[0] = 0;
+            coef_in.p_c.a[1] = 0;
+            coef_in.p_c.a[2] = {32'b0, `neg_fl(ONE_FL)};
+            coef_in.p_c.a[3] = ONE_CP;
+            coef_in.p_c.a[4] = {32'b0, `neg_fl(ONE_FL)};
+            coef_in.p_c.a[5] = 0;
+            coef_in.p_c.a[6] = ONE_CP;
         end
     end
 
     generate_poly m_gen_poly (
-        .clk(clk & iter_in_ready),
-        .rst(rst),
-        .in(coef_in),
-        .out(poly_in)
-    );
-
-    /*
-    iteration_simple m_iterations (
         .clk(clk),
         .rst(rst),
-        .in(poly_in),
+        .in(coef_in),
+        .iter_in_ready(iter_in_ready),
 
-        .out(roots_out),
-        .in_ready(iter_in_ready)
+        .out(poly_in)
     );
-    */
 
     poly2mat m_poly2mat (
         .clk(clk),
@@ -242,7 +249,7 @@ module mod_top(
         .out(mat_in)
     );
 
-    iteration m_iterations (
+    qr_decomp m_qr_decomp_iter (
         .clk(clk),
         .rst(rst),
         .in(mat_in),
@@ -335,11 +342,6 @@ module mod_top(
         .wbm_o(wbm_o[0])
     );
 
-    logic clk_b;
-    logic [BRAM_524288_ADDR_WIDTH - 1:0] graph_memory_b_addr;
-    logic [PACKED_PIXEL_DATA_WIDTH - 1:0] graph_memory_b_data;
-    assign clk_b = clk;
-
     bram_of_1080p_graph graph_memory (
         .clka(clk),
         .addra(wbs_i.adr),
@@ -347,10 +349,10 @@ module mod_top(
         .douta(wbs_o.dat),
         .wea(wbs_i.we),
 
-        .clkb(clk_b),
-        .addrb(graph_memory_b_addr),
+        .clkb(video_clk),
+        .addrb(gm_addrb),
         .dinb(16'b0),
-        .doutb(graph_memory_b_data),
+        .doutb(video_gray4),
         .web(1'b0)
     );
 

@@ -8,7 +8,7 @@ localparam NEG_0_5 = 32'hBF000000; // -0.5
 localparam ONE_CP = {ONE_FL, 32'b0};
 localparam PI = 32'h40490FDB;
 
-localparam FL_MUL_CYCS = 6;
+localparam FL_MUL_CYCS = 8;
 localparam FL_ADD_CYCS = 11;
 localparam FL_RECIPROCAL_SQRT_CYCS = 32;
 
@@ -117,13 +117,12 @@ typedef struct packed {
 } sample_mode_axis;
 
 typedef struct packed {
-    poly [MAX_DEG:0] p;
-} coef;
-
-typedef struct packed {
     logic valid;
-    coef t1;
-    coef t2;
+    poly p_c;
+    poly p_t1;
+    poly p_t2;
+    logic [2:0] ind_t1;
+    logic [2:0] ind_t2;
     sample_mode spm;
 } coef_axis;
 
@@ -174,8 +173,13 @@ typedef struct packed {
 
 // QR decomposition processing frame
 typedef struct packed {
-    mat a;
     mat r;
+    logic [2:0] row_id;
+    logic [2:0] col_id;
+    logic dir;
+    logic [$clog2(ITER_TIMES) - 1:0] iter;
+    cp [MAX_DEG - 2:0] c;
+    cp [MAX_DEG - 2:0] s;
 } qr;
 
 typedef struct packed {
@@ -191,13 +195,6 @@ typedef struct packed {
 `define neg_cp(b) {`neg_fl(b.r), `neg_fl(b.i)}
 `define conj(b) {b.r, `neg_fl(b.i)}
 
-
-typedef enum logic [2:0] {
-    ST_ITER_INIT,
-    ST_ITER_IN_BATCH,
-    ST_ITER_FIN,
-    ST_ITER_ERROR
-} iteration_status_t;
 
 typedef enum logic [2:0] {
     ST_P2G_IDLE,
@@ -228,6 +225,20 @@ typedef enum logic [2:0] {
     ST_SAMP_SAMPLING,
     ST_SAMP_FIN
 } sampling_status_t;
+
+typedef enum logic [2:0] {
+    ST_GENP_IDLE,
+    ST_GENP_READ_T1_T2,
+    ST_GENP_CALC_STEP,
+    ST_GENP_DIV,
+    ST_GENP_FIN
+} gen_poly_status_t;
+
+typedef enum logic [1:0] {
+    ST_QR_INIT,
+    ST_QR_FROM_INPUT,
+    ST_QR_FROM_MUL_MAT
+} qr_decomp_status_t;
 
 // master signal input
 typedef struct packed {
