@@ -8,8 +8,8 @@ module mod_top_tb();
     reg rst;
 
     initial begin
-        $dumpfile("dump.vcd");
-        $dumpvars(0, mod_top_tb);
+        //$dumpfile("dump.vcd");
+        //$dumpvars(0, mod_top_tb);
         clk = 1'b0;
         rst = 1'b0;
 
@@ -20,7 +20,7 @@ module mod_top_tb();
         rst = 1'b0;
 
         #500000;
-        $finish;
+        //$finish;
     end
 
     always #5 clk = ~clk; // 100MHz

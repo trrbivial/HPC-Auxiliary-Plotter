@@ -32,7 +32,8 @@ localparam SAMPLING_STEP_COEF = 32'h3A03126F; // 1/2000
 localparam POLY_X_HOLD_CYCS = CP_MUL_ADD_CYCS * (MAX_DEG - 1);
 
 localparam QR_DECOMP_CYCS = CALC_GIVENS_ROTATIONS_CYCS * (MAX_DEG - 1);
-localparam ITER_TIMES = 100;
+localparam ITER_TIMES_EACH = 20;
+localparam ITER_TIMES = ITER_TIMES_EACH * (MAX_DEG - 1);
 
 localparam CP_DATA_WIDTH = 64;
 localparam PIXEL_DATA_WIDTH = 4;
@@ -44,6 +45,8 @@ localparam ROOTS_TO_PIXELS_CYCS = CP_MUL_CYCS + CP_ADD_CYCS;
 
 localparam GM_MASTER_COUNT = 2;
 
+localparam SHIFT_SUB = 2'b01;
+localparam SHIFT_ADD = 2'b10;
 
 localparam VGA_HSIZE = 1920;
 localparam VGA_H_FRONT_PORCH = 88;
@@ -176,10 +179,13 @@ typedef struct packed {
     mat r;
     logic [2:0] row_id;
     logic [2:0] col_id;
+    logic [2:0] lim;
     logic dir;
-    logic [$clog2(ITER_TIMES) - 1:0] iter;
+    logic [1:0] shift;
+    logic [$clog2(ITER_TIMES_EACH) - 1:0] iter;
     cp [MAX_DEG - 2:0] c;
     cp [MAX_DEG - 2:0] s;
+    cp offset;
 } qr;
 
 typedef struct packed {

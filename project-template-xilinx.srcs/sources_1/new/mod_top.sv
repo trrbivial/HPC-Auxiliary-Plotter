@@ -135,8 +135,8 @@ module mod_top(
 
 
     // 图像输出，分辨率 1920x1080@60Hz，像素时钟为 148.500MHz
-    wire [15:0] hdata;  // 当前横坐标
-    wire [15:0] vdata;  // 当前纵坐标
+    wire [11:0] hdata;  // 当前横坐标
+    wire [11:0] vdata;  // 当前纵坐标
 
     wire [3:0] video_gray4; // 像素
     wire [7:0] video_gray8; // 灰度
@@ -152,7 +152,7 @@ module mod_top(
 
     assign video_clk = clk_hdmi;
 
-    video #(16, VGA_HSIZE, VGA_HFP, VGA_HSP, VGA_HMAX, VGA_VSIZE, VGA_VFP, VGA_VSP, VGA_VMAX, 1, 1) u_video1080p60hz (
+    video #(12, VGA_HSIZE, VGA_HFP, VGA_HSP, VGA_HMAX, VGA_VSIZE, VGA_VFP, VGA_VSP, VGA_VMAX, 1, 1) u_video1080p60hz (
         .clk(video_clk), 
         .hdata(hdata), //横坐标
         .vdata(vdata), //纵坐标
@@ -164,7 +164,7 @@ module mod_top(
     // 遍历 BRAM 地址，以得到存放的像素点
     // 注意根据 横坐标、纵坐标 预读取数据，以保证同步信号
     wire [20:0] gm_addrb;
-    travel_forward #(16, 1, VGA_HSIZE, VGA_HMAX, VGA_VSIZE, VGA_VMAX) m_travel_forward (
+    travel_forward #(12, 1, VGA_HSIZE, VGA_HMAX, VGA_VSIZE, VGA_VMAX) m_travel_forward (
         .clk(video_clk),
         .hdata(hdata),
         .vdata(vdata),

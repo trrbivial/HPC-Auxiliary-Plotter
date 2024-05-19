@@ -1,7 +1,7 @@
 // Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2019.2 (lin64) Build 2708876 Wed Nov  6 21:39:14 MST 2019
-// Date        : Thu May 16 16:33:57 2024
+// Date        : Sun May 19 02:18:01 2024
 // Host        : koishi running 64-bit Arch Linux
 // Command     : write_verilog -force -mode synth_stub
 //               /home/satori/vivado/digital-design-grp-03/project-template-xilinx.srcs/sources_1/ip/floating_mul_0/floating_mul_0_stub.v

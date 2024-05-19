@@ -24,6 +24,7 @@ module generate_poly # (
             pipe_running <= iter_in_ready;
         end
     end
+
     sampling_coefs m_sampling_coefs (
         .clk(pipe_clk),
         .rst(rst),

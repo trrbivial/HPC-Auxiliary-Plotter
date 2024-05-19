@@ -11,6 +11,9 @@ module mul_givens_mat # (
     output wire qr_axis out
 );
     qr_axis s[CP_MUL_ADD_CYCS + 1:0];
+
+    assign s[0] = in;
+
     logic [2:0] col_id;
     logic [2:0] row_id;
     logic dir;
