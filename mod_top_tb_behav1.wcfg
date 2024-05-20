@@ -13,15 +13,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="142700000fs"></ZoomStartTime>
-      <ZoomEndTime time="261200001fs"></ZoomEndTime>
-      <Cursor1Time time="160600000fs"></Cursor1Time>
+      <ZoomStartTime time="131336666fs"></ZoomStartTime>
+      <ZoomEndTime time="143226667fs"></ZoomEndTime>
+      <Cursor1Time time="141245000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="273"></NameColumnWidth>
-      <ValueColumnWidth column_width="207"></ValueColumnWidth>
+      <ValueColumnWidth column_width="203"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="18" />
+   <WVObjectSize size="33" />
    <wvobject type="logic" fp_name="/mod_top_tb/clk">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -34,559 +34,16 @@
       <obj_property name="ElementShortName">coef_in</obj_property>
       <obj_property name="ObjectShortName">coef_in</obj_property>
       <obj_property name="isExpanded"></obj_property>
-      <wvobject type="logic" fp_name="/mod_top_tb/dut/coef_in.valid">
-         <obj_property name="ElementShortName">.valid</obj_property>
-         <obj_property name="ObjectShortName">.valid</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/mod_top_tb/dut/coef_in.p_c">
-         <obj_property name="ElementShortName">.p_c</obj_property>
-         <obj_property name="ObjectShortName">.p_c</obj_property>
-         <obj_property name="Radix">REALRADIX</obj_property>
-         <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-         <obj_property name="radix_fractionWidth">24</obj_property>
-         <obj_property name="radix_otherWidth">8</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/mod_top_tb/dut/coef_in.p_t1">
-         <obj_property name="ElementShortName">.p_t1</obj_property>
-         <obj_property name="ObjectShortName">.p_t1</obj_property>
-         <obj_property name="Radix">REALRADIX</obj_property>
-         <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-         <obj_property name="radix_fractionWidth">24</obj_property>
-         <obj_property name="radix_otherWidth">8</obj_property>
-         <obj_property name="isExpanded"></obj_property>
-         <wvobject type="array" fp_name="/mod_top_tb/dut/coef_in.p_t1.a">
-            <obj_property name="ElementShortName">.a[6:0]</obj_property>
-            <obj_property name="ObjectShortName">.a[6:0]</obj_property>
-            <obj_property name="isExpanded"></obj_property>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/coef_in.p_t1.a[6]">
-               <obj_property name="ElementShortName">[6]</obj_property>
-               <obj_property name="ObjectShortName">[6]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/coef_in.p_t1.a[5]">
-               <obj_property name="ElementShortName">[5]</obj_property>
-               <obj_property name="ObjectShortName">[5]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/coef_in.p_t1.a[4]">
-               <obj_property name="ElementShortName">[4]</obj_property>
-               <obj_property name="ObjectShortName">[4]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/coef_in.p_t1.a[3]">
-               <obj_property name="ElementShortName">[3]</obj_property>
-               <obj_property name="ObjectShortName">[3]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/coef_in.p_t1.a[2]">
-               <obj_property name="ElementShortName">[2]</obj_property>
-               <obj_property name="ObjectShortName">[2]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/coef_in.p_t1.a[1]">
-               <obj_property name="ElementShortName">[1]</obj_property>
-               <obj_property name="ObjectShortName">[1]</obj_property>
-               <obj_property name="Radix">REALRADIX</obj_property>
-               <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-               <obj_property name="radix_fractionWidth">24</obj_property>
-               <obj_property name="radix_otherWidth">8</obj_property>
-               <obj_property name="isExpanded"></obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/coef_in.p_t1.a[0]">
-               <obj_property name="ElementShortName">[0]</obj_property>
-               <obj_property name="ObjectShortName">[0]</obj_property>
-               <obj_property name="Radix">REALRADIX</obj_property>
-               <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-               <obj_property name="radix_fractionWidth">24</obj_property>
-               <obj_property name="radix_otherWidth">8</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/coef_in.p_t1.a[6]">
-               <obj_property name="ElementShortName">[6]</obj_property>
-               <obj_property name="ObjectShortName">[6]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/coef_in.p_t1.a[5]">
-               <obj_property name="ElementShortName">[5]</obj_property>
-               <obj_property name="ObjectShortName">[5]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/coef_in.p_t1.a[4]">
-               <obj_property name="ElementShortName">[4]</obj_property>
-               <obj_property name="ObjectShortName">[4]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/coef_in.p_t1.a[3]">
-               <obj_property name="ElementShortName">[3]</obj_property>
-               <obj_property name="ObjectShortName">[3]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/coef_in.p_t1.a[2]">
-               <obj_property name="ElementShortName">[2]</obj_property>
-               <obj_property name="ObjectShortName">[2]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/coef_in.p_t1.a[1]">
-               <obj_property name="ElementShortName">[1]</obj_property>
-               <obj_property name="ObjectShortName">[1]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/coef_in.p_t1.a[0]">
-               <obj_property name="ElementShortName">[0]</obj_property>
-               <obj_property name="ObjectShortName">[0]</obj_property>
-            </wvobject>
-         </wvobject>
-         <wvobject type="array" fp_name="/mod_top_tb/dut/coef_in.p_t1.a">
-            <obj_property name="ElementShortName">.a[6:0]</obj_property>
-            <obj_property name="ObjectShortName">.a[6:0]</obj_property>
-         </wvobject>
-      </wvobject>
-      <wvobject type="array" fp_name="/mod_top_tb/dut/coef_in.p_t2">
-         <obj_property name="ElementShortName">.p_t2</obj_property>
-         <obj_property name="ObjectShortName">.p_t2</obj_property>
-         <obj_property name="Radix">REALRADIX</obj_property>
-         <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-         <obj_property name="radix_fractionWidth">24</obj_property>
-         <obj_property name="radix_otherWidth">8</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/mod_top_tb/dut/coef_in.ind_t1">
-         <obj_property name="ElementShortName">.ind_t1[2:0]</obj_property>
-         <obj_property name="ObjectShortName">.ind_t1[2:0]</obj_property>
-         <obj_property name="isExpanded"></obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/mod_top_tb/dut/coef_in.ind_t2">
-         <obj_property name="ElementShortName">.ind_t2[2:0]</obj_property>
-         <obj_property name="ObjectShortName">.ind_t2[2:0]</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/mod_top_tb/dut/coef_in.spm">
-         <obj_property name="ElementShortName">.spm</obj_property>
-         <obj_property name="ObjectShortName">.spm</obj_property>
-         <obj_property name="Radix">REALRADIX</obj_property>
-         <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-         <obj_property name="radix_fractionWidth">24</obj_property>
-         <obj_property name="radix_otherWidth">8</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/mod_top_tb/dut/coef_in.valid">
-         <obj_property name="ElementShortName">.valid</obj_property>
-         <obj_property name="ObjectShortName">.valid</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/mod_top_tb/dut/coef_in.p_c">
-         <obj_property name="ElementShortName">.p_c</obj_property>
-         <obj_property name="ObjectShortName">.p_c</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/mod_top_tb/dut/coef_in.p_t1">
-         <obj_property name="ElementShortName">.p_t1</obj_property>
-         <obj_property name="ObjectShortName">.p_t1</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/mod_top_tb/dut/coef_in.p_t2">
-         <obj_property name="ElementShortName">.p_t2</obj_property>
-         <obj_property name="ObjectShortName">.p_t2</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/mod_top_tb/dut/coef_in.ind_t1">
-         <obj_property name="ElementShortName">.ind_t1[2:0]</obj_property>
-         <obj_property name="ObjectShortName">.ind_t1[2:0]</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/mod_top_tb/dut/coef_in.ind_t2">
-         <obj_property name="ElementShortName">.ind_t2[2:0]</obj_property>
-         <obj_property name="ObjectShortName">.ind_t2[2:0]</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/mod_top_tb/dut/coef_in.spm">
-         <obj_property name="ElementShortName">.spm</obj_property>
-         <obj_property name="ObjectShortName">.spm</obj_property>
-      </wvobject>
    </wvobject>
    <wvobject type="array" fp_name="/mod_top_tb/dut/poly_in">
       <obj_property name="ElementShortName">poly_in</obj_property>
       <obj_property name="ObjectShortName">poly_in</obj_property>
       <obj_property name="isExpanded"></obj_property>
-      <wvobject type="logic" fp_name="/mod_top_tb/dut/poly_in.valid">
-         <obj_property name="ElementShortName">.valid</obj_property>
-         <obj_property name="ObjectShortName">.valid</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/mod_top_tb/dut/poly_in.meta">
-         <obj_property name="ElementShortName">.meta</obj_property>
-         <obj_property name="ObjectShortName">.meta</obj_property>
-         <obj_property name="isExpanded"></obj_property>
-         <wvobject type="array" fp_name="/mod_top_tb/dut/poly_in.meta.a">
-            <obj_property name="ElementShortName">.a[6:0]</obj_property>
-            <obj_property name="ObjectShortName">.a[6:0]</obj_property>
-            <obj_property name="isExpanded"></obj_property>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/poly_in.meta.a[6]">
-               <obj_property name="ElementShortName">[6]</obj_property>
-               <obj_property name="ObjectShortName">[6]</obj_property>
-               <obj_property name="Radix">REALRADIX</obj_property>
-               <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-               <obj_property name="radix_fractionWidth">24</obj_property>
-               <obj_property name="radix_otherWidth">8</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/poly_in.meta.a[5]">
-               <obj_property name="ElementShortName">[5]</obj_property>
-               <obj_property name="ObjectShortName">[5]</obj_property>
-               <obj_property name="Radix">REALRADIX</obj_property>
-               <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-               <obj_property name="radix_fractionWidth">24</obj_property>
-               <obj_property name="radix_otherWidth">8</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/poly_in.meta.a[4]">
-               <obj_property name="ElementShortName">[4]</obj_property>
-               <obj_property name="ObjectShortName">[4]</obj_property>
-               <obj_property name="Radix">REALRADIX</obj_property>
-               <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-               <obj_property name="radix_fractionWidth">24</obj_property>
-               <obj_property name="radix_otherWidth">8</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/poly_in.meta.a[3]">
-               <obj_property name="ElementShortName">[3]</obj_property>
-               <obj_property name="ObjectShortName">[3]</obj_property>
-               <obj_property name="Radix">REALRADIX</obj_property>
-               <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-               <obj_property name="radix_fractionWidth">24</obj_property>
-               <obj_property name="radix_otherWidth">8</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/poly_in.meta.a[2]">
-               <obj_property name="ElementShortName">[2]</obj_property>
-               <obj_property name="ObjectShortName">[2]</obj_property>
-               <obj_property name="Radix">REALRADIX</obj_property>
-               <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-               <obj_property name="radix_fractionWidth">24</obj_property>
-               <obj_property name="radix_otherWidth">8</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/poly_in.meta.a[1]">
-               <obj_property name="ElementShortName">[1]</obj_property>
-               <obj_property name="ObjectShortName">[1]</obj_property>
-               <obj_property name="Radix">REALRADIX</obj_property>
-               <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-               <obj_property name="radix_fractionWidth">24</obj_property>
-               <obj_property name="radix_otherWidth">8</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/poly_in.meta.a[0]">
-               <obj_property name="ElementShortName">[0]</obj_property>
-               <obj_property name="ObjectShortName">[0]</obj_property>
-               <obj_property name="Radix">REALRADIX</obj_property>
-               <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-               <obj_property name="radix_fractionWidth">24</obj_property>
-               <obj_property name="radix_otherWidth">8</obj_property>
-               <obj_property name="isExpanded"></obj_property>
-               <wvobject type="array" fp_name="/mod_top_tb/dut/poly_in.meta.a[0].r">
-                  <obj_property name="ElementShortName">.r</obj_property>
-                  <obj_property name="ObjectShortName">.r</obj_property>
-                  <obj_property name="Radix">REALRADIX</obj_property>
-                  <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-                  <obj_property name="radix_fractionWidth">24</obj_property>
-                  <obj_property name="radix_otherWidth">8</obj_property>
-               </wvobject>
-               <wvobject type="array" fp_name="/mod_top_tb/dut/poly_in.meta.a[0].i">
-                  <obj_property name="ElementShortName">.i</obj_property>
-                  <obj_property name="ObjectShortName">.i</obj_property>
-                  <obj_property name="Radix">REALRADIX</obj_property>
-                  <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-                  <obj_property name="radix_fractionWidth">24</obj_property>
-                  <obj_property name="radix_otherWidth">8</obj_property>
-               </wvobject>
-               <wvobject type="array" fp_name="/mod_top_tb/dut/poly_in.meta.a[0].r">
-                  <obj_property name="ElementShortName">.r</obj_property>
-                  <obj_property name="ObjectShortName">.r</obj_property>
-               </wvobject>
-               <wvobject type="array" fp_name="/mod_top_tb/dut/poly_in.meta.a[0].i">
-                  <obj_property name="ElementShortName">.i</obj_property>
-                  <obj_property name="ObjectShortName">.i</obj_property>
-               </wvobject>
-            </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/poly_in.meta.a[6]">
-               <obj_property name="ElementShortName">[6]</obj_property>
-               <obj_property name="ObjectShortName">[6]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/poly_in.meta.a[5]">
-               <obj_property name="ElementShortName">[5]</obj_property>
-               <obj_property name="ObjectShortName">[5]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/poly_in.meta.a[4]">
-               <obj_property name="ElementShortName">[4]</obj_property>
-               <obj_property name="ObjectShortName">[4]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/poly_in.meta.a[3]">
-               <obj_property name="ElementShortName">[3]</obj_property>
-               <obj_property name="ObjectShortName">[3]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/poly_in.meta.a[2]">
-               <obj_property name="ElementShortName">[2]</obj_property>
-               <obj_property name="ObjectShortName">[2]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/poly_in.meta.a[1]">
-               <obj_property name="ElementShortName">[1]</obj_property>
-               <obj_property name="ObjectShortName">[1]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/poly_in.meta.a[0]">
-               <obj_property name="ElementShortName">[0]</obj_property>
-               <obj_property name="ObjectShortName">[0]</obj_property>
-            </wvobject>
-         </wvobject>
-         <wvobject type="array" fp_name="/mod_top_tb/dut/poly_in.meta.a">
-            <obj_property name="ElementShortName">.a[6:0]</obj_property>
-            <obj_property name="ObjectShortName">.a[6:0]</obj_property>
-         </wvobject>
-      </wvobject>
-      <wvobject type="logic" fp_name="/mod_top_tb/dut/poly_in.valid">
-         <obj_property name="ElementShortName">.valid</obj_property>
-         <obj_property name="ObjectShortName">.valid</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/mod_top_tb/dut/poly_in.meta">
-         <obj_property name="ElementShortName">.meta</obj_property>
-         <obj_property name="ObjectShortName">.meta</obj_property>
-      </wvobject>
    </wvobject>
    <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in">
       <obj_property name="ElementShortName">mat_in</obj_property>
       <obj_property name="ObjectShortName">mat_in</obj_property>
       <obj_property name="isExpanded"></obj_property>
-      <wvobject type="logic" fp_name="/mod_top_tb/dut/mat_in.valid">
-         <obj_property name="ElementShortName">.valid</obj_property>
-         <obj_property name="ObjectShortName">.valid</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta">
-         <obj_property name="ElementShortName">.meta</obj_property>
-         <obj_property name="ObjectShortName">.meta</obj_property>
-         <obj_property name="isExpanded"></obj_property>
-         <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r">
-            <obj_property name="ElementShortName">.r[5:0]</obj_property>
-            <obj_property name="ObjectShortName">.r[5:0]</obj_property>
-            <obj_property name="isExpanded"></obj_property>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[5]">
-               <obj_property name="ElementShortName">[5]</obj_property>
-               <obj_property name="ObjectShortName">[5]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[4]">
-               <obj_property name="ElementShortName">[4]</obj_property>
-               <obj_property name="ObjectShortName">[4]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[3]">
-               <obj_property name="ElementShortName">[3]</obj_property>
-               <obj_property name="ObjectShortName">[3]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[2]">
-               <obj_property name="ElementShortName">[2]</obj_property>
-               <obj_property name="ObjectShortName">[2]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[1]">
-               <obj_property name="ElementShortName">[1]</obj_property>
-               <obj_property name="ObjectShortName">[1]</obj_property>
-               <obj_property name="isExpanded"></obj_property>
-               <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[1].c">
-                  <obj_property name="ElementShortName">.c[5:0]</obj_property>
-                  <obj_property name="ObjectShortName">.c[5:0]</obj_property>
-                  <obj_property name="isExpanded"></obj_property>
-                  <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[1].c[5]">
-                     <obj_property name="ElementShortName">[5]</obj_property>
-                     <obj_property name="ObjectShortName">[5]</obj_property>
-                  </wvobject>
-                  <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[1].c[4]">
-                     <obj_property name="ElementShortName">[4]</obj_property>
-                     <obj_property name="ObjectShortName">[4]</obj_property>
-                  </wvobject>
-                  <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[1].c[3]">
-                     <obj_property name="ElementShortName">[3]</obj_property>
-                     <obj_property name="ObjectShortName">[3]</obj_property>
-                  </wvobject>
-                  <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[1].c[2]">
-                     <obj_property name="ElementShortName">[2]</obj_property>
-                     <obj_property name="ObjectShortName">[2]</obj_property>
-                  </wvobject>
-                  <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[1].c[1]">
-                     <obj_property name="ElementShortName">[1]</obj_property>
-                     <obj_property name="ObjectShortName">[1]</obj_property>
-                  </wvobject>
-                  <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[1].c[0]">
-                     <obj_property name="ElementShortName">[0]</obj_property>
-                     <obj_property name="ObjectShortName">[0]</obj_property>
-                     <obj_property name="isExpanded"></obj_property>
-                     <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[1].c[0].r">
-                        <obj_property name="ElementShortName">.r</obj_property>
-                        <obj_property name="ObjectShortName">.r</obj_property>
-                        <obj_property name="Radix">REALRADIX</obj_property>
-                        <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-                        <obj_property name="radix_fractionWidth">24</obj_property>
-                        <obj_property name="radix_otherWidth">8</obj_property>
-                     </wvobject>
-                     <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[1].c[0].i">
-                        <obj_property name="ElementShortName">.i</obj_property>
-                        <obj_property name="ObjectShortName">.i</obj_property>
-                        <obj_property name="Radix">REALRADIX</obj_property>
-                        <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-                        <obj_property name="radix_fractionWidth">24</obj_property>
-                        <obj_property name="radix_otherWidth">8</obj_property>
-                     </wvobject>
-                     <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[1].c[0].r">
-                        <obj_property name="ElementShortName">.r</obj_property>
-                        <obj_property name="ObjectShortName">.r</obj_property>
-                     </wvobject>
-                     <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[1].c[0].i">
-                        <obj_property name="ElementShortName">.i</obj_property>
-                        <obj_property name="ObjectShortName">.i</obj_property>
-                     </wvobject>
-                  </wvobject>
-                  <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[1].c[5]">
-                     <obj_property name="ElementShortName">[5]</obj_property>
-                     <obj_property name="ObjectShortName">[5]</obj_property>
-                  </wvobject>
-                  <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[1].c[4]">
-                     <obj_property name="ElementShortName">[4]</obj_property>
-                     <obj_property name="ObjectShortName">[4]</obj_property>
-                  </wvobject>
-                  <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[1].c[3]">
-                     <obj_property name="ElementShortName">[3]</obj_property>
-                     <obj_property name="ObjectShortName">[3]</obj_property>
-                  </wvobject>
-                  <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[1].c[2]">
-                     <obj_property name="ElementShortName">[2]</obj_property>
-                     <obj_property name="ObjectShortName">[2]</obj_property>
-                  </wvobject>
-                  <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[1].c[1]">
-                     <obj_property name="ElementShortName">[1]</obj_property>
-                     <obj_property name="ObjectShortName">[1]</obj_property>
-                  </wvobject>
-                  <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[1].c[0]">
-                     <obj_property name="ElementShortName">[0]</obj_property>
-                     <obj_property name="ObjectShortName">[0]</obj_property>
-                  </wvobject>
-               </wvobject>
-               <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[1].c">
-                  <obj_property name="ElementShortName">.c[5:0]</obj_property>
-                  <obj_property name="ObjectShortName">.c[5:0]</obj_property>
-               </wvobject>
-            </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[0]">
-               <obj_property name="ElementShortName">[0]</obj_property>
-               <obj_property name="ObjectShortName">[0]</obj_property>
-               <obj_property name="isExpanded"></obj_property>
-               <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[0].c">
-                  <obj_property name="ElementShortName">.c[5:0]</obj_property>
-                  <obj_property name="ObjectShortName">.c[5:0]</obj_property>
-                  <obj_property name="isExpanded"></obj_property>
-                  <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[0].c[5]">
-                     <obj_property name="ElementShortName">[5]</obj_property>
-                     <obj_property name="ObjectShortName">[5]</obj_property>
-                     <obj_property name="Radix">REALRADIX</obj_property>
-                     <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-                     <obj_property name="radix_fractionWidth">24</obj_property>
-                     <obj_property name="radix_otherWidth">8</obj_property>
-                  </wvobject>
-                  <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[0].c[4]">
-                     <obj_property name="ElementShortName">[4]</obj_property>
-                     <obj_property name="ObjectShortName">[4]</obj_property>
-                     <obj_property name="Radix">REALRADIX</obj_property>
-                     <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-                     <obj_property name="radix_fractionWidth">24</obj_property>
-                     <obj_property name="radix_otherWidth">8</obj_property>
-                  </wvobject>
-                  <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[0].c[3]">
-                     <obj_property name="ElementShortName">[3]</obj_property>
-                     <obj_property name="ObjectShortName">[3]</obj_property>
-                     <obj_property name="Radix">REALRADIX</obj_property>
-                     <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-                     <obj_property name="radix_fractionWidth">24</obj_property>
-                     <obj_property name="radix_otherWidth">8</obj_property>
-                  </wvobject>
-                  <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[0].c[2]">
-                     <obj_property name="ElementShortName">[2]</obj_property>
-                     <obj_property name="ObjectShortName">[2]</obj_property>
-                     <obj_property name="Radix">REALRADIX</obj_property>
-                     <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-                     <obj_property name="radix_fractionWidth">24</obj_property>
-                     <obj_property name="radix_otherWidth">8</obj_property>
-                  </wvobject>
-                  <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[0].c[1]">
-                     <obj_property name="ElementShortName">[1]</obj_property>
-                     <obj_property name="ObjectShortName">[1]</obj_property>
-                     <obj_property name="Radix">REALRADIX</obj_property>
-                     <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-                     <obj_property name="radix_fractionWidth">24</obj_property>
-                     <obj_property name="radix_otherWidth">8</obj_property>
-                  </wvobject>
-                  <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[0].c[0]">
-                     <obj_property name="ElementShortName">[0]</obj_property>
-                     <obj_property name="ObjectShortName">[0]</obj_property>
-                     <obj_property name="isExpanded"></obj_property>
-                     <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[0].c[0].r">
-                        <obj_property name="ElementShortName">.r</obj_property>
-                        <obj_property name="ObjectShortName">.r</obj_property>
-                        <obj_property name="Radix">REALRADIX</obj_property>
-                        <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-                        <obj_property name="radix_fractionWidth">24</obj_property>
-                        <obj_property name="radix_otherWidth">8</obj_property>
-                     </wvobject>
-                     <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[0].c[0].i">
-                        <obj_property name="ElementShortName">.i</obj_property>
-                        <obj_property name="ObjectShortName">.i</obj_property>
-                        <obj_property name="Radix">REALRADIX</obj_property>
-                        <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-                        <obj_property name="radix_fractionWidth">24</obj_property>
-                        <obj_property name="radix_otherWidth">8</obj_property>
-                     </wvobject>
-                     <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[0].c[0].r">
-                        <obj_property name="ElementShortName">.r</obj_property>
-                        <obj_property name="ObjectShortName">.r</obj_property>
-                     </wvobject>
-                     <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[0].c[0].i">
-                        <obj_property name="ElementShortName">.i</obj_property>
-                        <obj_property name="ObjectShortName">.i</obj_property>
-                     </wvobject>
-                  </wvobject>
-                  <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[0].c[5]">
-                     <obj_property name="ElementShortName">[5]</obj_property>
-                     <obj_property name="ObjectShortName">[5]</obj_property>
-                  </wvobject>
-                  <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[0].c[4]">
-                     <obj_property name="ElementShortName">[4]</obj_property>
-                     <obj_property name="ObjectShortName">[4]</obj_property>
-                  </wvobject>
-                  <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[0].c[3]">
-                     <obj_property name="ElementShortName">[3]</obj_property>
-                     <obj_property name="ObjectShortName">[3]</obj_property>
-                  </wvobject>
-                  <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[0].c[2]">
-                     <obj_property name="ElementShortName">[2]</obj_property>
-                     <obj_property name="ObjectShortName">[2]</obj_property>
-                  </wvobject>
-                  <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[0].c[1]">
-                     <obj_property name="ElementShortName">[1]</obj_property>
-                     <obj_property name="ObjectShortName">[1]</obj_property>
-                  </wvobject>
-                  <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[0].c[0]">
-                     <obj_property name="ElementShortName">[0]</obj_property>
-                     <obj_property name="ObjectShortName">[0]</obj_property>
-                  </wvobject>
-               </wvobject>
-               <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[0].c">
-                  <obj_property name="ElementShortName">.c[5:0]</obj_property>
-                  <obj_property name="ObjectShortName">.c[5:0]</obj_property>
-               </wvobject>
-            </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[5]">
-               <obj_property name="ElementShortName">[5]</obj_property>
-               <obj_property name="ObjectShortName">[5]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[4]">
-               <obj_property name="ElementShortName">[4]</obj_property>
-               <obj_property name="ObjectShortName">[4]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[3]">
-               <obj_property name="ElementShortName">[3]</obj_property>
-               <obj_property name="ObjectShortName">[3]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[2]">
-               <obj_property name="ElementShortName">[2]</obj_property>
-               <obj_property name="ObjectShortName">[2]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[1]">
-               <obj_property name="ElementShortName">[1]</obj_property>
-               <obj_property name="ObjectShortName">[1]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r[0]">
-               <obj_property name="ElementShortName">[0]</obj_property>
-               <obj_property name="ObjectShortName">[0]</obj_property>
-            </wvobject>
-         </wvobject>
-         <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta.r">
-            <obj_property name="ElementShortName">.r[5:0]</obj_property>
-            <obj_property name="ObjectShortName">.r[5:0]</obj_property>
-         </wvobject>
-      </wvobject>
-      <wvobject type="logic" fp_name="/mod_top_tb/dut/mat_in.valid">
-         <obj_property name="ElementShortName">.valid</obj_property>
-         <obj_property name="ObjectShortName">.valid</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/mod_top_tb/dut/mat_in.meta">
-         <obj_property name="ElementShortName">.meta</obj_property>
-         <obj_property name="ObjectShortName">.meta</obj_property>
-      </wvobject>
    </wvobject>
    <wvobject type="logic" fp_name="/mod_top_tb/dut/iter_in_ready">
       <obj_property name="ElementShortName">iter_in_ready</obj_property>
@@ -611,6 +68,12 @@
          <wvobject type="array" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/select_in.meta.r">
             <obj_property name="ElementShortName">.r</obj_property>
             <obj_property name="ObjectShortName">.r</obj_property>
+            <obj_property name="isExpanded"></obj_property>
+            <wvobject type="array" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/select_in.meta.r.r">
+               <obj_property name="ElementShortName">.r[5:0]</obj_property>
+               <obj_property name="ObjectShortName">.r[5:0]</obj_property>
+               <obj_property name="isExpanded"></obj_property>
+            </wvobject>
          </wvobject>
          <wvobject type="array" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/select_in.meta.row_id">
             <obj_property name="ElementShortName">.row_id[2:0]</obj_property>
@@ -633,9 +96,8 @@
             <obj_property name="ObjectShortName">.shift[1:0]</obj_property>
          </wvobject>
          <wvobject type="array" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/select_in.meta.iter">
-            <obj_property name="ElementShortName">.iter[4:0]</obj_property>
-            <obj_property name="ObjectShortName">.iter[4:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+            <obj_property name="ElementShortName">.iter[2:0]</obj_property>
+            <obj_property name="ObjectShortName">.iter[2:0]</obj_property>
          </wvobject>
          <wvobject type="logic" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/select_in.meta.should_run_shift_add">
             <obj_property name="ElementShortName">.should_run_shift_add</obj_property>
@@ -669,96 +131,11 @@
             <obj_property name="ElementShortName">.offset</obj_property>
             <obj_property name="ObjectShortName">.offset</obj_property>
          </wvobject>
-         <wvobject type="array" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/select_in.meta.r">
-            <obj_property name="ElementShortName">.r</obj_property>
-            <obj_property name="ObjectShortName">.r</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/select_in.meta.row_id">
-            <obj_property name="ElementShortName">.row_id[2:0]</obj_property>
-            <obj_property name="ObjectShortName">.row_id[2:0]</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/select_in.meta.col_id">
-            <obj_property name="ElementShortName">.col_id[2:0]</obj_property>
-            <obj_property name="ObjectShortName">.col_id[2:0]</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/select_in.meta.lim">
-            <obj_property name="ElementShortName">.lim[2:0]</obj_property>
-            <obj_property name="ObjectShortName">.lim[2:0]</obj_property>
-         </wvobject>
-         <wvobject type="logic" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/select_in.meta.dir">
-            <obj_property name="ElementShortName">.dir</obj_property>
-            <obj_property name="ObjectShortName">.dir</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/select_in.meta.shift">
-            <obj_property name="ElementShortName">.shift[1:0]</obj_property>
-            <obj_property name="ObjectShortName">.shift[1:0]</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/select_in.meta.iter">
-            <obj_property name="ElementShortName">.iter[4:0]</obj_property>
-            <obj_property name="ObjectShortName">.iter[4:0]</obj_property>
-         </wvobject>
-         <wvobject type="logic" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/select_in.meta.should_run_shift_add">
-            <obj_property name="ElementShortName">.should_run_shift_add</obj_property>
-            <obj_property name="ObjectShortName">.should_run_shift_add</obj_property>
-         </wvobject>
-         <wvobject type="logic" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/select_in.meta.should_reset_row_id">
-            <obj_property name="ElementShortName">.should_reset_row_id</obj_property>
-            <obj_property name="ObjectShortName">.should_reset_row_id</obj_property>
-         </wvobject>
-         <wvobject type="logic" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/select_in.meta.should_start_new_iter">
-            <obj_property name="ElementShortName">.should_start_new_iter</obj_property>
-            <obj_property name="ObjectShortName">.should_start_new_iter</obj_property>
-         </wvobject>
-         <wvobject type="logic" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/select_in.meta.should_reduce_problem_scale">
-            <obj_property name="ElementShortName">.should_reduce_problem_scale</obj_property>
-            <obj_property name="ObjectShortName">.should_reduce_problem_scale</obj_property>
-         </wvobject>
-         <wvobject type="logic" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/select_in.meta.should_output">
-            <obj_property name="ElementShortName">.should_output</obj_property>
-            <obj_property name="ObjectShortName">.should_output</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/select_in.meta.c">
-            <obj_property name="ElementShortName">.c[4:0]</obj_property>
-            <obj_property name="ObjectShortName">.c[4:0]</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/select_in.meta.s">
-            <obj_property name="ElementShortName">.s[4:0]</obj_property>
-            <obj_property name="ObjectShortName">.s[4:0]</obj_property>
-         </wvobject>
-         <wvobject type="array" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/select_in.meta.offset">
-            <obj_property name="ElementShortName">.offset</obj_property>
-            <obj_property name="ObjectShortName">.offset</obj_property>
-         </wvobject>
-      </wvobject>
-      <wvobject type="logic" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/select_in.valid">
-         <obj_property name="ElementShortName">.valid</obj_property>
-         <obj_property name="ObjectShortName">.valid</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/select_in.meta">
-         <obj_property name="ElementShortName">.meta</obj_property>
-         <obj_property name="ObjectShortName">.meta</obj_property>
       </wvobject>
    </wvobject>
    <wvobject type="array" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/single_shift_sub_out">
       <obj_property name="ElementShortName">single_shift_sub_out</obj_property>
       <obj_property name="ObjectShortName">single_shift_sub_out</obj_property>
-      <wvobject type="logic" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/single_shift_sub_out.valid">
-         <obj_property name="ElementShortName">.valid</obj_property>
-         <obj_property name="ObjectShortName">.valid</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/single_shift_sub_out.meta">
-         <obj_property name="ElementShortName">.meta</obj_property>
-         <obj_property name="ObjectShortName">.meta</obj_property>
-         <obj_property name="isExpanded"></obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/single_shift_sub_out.valid">
-         <obj_property name="ElementShortName">.valid</obj_property>
-         <obj_property name="ObjectShortName">.valid</obj_property>
-      </wvobject>
-      <wvobject type="array" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/single_shift_sub_out.meta">
-         <obj_property name="ElementShortName">.meta</obj_property>
-         <obj_property name="ObjectShortName">.meta</obj_property>
-      </wvobject>
    </wvobject>
    <wvobject type="array" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/givens_rotation_out">
       <obj_property name="ElementShortName">givens_rotation_out</obj_property>
@@ -803,103 +180,135 @@
       <obj_property name="ElementShortName">out</obj_property>
       <obj_property name="ObjectShortName">out</obj_property>
       <obj_property name="isExpanded"></obj_property>
-      <wvobject type="logic" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/out.valid">
+   </wvobject>
+   <wvobject type="array" fp_name="/mod_top_tb/dut/pixels_out">
+      <obj_property name="ElementShortName">pixels_out</obj_property>
+      <obj_property name="ObjectShortName">pixels_out</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/mod_top_tb/dut/pixels_out.valid">
          <obj_property name="ElementShortName">.valid</obj_property>
          <obj_property name="ObjectShortName">.valid</obj_property>
       </wvobject>
-      <wvobject type="array" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/out.meta">
+      <wvobject type="array" fp_name="/mod_top_tb/dut/pixels_out.meta">
          <obj_property name="ElementShortName">.meta</obj_property>
          <obj_property name="ObjectShortName">.meta</obj_property>
          <obj_property name="isExpanded"></obj_property>
-         <wvobject type="array" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/out.meta.x">
-            <obj_property name="ElementShortName">.x[5:0]</obj_property>
-            <obj_property name="ObjectShortName">.x[5:0]</obj_property>
+         <wvobject type="array" fp_name="/mod_top_tb/dut/pixels_out.meta.p">
+            <obj_property name="ElementShortName">.p[5:0]</obj_property>
+            <obj_property name="ObjectShortName">.p[5:0]</obj_property>
             <obj_property name="isExpanded"></obj_property>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/out.meta.x[5]">
+            <wvobject type="array" fp_name="/mod_top_tb/dut/pixels_out.meta.p[5]">
                <obj_property name="ElementShortName">[5]</obj_property>
                <obj_property name="ObjectShortName">[5]</obj_property>
-               <obj_property name="Radix">REALRADIX</obj_property>
-               <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-               <obj_property name="radix_fractionWidth">24</obj_property>
-               <obj_property name="radix_otherWidth">8</obj_property>
+               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
             </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/out.meta.x[4]">
+            <wvobject type="array" fp_name="/mod_top_tb/dut/pixels_out.meta.p[4]">
                <obj_property name="ElementShortName">[4]</obj_property>
                <obj_property name="ObjectShortName">[4]</obj_property>
-               <obj_property name="Radix">REALRADIX</obj_property>
-               <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-               <obj_property name="radix_fractionWidth">24</obj_property>
-               <obj_property name="radix_otherWidth">8</obj_property>
+               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
             </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/out.meta.x[3]">
+            <wvobject type="array" fp_name="/mod_top_tb/dut/pixels_out.meta.p[3]">
                <obj_property name="ElementShortName">[3]</obj_property>
                <obj_property name="ObjectShortName">[3]</obj_property>
-               <obj_property name="Radix">REALRADIX</obj_property>
-               <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-               <obj_property name="radix_fractionWidth">24</obj_property>
-               <obj_property name="radix_otherWidth">8</obj_property>
+               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
             </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/out.meta.x[2]">
+            <wvobject type="array" fp_name="/mod_top_tb/dut/pixels_out.meta.p[2]">
                <obj_property name="ElementShortName">[2]</obj_property>
                <obj_property name="ObjectShortName">[2]</obj_property>
-               <obj_property name="Radix">REALRADIX</obj_property>
-               <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-               <obj_property name="radix_fractionWidth">24</obj_property>
-               <obj_property name="radix_otherWidth">8</obj_property>
+               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
             </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/out.meta.x[1]">
+            <wvobject type="array" fp_name="/mod_top_tb/dut/pixels_out.meta.p[1]">
                <obj_property name="ElementShortName">[1]</obj_property>
                <obj_property name="ObjectShortName">[1]</obj_property>
-               <obj_property name="Radix">REALRADIX</obj_property>
-               <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-               <obj_property name="radix_fractionWidth">24</obj_property>
-               <obj_property name="radix_otherWidth">8</obj_property>
+               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
             </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/out.meta.x[0]">
+            <wvobject type="array" fp_name="/mod_top_tb/dut/pixels_out.meta.p[0]">
                <obj_property name="ElementShortName">[0]</obj_property>
                <obj_property name="ObjectShortName">[0]</obj_property>
-               <obj_property name="Radix">REALRADIX</obj_property>
-               <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
-               <obj_property name="radix_fractionWidth">24</obj_property>
-               <obj_property name="radix_otherWidth">8</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/out.meta.x[5]">
-               <obj_property name="ElementShortName">[5]</obj_property>
-               <obj_property name="ObjectShortName">[5]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/out.meta.x[4]">
-               <obj_property name="ElementShortName">[4]</obj_property>
-               <obj_property name="ObjectShortName">[4]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/out.meta.x[3]">
-               <obj_property name="ElementShortName">[3]</obj_property>
-               <obj_property name="ObjectShortName">[3]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/out.meta.x[2]">
-               <obj_property name="ElementShortName">[2]</obj_property>
-               <obj_property name="ObjectShortName">[2]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/out.meta.x[1]">
-               <obj_property name="ElementShortName">[1]</obj_property>
-               <obj_property name="ObjectShortName">[1]</obj_property>
-            </wvobject>
-            <wvobject type="array" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/out.meta.x[0]">
-               <obj_property name="ElementShortName">[0]</obj_property>
-               <obj_property name="ObjectShortName">[0]</obj_property>
+               <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
             </wvobject>
          </wvobject>
-         <wvobject type="array" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/out.meta.x">
-            <obj_property name="ElementShortName">.x[5:0]</obj_property>
-            <obj_property name="ObjectShortName">.x[5:0]</obj_property>
-         </wvobject>
       </wvobject>
-      <wvobject type="logic" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/out.valid">
-         <obj_property name="ElementShortName">.valid</obj_property>
-         <obj_property name="ObjectShortName">.valid</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/mod_top_tb/dut/bram_a_addr">
+      <obj_property name="ElementShortName">bram_a_addr[9:0]</obj_property>
+      <obj_property name="ObjectShortName">bram_a_addr[9:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/mod_top_tb/dut/bram_we">
+      <obj_property name="ElementShortName">bram_we</obj_property>
+      <obj_property name="ObjectShortName">bram_we</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/mod_top_tb/dut/bram_a_data">
+      <obj_property name="ElementShortName">bram_a_data[5:0][63:0]</obj_property>
+      <obj_property name="ObjectShortName">bram_a_data[5:0][63:0]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/mod_top_tb/dut/index">
+      <obj_property name="ElementShortName">index[2:0]</obj_property>
+      <obj_property name="ObjectShortName">index[2:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/mod_top_tb/dut/bram_b_addr">
+      <obj_property name="ElementShortName">bram_b_addr[5:0][9:0]</obj_property>
+      <obj_property name="ObjectShortName">bram_b_addr[5:0][9:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/mod_top_tb/dut/bram_b_data">
+      <obj_property name="ElementShortName">bram_b_data[5:0][63:0]</obj_property>
+      <obj_property name="ObjectShortName">bram_b_data[5:0][63:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/mod_top_tb/dut/wbs_i">
+      <obj_property name="ElementShortName">wbs_i</obj_property>
+      <obj_property name="ObjectShortName">wbs_i</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/mod_top_tb/dut/wbs_i.cyc">
+         <obj_property name="ElementShortName">.cyc</obj_property>
+         <obj_property name="ObjectShortName">.cyc</obj_property>
       </wvobject>
-      <wvobject type="array" fp_name="/mod_top_tb/dut/m_qr_decomp_iter/out.meta">
-         <obj_property name="ElementShortName">.meta</obj_property>
-         <obj_property name="ObjectShortName">.meta</obj_property>
+      <wvobject type="logic" fp_name="/mod_top_tb/dut/wbs_i.stb">
+         <obj_property name="ElementShortName">.stb</obj_property>
+         <obj_property name="ObjectShortName">.stb</obj_property>
       </wvobject>
+      <wvobject type="array" fp_name="/mod_top_tb/dut/wbs_i.adr">
+         <obj_property name="ElementShortName">.adr[18:0]</obj_property>
+         <obj_property name="ObjectShortName">.adr[18:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/mod_top_tb/dut/wbs_i.dat">
+         <obj_property name="ElementShortName">.dat[15:0]</obj_property>
+         <obj_property name="ObjectShortName">.dat[15:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/mod_top_tb/dut/wbs_i.we">
+         <obj_property name="ElementShortName">.we</obj_property>
+         <obj_property name="ObjectShortName">.we</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="array" fp_name="/mod_top_tb/dut/wbs_o">
+      <obj_property name="ElementShortName">wbs_o</obj_property>
+      <obj_property name="ObjectShortName">wbs_o</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/mod_top_tb/dut/gm_clk_b">
+      <obj_property name="ElementShortName">gm_clk_b</obj_property>
+      <obj_property name="ObjectShortName">gm_clk_b</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/mod_top_tb/dut/gm_addrb">
+      <obj_property name="ElementShortName">gm_addrb[20:0]</obj_property>
+      <obj_property name="ObjectShortName">gm_addrb[20:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/mod_top_tb/dut/gm_datab">
+      <obj_property name="ElementShortName">gm_datab[3:0]</obj_property>
+      <obj_property name="ObjectShortName">gm_datab[3:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/mod_top_tb/dut/hdata">
+      <obj_property name="ElementShortName">hdata[11:0]</obj_property>
+      <obj_property name="ObjectShortName">hdata[11:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/mod_top_tb/dut/vdata">
+      <obj_property name="ElementShortName">vdata[11:0]</obj_property>
+      <obj_property name="ObjectShortName">vdata[11:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/mod_top_tb/dut/video_gray4">
+      <obj_property name="ElementShortName">video_gray4[3:0]</obj_property>
+      <obj_property name="ObjectShortName">video_gray4[3:0]</obj_property>
    </wvobject>
 </wave_config>

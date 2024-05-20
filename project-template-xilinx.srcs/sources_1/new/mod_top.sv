@@ -80,11 +80,13 @@ module mod_top(
     assign clk = clk_in;
     assign rst = btn_rst;
 
+    logic reset_finished;
     system_status_t sys_stat;
     system_status m_system_status (
         .clk(clk),
         .rst(rst),
         .calc_mode(2'b01),
+        .reset_finished(reset_finished),
         .mode1_input_finish(1'b1),
         .mode1_moved_or_scaled(1'b0),
         .mode1_calc_finish(1'b0),
@@ -92,6 +94,7 @@ module mod_top(
 
         .system_status(sys_stat)
     );
+
 
 
 
@@ -163,15 +166,23 @@ module mod_top(
 
     // 遍历 BRAM 地址，以得到存放的像素点
     // 注意根据 横坐标、纵坐标 预读取数据，以保证同步信号
-    wire [20:0] gm_addrb;
+    logic gm_clk_b;
+    logic [20:0] gm_addrb;
+    logic [3:0] gm_datab;
+
+    assign gm_clk_b = video_clk;
+
     travel_forward #(12, 1, VGA_HSIZE, VGA_HMAX, VGA_VSIZE, VGA_VMAX) m_travel_forward (
         .clk(video_clk),
         .hdata(hdata),
         .vdata(vdata),
+        .data_enable(video_de),
+
         .addr(gm_addrb)
     );
 
     // 将像素映射为灰度
+    assign video_gray4 = gm_datab;
     assign video_gray8 = {video_gray4, 4'b0000};
 
     // 把 RGB 转化为 HDMI TMDS 信号并输出
@@ -195,8 +206,8 @@ module mod_top(
 
     always_ff @(posedge clk, posedge rst) begin
         if (rst) begin
-            screen_offset <= {1'b1, {NEG_0_5, NEG_0_5}};
-            screen_scalar <= {1'b1, FIFTEEN_FL};
+            screen_offset <= {1'b1, {POS_1_5, NEG_0_5}};
+            screen_scalar <= {1'b1, TWO_HUNDRED_FL};
             rsted <= 1;
         end else begin
 
@@ -211,7 +222,7 @@ module mod_top(
 
     always_comb begin
         coef_in = 0;
-        if (rsted) begin
+        if (sys_stat == ST_SYS_MODE1_RUNNING) begin
             coef_in.valid = 1;
             coef_in.spm.mode = 1;
             coef_in.spm.range = ONE_HUNDRED_FL;
@@ -342,6 +353,17 @@ module mod_top(
         .wbm_o(wbm_o[0])
     );
 
+    reset_all rst_all (
+        .clk(clk),
+        .rst(rst),
+        .sys_stat(sys_stat),
+        .wbm_i(wbm_i[1]),
+
+        .wbm_o(wbm_o[1]),
+        .reset_finished(reset_finished)
+    );
+    
+
     bram_of_1080p_graph graph_memory (
         .clka(clk),
         .addra(wbs_i.adr),
@@ -349,10 +371,10 @@ module mod_top(
         .douta(wbs_o.dat),
         .wea(wbs_i.we),
 
-        .clkb(video_clk),
+        .clkb(gm_clk_b),
         .addrb(gm_addrb),
         .dinb(16'b0),
-        .doutb(video_gray4),
+        .doutb(gm_datab),
         .web(1'b0)
     );
 

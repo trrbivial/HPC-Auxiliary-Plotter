@@ -73,7 +73,7 @@ module cache2graph (
                     ST_P2G_READ_PIXEL: begin
                         wbm_o_reg.cyc <= 1;
                         wbm_o_reg.stb <= 1;
-                        wbm_o_reg.adr <= now_pixel_index[BRAM_524288_ADDR_WIDTH + 1: 2];
+                        wbm_o_reg.adr <= now_pixel_index[$clog2(BRAM_GRAPH_MEM_DEPTH) + 1: 2];
                         wbm_o_reg.dat <= 0;
                         wbm_o_reg.we <= 0;
                         stat <= ST_P2G_WAIT_READ_ACK;

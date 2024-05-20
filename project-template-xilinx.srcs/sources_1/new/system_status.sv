@@ -6,6 +6,7 @@ module system_status (
     input wire clk,
     input wire rst,
     input wire [1:0] calc_mode,
+    input wire reset_finished,
     input wire mode1_input_finish,
     input wire mode1_moved_or_scaled,
     input wire mode1_calc_finish,
@@ -26,7 +27,9 @@ module system_status (
                     stat <= ST_SYS_RESET_ALL;
                 end
                 ST_SYS_RESET_ALL: begin
-                    stat <= ST_SYS_INPUT_CHOOSE_MODE;
+                    if (reset_finished) begin
+                        stat <= ST_SYS_INPUT_CHOOSE_MODE;
+                    end
                 end
                 ST_SYS_INPUT_CHOOSE_MODE: begin
                     case (calc_mode) 

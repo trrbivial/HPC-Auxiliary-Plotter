@@ -2,9 +2,12 @@
 `define _COMPLEX_HDR_VH_
 
 localparam ONE_FL = 32'h3F800000;
-localparam FIFTEEN_FL = 32'h41700000; // 15
-localparam ONE_HUNDRED_FL = 32'h42C80000;
+localparam FIFTEEN_FL = 32'h41700000; // 15.0
+localparam SIXTY_FL = 32'h42700000; // 60.0
+localparam ONE_HUNDRED_FL = 32'h42C80000; // 100.0
+localparam TWO_HUNDRED_FL = 32'h43480000; // 200.0
 localparam NEG_0_5 = 32'hBF000000; // -0.5
+localparam POS_1_5 = 32'h3FC00000; // 1.5
 localparam ONE_CP = {ONE_FL, 32'b0};
 localparam PI = 32'h40490FDB;
 
@@ -32,14 +35,14 @@ localparam SAMPLING_STEP_COEF = 32'h3A03126F; // 1/2000
 localparam POLY_X_HOLD_CYCS = CP_MUL_ADD_CYCS * (MAX_DEG - 1);
 
 localparam QR_DECOMP_CYCS = CALC_GIVENS_ROTATIONS_CYCS * (MAX_DEG - 1);
-localparam ITER_TIMES_EACH = 20;
+localparam ITER_TIMES_EACH = 40;
 localparam ITER_TIMES = ITER_TIMES_EACH * (MAX_DEG - 1);
 
 localparam CP_DATA_WIDTH = 64;
 localparam PIXEL_DATA_WIDTH = 4;
 localparam PACKED_PIXEL_DATA_WIDTH = 16;
 localparam BRAM_1024_ADDR_WIDTH = 10;
-localparam BRAM_524288_ADDR_WIDTH = 19;
+localparam BRAM_GRAPH_MEM_DEPTH = (1 << 19);
 
 localparam ROOTS_TO_PIXELS_CYCS = CP_MUL_CYCS + CP_ADD_CYCS;
 
@@ -75,6 +78,9 @@ localparam VGA_VSP = VGA_VFP + VGA_V_SYNC_PULSE;
 
 // 1125 = 1080 + 4 + 5 + 36(Back Porch)
 localparam VGA_VMAX = VGA_VSP + VGA_V_BACK_PORCH;
+
+localparam VGA_RESOLUTION = VGA_HSIZE * VGA_VSIZE;
+localparam VGA_ADDR_MAX = VGA_RESOLUTION;
 
 
 // floating point
@@ -231,6 +237,14 @@ typedef enum logic [3:0] {
 } system_status_t;
 
 typedef enum logic [2:0] {
+    ST_RST_IDLE,
+    ST_RST_RUNNING,
+    ST_RST_WRITE_ZERO,
+    ST_RST_WAIT_WRITE_ACK,
+    ST_RST_FIN
+} reset_all_status_t;
+
+typedef enum logic [2:0] {
     ST_SAMP_IDLE,
     ST_SAMP_CALC_STEP,
     ST_SAMP_SAMPLING,
@@ -261,7 +275,7 @@ typedef struct packed {
 typedef struct packed {
     logic cyc;
     logic stb;
-    logic [BRAM_524288_ADDR_WIDTH - 1:0] adr;
+    logic [$clog2(BRAM_GRAPH_MEM_DEPTH) - 1:0] adr;
     logic [PACKED_PIXEL_DATA_WIDTH - 1:0] dat;
     logic we;
 } wbm_signal_send;
