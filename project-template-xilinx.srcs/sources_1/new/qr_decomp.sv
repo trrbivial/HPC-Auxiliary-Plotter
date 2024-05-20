@@ -72,7 +72,7 @@ module qr_decomp # (
     logic output_end;
     assign output_end = count_output == count_total;
 
-    qr_axis out_reg;
+    roots_axis out_reg;
     
     always_ff @(posedge clk, posedge rst) begin
         if (rst) begin
@@ -87,7 +87,10 @@ module qr_decomp # (
             case (stat)
                 ST_QR_INIT: begin
                     if (~output_end) begin
-                        out_reg <= out_cache;
+                        out_reg.valid <= out_cache.valid;
+                        for (int i = 0; i < MAX_DEG; i = i + 1) begin
+                            out_reg.meta.x[i] <= out_cache.meta.r.r[i].c[i];
+                        end
                         count_output <= count_output + 1;
                     end
                     if (in.valid & in_ready) begin
@@ -113,7 +116,10 @@ module qr_decomp # (
                     count_input <= count_input + 1;
 
                     if (~output_end) begin
-                        out_reg <= out_cache;
+                        out_reg.valid <= out_cache.valid;
+                        for (int i = 0; i < MAX_DEG; i = i + 1) begin
+                            out_reg.meta.x[i] <= out_cache.meta.r.r[i].c[i];
+                        end
                         count_output <= count_output + 1;
                     end
 
@@ -129,28 +135,31 @@ module qr_decomp # (
                     select_in.meta.row_id <= out_cache.meta.row_id + 1;
                     select_in.meta.col_id <= out_cache.meta.col_id + 1;
                     select_in.meta.shift <= 0;
-                    if (out_cache.meta.row_id + 1 == out_cache.meta.lim && out_cache.meta.dir) begin
+                    if (out_cache.meta.should_run_shift_add) begin
                         select_in.meta.shift <= SHIFT_ADD;
                     end
-                    if (out_cache.meta.row_id == out_cache.meta.lim) begin
+                    if (out_cache.meta.should_reset_row_id) begin
                         select_in.meta.row_id <= 1;
                         select_in.meta.col_id <= 0;
                         select_in.meta.dir <= out_cache.meta.dir ^ 1'b1;
-                        if (out_cache.meta.dir) begin
-                            select_in.meta.iter <= out_cache.meta.iter + 1;
-                            select_in.meta.shift <= SHIFT_SUB;
-                            if (out_cache.meta.iter == ITER_TIMES_EACH) begin
-                                select_in.meta.iter <= 0;
-                                select_in.meta.lim <= out_cache.meta.lim - 1;
-                                if (out_cache.meta.lim == 2) begin
-                                    select_in <= 0;
-                                    out_reg <= out_cache;
-                                    in_ready_reg <= 1;
-                                    count_output <= 1;
-                                    stat <= ST_QR_INIT;
-                                end
-                            end
+                    end
+                    if (out_cache.meta.should_start_new_iter) begin
+                        select_in.meta.iter <= out_cache.meta.iter + 1;
+                        select_in.meta.shift <= SHIFT_SUB;
+                    end
+                    if (out_cache.meta.should_reduce_problem_scale) begin
+                        select_in.meta.iter <= 0;
+                        select_in.meta.lim <= out_cache.meta.lim - 1;
+                    end
+                    if (out_cache.meta.should_output) begin
+                        select_in <= 0;
+                        out_reg.valid <= out_cache.valid;
+                        for (int i = 0; i < MAX_DEG; i = i + 1) begin
+                            out_reg.meta.x[i] <= out_cache.meta.r.r[i].c[i];
                         end
+                        in_ready_reg <= 1;
+                        count_output <= 1;
+                        stat <= ST_QR_INIT;
                     end
                 end
                 default: begin
@@ -158,11 +167,5 @@ module qr_decomp # (
             endcase
         end
     end
-    assign out.valid = out_reg.valid;
-    genvar i;
-    generate 
-        for (i = 0; i < MAX_DEG; i = i + 1) begin
-            assign out.meta.x[i] = out_reg.meta.r.r[i].c[i];
-        end
-    endgenerate
+    assign out = out_reg;
 endmodule

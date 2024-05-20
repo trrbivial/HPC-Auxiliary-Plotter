@@ -183,6 +183,11 @@ typedef struct packed {
     logic dir;
     logic [1:0] shift;
     logic [$clog2(ITER_TIMES_EACH) - 1:0] iter;
+    logic should_run_shift_add;
+    logic should_reset_row_id;
+    logic should_start_new_iter;
+    logic should_reduce_problem_scale;
+    logic should_output;
     cp [MAX_DEG - 2:0] c;
     cp [MAX_DEG - 2:0] s;
     cp offset;
