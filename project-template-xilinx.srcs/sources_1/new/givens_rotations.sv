@@ -64,28 +64,6 @@ module givens_rotations # (
     // s = conj(b) / sqrt(|a| ^ 2 + |b| ^ 2)
     cp_axis coef_c, coef_s;
 
-/*
-    cp_axis coef_c_tmp[CP_MUL_ADD_CYCS + 1:0];
-    cp_axis coef_s_tmp[CP_MUL_ADD_CYCS + 1:0];
-
-    assign coef_c_tmp[0] = coef_c;
-    assign coef_s_tmp[0] = coef_s;
-
-    genvar k;
-    generate 
-        for (k = 1; k <= CP_MUL_ADD_CYCS + 1; k = k + 1) begin
-            always_ff @(posedge clk, posedge rst) begin
-                if (rst) begin
-                    coef_c_tmp[k].valid <= 0;
-                    coef_s_tmp[k].valid <= 0;
-                end else begin
-                    coef_c_tmp[k] <= coef_c_tmp[k - 1];
-                    coef_s_tmp[k] <= coef_s_tmp[k - 1];
-                end
-            end
-        end
-    endgenerate
-*/
     logic [2:0] col_id_c3;
     logic [2:0] row_id_c3;
     assign col_id_c3 = s[CALC_GIVENS_C3_CYCS].meta.col_id;
@@ -104,124 +82,16 @@ module givens_rotations # (
         coef_s
     );
 
-/*
-    cp_axis coef_conj_c, coef_neg_conj_s;
-    assign coef_conj_c = {coef_c.valid, `conj(coef_c.meta)};
-    assign coef_neg_conj_s = {coef_s.valid, {`neg_fl(coef_s.meta.r), coef_s.meta.i}};
-*/
-
     // [       c,       s]  [conj(c),   -s]
     // [-conj(s), conj(c)]  [conj(s),    c]
     // R <- G * R
     // Q <- Q * Hermite(G)
     // A <- G * A * Hermite(G)
 
-/*
-    cp_axis tmp1_r[MAX_N - 1:0], tmp1_a[MAX_N - 1:0];
-    cp_axis tmp2_r[MAX_N - 1:0], tmp2_a[MAX_N - 1:0];
-    generate
-        // k = col_id + 1
-        for (k = 0; k < MAX_N; k = k + 1) begin
-            complex_mul_adder cp_mul_add_1 (
-                clk, 
-                {s[CALC_GIVENS_COEF_C_S_CYCS].valid, s[CALC_GIVENS_COEF_C_S_CYCS].meta.r.r[col_id].c[k]},
-                coef_c,
-                {s[CALC_GIVENS_COEF_C_S_CYCS].valid, s[CALC_GIVENS_COEF_C_S_CYCS].meta.r.r[row_id].c[k]},
-                coef_s,
-                tmp1_r[k]
-            );
-            complex_mul_adder cp_mul_add_2 (
-                clk, 
-                {s[CALC_GIVENS_COEF_C_S_CYCS].valid, s[CALC_GIVENS_COEF_C_S_CYCS].meta.r.r[col_id].c[k]},
-                coef_neg_conj_s,
-                {s[CALC_GIVENS_COEF_C_S_CYCS].valid, s[CALC_GIVENS_COEF_C_S_CYCS].meta.r.r[row_id].c[k]},
-                coef_conj_c,
-                tmp2_r[k]
-            );
-        end
-    endgenerate
-
-    generate 
-        for (k = 0; k < MAX_N; k = k + 1) begin
-            complex_mul_adder cp_mul_add_1 (
-                clk, 
-                {s[CALC_GIVENS_COEF_C_S_CYCS].valid, s[CALC_GIVENS_COEF_C_S_CYCS].meta.a.r[col_id].c[k]},
-                coef_c,
-                {s[CALC_GIVENS_COEF_C_S_CYCS].valid, s[CALC_GIVENS_COEF_C_S_CYCS].meta.a.r[row_id].c[k]},
-                coef_s,
-                tmp1_a[k]
-            );
-            complex_mul_adder cp_mul_add_2 (
-                clk, 
-                {s[CALC_GIVENS_COEF_C_S_CYCS].valid, s[CALC_GIVENS_COEF_C_S_CYCS].meta.a.r[col_id].c[k]},
-                coef_neg_conj_s,
-                {s[CALC_GIVENS_COEF_C_S_CYCS].valid, s[CALC_GIVENS_COEF_C_S_CYCS].meta.a.r[row_id].c[k]},
-                coef_conj_c,
-                tmp2_a[k]
-            );
-        end
-    endgenerate
-
-    cp_axis tmp3_a[MAX_N - 1:0];
-    cp_axis tmp4_a[MAX_N - 1:0];
-    generate 
-        for (k = 0; k < MAX_N; k = k + 1) begin
-            complex_mul_adder cp_mul_add_3 (
-                clk, 
-                {s[CALC_GIVENS_COEF_MUL_ADD_CYCS].valid, s[CALC_GIVENS_COEF_MUL_ADD_CYCS].meta.a.r[k].c[col_id]},
-                {coef_c_tmp[CP_MUL_ADD_CYCS + 1].valid, `conj(coef_c_tmp[CP_MUL_ADD_CYCS + 1].meta)},
-                {s[CALC_GIVENS_COEF_MUL_ADD_CYCS].valid, s[CALC_GIVENS_COEF_MUL_ADD_CYCS].meta.a.r[k].c[row_id]},
-                {coef_s_tmp[CP_MUL_ADD_CYCS + 1].valid, `conj(coef_s_tmp[CP_MUL_ADD_CYCS + 1].meta)},
-                tmp3_a[k]
-            );
-
-            complex_mul_adder cp_mul_add_4 (
-                clk, 
-                {s[CALC_GIVENS_COEF_MUL_ADD_CYCS].valid, s[CALC_GIVENS_COEF_MUL_ADD_CYCS].meta.a.r[k].c[col_id]},
-                {coef_s_tmp[CP_MUL_ADD_CYCS + 1].valid, `neg_cp(coef_s_tmp[CP_MUL_ADD_CYCS + 1].meta)},
-                {s[CALC_GIVENS_COEF_MUL_ADD_CYCS].valid, s[CALC_GIVENS_COEF_MUL_ADD_CYCS].meta.a.r[k].c[row_id]},
-                {coef_c_tmp[CP_MUL_ADD_CYCS + 1].valid, coef_c_tmp[CP_MUL_ADD_CYCS + 1].meta},
-                tmp4_a[k]
-            );
-        end
-    endgenerate
-
-*/
-
     genvar i;
     generate
         for (i = 1; i <= CALC_GIVENS_COEF_C_S_CYCS + 1; i = i + 1) begin
             case (i)
-                /*
-                CALC_GIVENS_COEF_MUL_ADD_CYCS: begin
-                    always_ff @(posedge clk or posedge rst) begin
-                        if (rst) begin
-                            s[i].valid <= 0;
-                        end else begin
-                            s[i] <= s[i - 1];
-                            for (int j = 0; j < MAX_N; j = j + 1) begin
-                                s[i].meta.r.r[col_id].c[j] <= tmp1_r[j].meta;
-                                s[i].meta.r.r[row_id].c[j] <= tmp2_r[j].meta;
-                                s[i].meta.a.r[col_id].c[j] <= tmp1_a[j].meta;
-                                s[i].meta.a.r[row_id].c[j] <= tmp2_a[j].meta;
-                            end
-                        end
-                    end
-                end
-                CALC_GIVENS_SECOND_COEF_MUL_ADD_CYCS: begin
-                    always_ff @(posedge clk or posedge rst) begin
-                        if (rst) begin
-                            s[i].valid <= 0;
-                        end else begin
-                            s[i] <= s[i - 1];
-                            for (int j = 0; j < MAX_N; j = j + 1) begin
-                                s[i].meta.a.r[j].c[col_id] <= tmp3_a[j].meta;
-                                s[i].meta.a.r[j].c[row_id] <= tmp4_a[j].meta;
-                            end
-                        end
-                    end
-                end
-                */
                 CALC_GIVENS_COEF_C_S_CYCS + 1: begin
                     always_ff @(posedge clk or posedge rst) begin
                         if (rst) begin

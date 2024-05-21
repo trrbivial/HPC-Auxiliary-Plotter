@@ -46,18 +46,14 @@ module mul_givens_mat # (
         for (i = 0; i < MAX_N; i = i + 1) begin
             complex_mul_adder cp_mul_add_0 (
                 clk, 
-                in1[i],
-                c1[0],
-                in2[i],
-                c2[0],
+                in1[i], c1[0],
+                in2[i], c2[0],
                 out0[i]
             );
             complex_mul_adder cp_mul_add_1 (
                 clk, 
-                in1[i],
-                c1[1],
-                in2[i],
-                c2[1],
+                in1[i], c1[1],
+                in2[i], c2[1],
                 out1[i]
             );
         end

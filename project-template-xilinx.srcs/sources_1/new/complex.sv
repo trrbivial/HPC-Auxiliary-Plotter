@@ -2,7 +2,6 @@
 
 `include "complex.vh"
 
-// 6 cycles late from posedge to posedge
 module complex2pixel (
     input wire clk,
     input wire cp_axis in,
@@ -28,7 +27,6 @@ module complex2pixel (
 endmodule
 
 
-// 11 cycles late from posedge to posedge
 module complex_suber (
     input wire clk,
     input wire cp_axis a,
@@ -65,7 +63,6 @@ module complex_suber (
     assign c.valid = add_r_valid & add_i_valid;
 endmodule
 
-// 11 cycles late from posedge to posedge
 module complex_adder (
     input wire clk,
     input wire cp_axis a,
@@ -103,7 +100,6 @@ module complex_adder (
 endmodule
 
 
-// 17 cycles late from posedge to posedge
 module complex_multiplier #(
     parameter DATA_WIDTH = 32
 ) (
@@ -183,7 +179,6 @@ module complex_multiplier #(
     assign c.valid = sub_valid & add_valid;
 endmodule
 
-// 11 + 17 cycles late from posedge to posedge
 module complex_mul_adder (
     input wire clk,
     input wire cp_axis a1,
@@ -198,7 +193,6 @@ module complex_mul_adder (
     complex_adder cp_add_0 (clk, t1, t2, c);
 endmodule
 
-// 6 + 11 cycles late from posedge to posedge
 module floating_mul_adder (
     input wire clk,
     input wire float_axis a1,
@@ -240,7 +234,6 @@ module floating_mul_adder (
     );
 endmodule
 
-// 6 cycles late from posedge to posedge
 module complex_mul_float (
     input wire clk,
     input wire cp_axis a,
