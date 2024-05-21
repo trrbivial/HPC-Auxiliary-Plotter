@@ -14,7 +14,7 @@ module sampling_coefs # (
     output wire cp_axis t2
 );
     logic cnt_valid;
-    logic [DATA_WIDTH - 1:0] t1_cnt, t2_cnt;
+    logic signed [DATA_WIDTH - 1:0] t1_cnt, t2_cnt;
     float_axis step, t1_cnt_fl, t2_cnt_fl;
     float_axis t1_tmp, t2_tmp;
     cp_axis t1_circle, t2_circle;

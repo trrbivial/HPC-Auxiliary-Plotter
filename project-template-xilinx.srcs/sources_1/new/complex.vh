@@ -29,13 +29,14 @@ localparam CALC_GIVENS_ROTATIONS_CYCS = CALC_GIVENS_SECOND_COEF_MUL_ADD_CYCS;
 
 localparam DATA_WIDTH = 32;
 localparam MAX_DEG = 6;
-localparam SAMPLING_DIV_N = 32'd2000;
-localparam SAMPLING_STEP_COEF = 32'h3A03126F; // 1/2000
+localparam SAMPLING_DIV_N = 32'd200;
+//localparam SAMPLING_STEP_COEF = 32'h3A03126F; // 1/2000
+localparam SAMPLING_STEP_COEF = 32'h3BA3D70A; // 1/200
 
 localparam POLY_X_HOLD_CYCS = CP_MUL_ADD_CYCS * (MAX_DEG - 1);
 
 localparam QR_DECOMP_CYCS = CALC_GIVENS_ROTATIONS_CYCS * (MAX_DEG - 1);
-localparam ITER_TIMES_EACH = 40;
+localparam ITER_TIMES_EACH = 10;
 localparam ITER_TIMES = ITER_TIMES_EACH * (MAX_DEG - 1);
 
 localparam CP_DATA_WIDTH = 64;
@@ -147,8 +148,8 @@ typedef struct packed {
 
 // pixel parsed from roots
 typedef struct packed {
-    logic [DATA_WIDTH - 1:0] x;
-    logic [DATA_WIDTH - 1:0] y;
+    logic signed [DATA_WIDTH - 1:0] x;
+    logic signed [DATA_WIDTH - 1:0] y;
 } pixel;
 
 typedef struct packed {
@@ -189,7 +190,6 @@ typedef struct packed {
     logic dir;
     logic [1:0] shift;
     logic [$clog2(ITER_TIMES_EACH) - 1:0] iter;
-    logic should_run_shift_add;
     logic should_reset_row_id;
     logic should_start_new_iter;
     logic should_reduce_problem_scale;

@@ -54,20 +54,6 @@ module single_shift # (
                         end
                     end
                 end
-                2: begin
-                    always_ff @(posedge clk or posedge rst) begin
-                        if (rst) begin
-                            s[i].valid <= 0;
-                        end else begin
-                            s[i] <= s[i - 1];
-                            if (TYPE == SHIFT_ADD) begin
-                                s[i].meta.should_run_shift_add <= 
-                                    (s[i - 1].meta.row_id + 1 == s[i - 1].meta.lim) &
-                                    (s[i - 1].meta.dir);
-                            end
-                        end
-                    end
-                end
                 3: begin
                     always_ff @(posedge clk or posedge rst) begin
                         if (rst) begin
@@ -118,7 +104,7 @@ module single_shift # (
                             if (TYPE == SHIFT_ADD) begin
                                 s[i].meta.should_output <= 
                                     (s[i - 1].meta.should_reduce_problem_scale) &
-                                    (s[i - 1].meta.lim == 2);
+                                    (s[i - 1].meta.lim == 1);
                             end
                         end
                     end
@@ -131,8 +117,13 @@ module single_shift # (
                         end else begin
                             s[i] <= s[i - 1];
                             if (TYPE == s[i - 1].meta.shift) begin
-                                for (int j = 0; j < MAX_N; j = j + 1) begin
+                                for (int j = 0; j <= s[i - 1].meta.lim; j = j + 1) begin
                                     s[i].meta.r.r[j].c[j] <= tmp[j].meta;
+                                end
+                            end
+                            if (TYPE == SHIFT_SUB) begin
+                                if (s[i - 1].meta.row_id == s[i - 1].meta.lim && s[i - 1].meta.dir) begin
+                                    s[i].meta.shift <= SHIFT_ADD;
                                 end
                             end
                         end

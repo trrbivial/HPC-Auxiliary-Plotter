@@ -84,6 +84,7 @@ module qr_decomp # (
             select_in <= 0;
             in_ready_reg <= 1;
         end else begin
+            out_reg.valid <= 0;
             case (stat)
                 ST_QR_INIT: begin
                     if (~output_end) begin
@@ -135,9 +136,6 @@ module qr_decomp # (
                     select_in.meta.row_id <= out_cache.meta.row_id + 1;
                     select_in.meta.col_id <= out_cache.meta.col_id + 1;
                     select_in.meta.shift <= 0;
-                    if (out_cache.meta.should_run_shift_add) begin
-                        select_in.meta.shift <= SHIFT_ADD;
-                    end
                     if (out_cache.meta.should_reset_row_id) begin
                         select_in.meta.row_id <= 1;
                         select_in.meta.col_id <= 0;

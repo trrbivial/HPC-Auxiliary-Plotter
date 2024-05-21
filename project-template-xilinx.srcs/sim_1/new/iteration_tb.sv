@@ -7,37 +7,17 @@ module iteration_tb();
     reg clk;
     reg rst;
 
-    mat mat_identity;
-    mat mat_r1;
-    mat mat_r2;
     logic valid;
-    logic r1;
+
+    cp_axis screen_offset;
+    float_axis screen_scalar;
+
     initial begin
-        $dumpfile("dump.vcd");
-        $dumpvars(0, iteration_tb);
         clk = 1'b0;
         rst = 1'b0;
         valid = 0;
-        r1 = 1'b0;
-        for (integer i = 0; i < MAX_DEG; i = i + 1) begin
-            for (integer j = 0; j < MAX_DEG; j = j + 1) begin
-                mat_identity.r[i].c[j] = (i == j) ? ONE_CP : 0;
-                mat_r1.r[i].c[j] = (i == j + 1) ? ONE_CP : 0;
-                mat_r2.r[i].c[j] = (i == j + 1) ? ONE_CP : 0;
-            end
-        end
-        mat_r1.r[0].c[0] = {32'h3F800000, 32'h40C00000};
-        mat_r1.r[0].c[1] = {32'h40000000, 32'h40A00000};
-        mat_r1.r[0].c[2] = {32'h40400000, 32'h40800000};
-        mat_r1.r[0].c[3] = {32'h40800000, 32'h40400000};
-        mat_r1.r[0].c[4] = {32'h40A00000, 32'h40000000};
-        mat_r1.r[0].c[5] = {32'h40C00000, 32'h3F800000};
-        mat_r2.r[0].c[0] = {32'h3F800000, 32'h0};
-        mat_r2.r[0].c[1] = {32'h40000000, 32'h0};
-        mat_r2.r[0].c[2] = {32'h40400000, 32'h0};
-        mat_r2.r[0].c[3] = {32'h40800000, 32'h0};
-        mat_r2.r[0].c[4] = {32'h40A00000, 32'h0};
-        mat_r2.r[0].c[5] = {32'h40C00000, 32'h0};
+        screen_offset = {1'b1, {POS_1_5, NEG_0_5}};
+        screen_scalar = {1'b1, TWO_HUNDRED_FL};
 
         #100;
         rst = 1'b1;
@@ -49,22 +29,73 @@ module iteration_tb();
         valid = 1;
 
         #500000;
-        $finish;
     end
 
     always #5 clk = ~clk; // 100MHz
-    always #10 r1 = ~r1;
 
-    mat_axis in;
-    roots_axis out;
-    assign in.valid = valid;
-    assign in.meta = r1 ? mat_r1 : mat_r2;
+    coef_axis coef_in;
+    poly_axis poly_in;
+    mat_axis mat_in;
+    roots_axis roots_out;
+    logic iter_in_ready;
 
-    iteration dut (
+    always_comb begin
+        coef_in = 0;
+        coef_in.valid = 1;
+        coef_in.spm.mode = 1;
+        coef_in.spm.range = ONE_HUNDRED_FL;
+        coef_in.p_t1.a[1] = {32'b0, `neg_fl(ONE_FL)};
+        coef_in.p_t1.a[0] = ONE_CP; 
+        coef_in.ind_t1 = 0;
+
+        coef_in.p_t2.a[1] = ONE_CP;
+        coef_in.p_t2.a[0] = {32'b0, ONE_FL};
+        coef_in.ind_t2 = 5;
+
+        coef_in.p_c.a[0] = 0;
+        coef_in.p_c.a[1] = 0;
+        coef_in.p_c.a[2] = {32'b0, `neg_fl(ONE_FL)};
+        coef_in.p_c.a[3] = ONE_CP;
+        coef_in.p_c.a[4] = {32'b0, `neg_fl(ONE_FL)};
+        coef_in.p_c.a[5] = 0;
+        coef_in.p_c.a[6] = ONE_CP;
+    end
+
+    generate_poly m_gen_poly (
         .clk(clk),
         .rst(rst),
-        .in(in),
-        .out(out)
+        .in(coef_in),
+        .iter_in_ready(iter_in_ready),
+
+        .out(poly_in)
+    );
+
+    poly2mat m_poly2mat (
+        .clk(clk),
+        .rst(rst),
+        .in(poly_in),
+        .out(mat_in)
+    );
+
+    qr_decomp m_qr_decomp_iter (
+        .clk(clk),
+        .rst(rst),
+        .in(mat_in),
+
+        .out(roots_out),
+        .in_ready(iter_in_ready)
+    );
+
+    pixels_axis pixels_out;
+
+    roots2pixels m_roots2pixels (
+        .clk(clk),
+        .rst(rst),
+        .in(roots_out),
+        .offset(screen_offset),
+        .scalar(screen_scalar),
+
+        .out(pixels_out)
     );
 
 endmodule
