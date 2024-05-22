@@ -41,9 +41,10 @@ localparam ITER_TIMES = ITER_TIMES_EACH * (MAX_DEG - 1);
 
 localparam CP_DATA_WIDTH = 64;
 localparam PIXEL_DATA_WIDTH = 4;
-localparam PACKED_PIXEL_DATA_WIDTH = 16;
+localparam PACKED_PIXEL_DATA_WIDTH = 64;
+localparam PACKED_PIXEL_COUNT = PACKED_PIXEL_DATA_WIDTH / PIXEL_DATA_WIDTH;
 localparam BRAM_1024_ADDR_WIDTH = 10;
-localparam BRAM_GRAPH_MEM_DEPTH = (1 << 19);
+localparam BRAM_GRAPH_MEM_DEPTH = (1 << 17);
 
 localparam ROOTS_TO_PIXELS_CYCS = CP_MUL_CYCS + CP_ADD_CYCS;
 
@@ -81,7 +82,15 @@ localparam VGA_VSP = VGA_VFP + VGA_V_SYNC_PULSE;
 localparam VGA_VMAX = VGA_VSP + VGA_V_BACK_PORCH;
 
 localparam VGA_RESOLUTION = VGA_HSIZE * VGA_VSIZE;
-localparam VGA_ADDR_MAX = VGA_RESOLUTION;
+localparam GM_ADDR_MAX = VGA_RESOLUTION / PACKED_PIXEL_COUNT;
+
+typedef struct packed {
+    logic [PIXEL_DATA_WIDTH - 1:0] v;
+} pixel_data;
+
+typedef struct packed {
+    pixel_data [PACKED_PIXEL_DATA_WIDTH / PIXEL_DATA_WIDTH - 1:0] p;
+} packed_pixel_data;
 
 
 // floating point
@@ -276,7 +285,7 @@ typedef struct packed {
     logic cyc;
     logic stb;
     logic [$clog2(BRAM_GRAPH_MEM_DEPTH) - 1:0] adr;
-    logic [PACKED_PIXEL_DATA_WIDTH - 1:0] dat;
+    packed_pixel_data dat;
     logic we;
 } wbm_signal_send;
 

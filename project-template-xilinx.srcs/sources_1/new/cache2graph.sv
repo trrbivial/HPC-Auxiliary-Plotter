@@ -36,7 +36,10 @@ module cache2graph (
 
     pixel now_pixel;
     logic [DATA_WIDTH - 1:0] now_pixel_index;
-    logic [PACKED_PIXEL_DATA_WIDTH - 1:0] dat;
+    logic [$clog2(PACKED_PIXEL_COUNT) - 1:0] pos;
+    assign pos = now_pixel_index[$clog2(PACKED_PIXEL_COUNT) - 1:0];
+
+    packed_pixel_data dat;
 
     pixel2graph_status_t stat;
 
@@ -73,7 +76,7 @@ module cache2graph (
                     ST_P2G_READ_PIXEL: begin
                         wbm_o_reg.cyc <= 1;
                         wbm_o_reg.stb <= 1;
-                        wbm_o_reg.adr <= now_pixel_index[$clog2(BRAM_GRAPH_MEM_DEPTH) + 1: 2];
+                        wbm_o_reg.adr <= (now_pixel_index >> $clog2(PACKED_PIXEL_COUNT));
                         wbm_o_reg.dat <= 0;
                         wbm_o_reg.we <= 0;
                         stat <= ST_P2G_WAIT_READ_ACK;
@@ -91,14 +94,7 @@ module cache2graph (
                         wbm_o_reg.stb <= 1;
                         wbm_o_reg.we <= 1;
                         wbm_o_reg.dat <= dat;
-                        case (now_pixel_index[1:0])
-                            2'b00: wbm_o_reg.dat[ 3: 0] <= dat[ 3: 0] == 4'b1111 ? 4'b1111 : dat[ 3: 0] + 1;
-                            2'b01: wbm_o_reg.dat[ 7: 4] <= dat[ 7: 4] == 4'b1111 ? 4'b1111 : dat[ 7: 4] + 1;
-                            2'b10: wbm_o_reg.dat[11: 8] <= dat[11: 8] == 4'b1111 ? 4'b1111 : dat[11: 8] + 1;
-                            2'b11: wbm_o_reg.dat[15:12] <= dat[15:12] == 4'b1111 ? 4'b1111 : dat[15:12] + 1;
-                            default: begin
-                            end
-                        endcase
+                        wbm_o_reg.dat.p[pos] <= (~dat.p[pos] == '0) ? {PIXEL_DATA_WIDTH{1'b1}} : dat.p[pos] + 1;
                         stat <= ST_P2G_WAIT_WRITE_ACK;
                     end
                     ST_P2G_WAIT_WRITE_ACK: begin
