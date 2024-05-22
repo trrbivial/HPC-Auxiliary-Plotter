@@ -7,23 +7,20 @@ module wb_arbiter #(
 ) (
     input wire clk,
     input wire rst,
-    input wire vga_is_reading,
-    output wire wb_last_op_finished,
 
-    input  wbm_signal_send wbm_i[MASTER_COUNT:0],
-    output wbm_signal_recv wbm_o[MASTER_COUNT:0],
+    input  wbm_signal_send wbm_i[MASTER_COUNT - 1:0],
+    output wbm_signal_recv wbm_o[MASTER_COUNT - 1:0],
 
     input  wbm_signal_recv wbs_i,
     output wbm_signal_send wbs_o
 );
 
-    localparam MASTER_WIDTH = $clog2(MASTER_COUNT + 1);
+    localparam MASTER_WIDTH = $clog2(MASTER_COUNT);
 
     logic [MASTER_WIDTH - 1:0] current_master, highest_master;
-    assign wb_last_op_finished = !wbs_o.cyc;
 
     always_comb begin
-        for (integer i = 0; i <= MASTER_COUNT; ++i) begin
+        for (integer i = 0; i < MASTER_COUNT; ++i) begin
             wbm_o[i] = 0;
         end
 
@@ -31,7 +28,7 @@ module wb_arbiter #(
         wbs_o = wbm_i[current_master];
 
         highest_master = 0;
-        for (integer i = MASTER_COUNT; i >= 1; --i) begin
+        for (integer i = MASTER_COUNT - 1; i >= 0; --i) begin
             if (wbm_i[i].cyc && wbm_i[i].stb) highest_master = i;
         end
     end
@@ -41,11 +38,7 @@ module wb_arbiter #(
             current_master <= 0;
         end else begin 
             if (!wbs_o.cyc) begin
-                if (!vga_is_reading) begin
-                    current_master <= highest_master;
-                end else begin
-                    current_master <= 0;
-                end
+                current_master <= highest_master;
             end
         end
     end

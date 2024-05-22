@@ -164,55 +164,6 @@ module mod_top(
         .data_enable(video_de)
     );
 
-
-    logic vga_is_reading_src;
-    logic vga_is_reading_dst;
-    assign vga_is_reading_dst = vga_is_reading_src;
-
-    /*
-    xpm_cdc_single #(
-        .DEST_SYNC_FF(2),   // DECIMAL; range: 2-10
-        .INIT_SYNC_FF(0),   // DECIMAL; 0=disable simulation init values, 1=enable simulation init values
-        .SIM_ASSERT_CHK(0), // DECIMAL; 0=disable simulation messages, 1=enable simulation messages
-        .SRC_INPUT_REG(0)   // DECIMAL; 0=do not register input, 1=register input
-    )
-    xpm_cdc_single_inst_vga (
-        // 1-bit input: optional; required when SRC_INPUT_REG = 1
-        .src_clk(video_clk),
-        // 1-bit input: Clock signal for the destination clock domain.
-        .dest_clk(clk),
-
-        // 1-bit input: Input signal to be synchronized to dest_clk domain.
-        .src_in(vga_is_reading_src),
-        // 1-bit output: src_in synchronized to the destination clock domain. This output is registered.
-        .dest_out(vga_is_reading_dst)
-    );
-    */
-
-    logic wb_last_op_finished_src;
-    logic wb_last_op_finished_dst;
-    assign wb_last_op_finished_dst = wb_last_op_finished_src;
-
-    /*
-    xpm_cdc_single #(
-        .DEST_SYNC_FF(2),   // DECIMAL; range: 2-10
-        .INIT_SYNC_FF(0),   // DECIMAL; 0=disable simulation init values, 1=enable simulation init values
-        .SIM_ASSERT_CHK(0), // DECIMAL; 0=disable simulation messages, 1=enable simulation messages
-        .SRC_INPUT_REG(0)   // DECIMAL; 0=do not register input, 1=register input
-    )
-    xpm_cdc_single_inst_wb (
-        // 1-bit input: optional; required when SRC_INPUT_REG = 1
-        .src_clk(clk),
-        // 1-bit input: Clock signal for the destination clock domain.
-        .dest_clk(video_clk),
-
-        // 1-bit input: Input signal to be synchronized to dest_clk domain.
-        .src_in(wb_last_op_finished_src),
-        // 1-bit output: src_in synchronized to the destination clock domain. This output is registered.
-        .dest_out(wb_last_op_finished_dst)
-    );
-    */
-
     // 遍历 BRAM 地址，以得到存放的像素点
     // 注意根据 横坐标、纵坐标 预读取数据，以保证同步信号
     logic gm_clk_b;
@@ -226,12 +177,10 @@ module mod_top(
         .hdata(hdata),
         .vdata(vdata),
         .data_enable(video_de),
-        .wb_last_op_finished(wb_last_op_finished_dst),
         .data(gm_datab),
 
         .addr(gm_addrb),
         .enb(gm_enb),
-        .vga_is_reading(vga_is_reading_src),
         .pixel(video_gray4)
     );
 
@@ -367,9 +316,8 @@ module mod_top(
         end
     endgenerate
 
-    // wbm_o[0] is for null master
-    wbm_signal_send wbm_o[GM_MASTER_COUNT:0];
-    wbm_signal_recv wbm_i[GM_MASTER_COUNT:0];
+    wbm_signal_send wbm_o[GM_MASTER_COUNT - 1:0];
+    wbm_signal_recv wbm_i[GM_MASTER_COUNT - 1:0];
 
     wbm_signal_send wbs_i;
     wbm_signal_recv wbs_o;
@@ -379,7 +327,6 @@ module mod_top(
     always_ff @(posedge clk, posedge rst) begin
         if (rst) begin
             wbs_o.ack <= 0;
-            wbm_o[0] <= 0;
             count_ack <= 0;
         end else begin
             if (wbs_i.cyc && wbs_i.stb) begin
@@ -400,8 +347,6 @@ module mod_top(
     wb_arbiter wb_arbiter_i (
         .clk(clk),
         .rst(rst),
-        .vga_is_reading(vga_is_reading_dst),
-        .wb_last_op_finished(wb_last_op_finished_src),
 
         .wbm_i(wbm_o),
         .wbm_o(wbm_i),
@@ -416,20 +361,20 @@ module mod_top(
         .rst(rst),
         .rear(bram_a_addr),
         .bram_data(bram_b_data[index]),
-        .wbm_i(wbm_i[1]),
+        .wbm_i(wbm_i[0]),
 
         .bram_addr(bram_b_addr),
         .ind(index),
-        .wbm_o(wbm_o[1])
+        .wbm_o(wbm_o[0])
     );
 
     reset_all rst_all (
         .clk(clk),
         .rst(rst),
         .sys_stat(sys_stat),
-        .wbm_i(wbm_i[2]),
+        .wbm_i(wbm_i[1]),
 
-        .wbm_o(wbm_o[2]),
+        .wbm_o(wbm_o[1]),
         .reset_finished(reset_finished)
     );
 

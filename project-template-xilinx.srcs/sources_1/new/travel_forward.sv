@@ -9,12 +9,10 @@ module travel_forward #(
     input wire [WIDTH - 1:0] hdata,   // ꣬horizontal
     input wire [WIDTH - 1:0] vdata,   // ꣬vertical
     input wire data_enable,
-    input wire wb_last_op_finished,
     input wire packed_pixel_data data,
 
     output reg [$clog2(BRAM_GRAPH_MEM_DEPTH) - 1:0] addr,
     output reg enb,
-    output reg vga_is_reading,
     output wire pixel_data pixel
 );
     typedef enum logic [2:0] {
@@ -38,21 +36,14 @@ module travel_forward #(
         stat = INIT;
         enb = 'b0;
         addr = 'b1; 
-        vga_is_reading = 'b0;
         now_data_reg = 'b0;
     end
     always @ (posedge clk) begin
         if (data_enable) begin
             case (stat)
                 INIT: begin
-                    vga_is_reading <= 1;
-                    stat <= WAIT_LAST_OP_FINISH;
-                end
-                WAIT_LAST_OP_FINISH: begin
-                    if (wb_last_op_finished) begin
-                        enb <= 1;
-                        stat <= READ_NEXT_PACK;
-                    end
+                    enb <= 1;
+                    stat <= READ_NEXT_PACK;
                 end
                 READ_NEXT_PACK: begin
                     stat <= READ_NEXT_PACK1;
@@ -65,7 +56,6 @@ module travel_forward #(
                 end
                 READ_NEXT_PACK3: begin
                     next_data_reg <= data;
-                    vga_is_reading <= 0;
                     addr <= addr + 1;
                     if (addr == GM_ADDR_MAX - 1) begin
                         addr <= 0;
