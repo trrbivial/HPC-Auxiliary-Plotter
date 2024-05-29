@@ -99,7 +99,7 @@ module givens_rotations # (
                         end else begin
                             s[i] <= s[i - 1];
                             s[i].valid <= s[i - 1].valid & coef_c.valid & coef_s.valid;
-                            if (~s[i - 1].meta.dir) begin
+                            if (~s[i - 1].meta.dir && s[i - 1].meta.mul_mat_pos == 0) begin
                                 s[i].meta.c[s[i - 1].meta.col_id] <= coef_c.meta;
                                 s[i].meta.s[s[i - 1].meta.col_id] <= coef_s.meta;
                             end

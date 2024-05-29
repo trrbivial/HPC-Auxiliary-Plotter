@@ -1,4 +1,4 @@
-`timescale 1ns / 1ps `default_nettype none
+`timescale 1ns / 1ps
 
 `include "complex.vh"
 
@@ -8,24 +8,29 @@ module wb_arbiter #(
     input wire clk,
     input wire rst,
 
-    input  wbm_signal_send wbm_i[MASTER_COUNT - 1:0],
-    output wbm_signal_recv wbm_o[MASTER_COUNT - 1:0],
+    input wire wbm_signal_send wbm_i[MASTER_COUNT - 1:0],
+    output wire wbm_signal_recv wbm_o[MASTER_COUNT - 1:0],
 
-    input  wbm_signal_recv wbs_i,
-    output wbm_signal_send wbs_o
+    input wire wbm_signal_recv wbs_i,
+    output wire wbm_signal_send wbs_o
 );
 
     localparam MASTER_WIDTH = $clog2(MASTER_COUNT);
 
     logic [MASTER_WIDTH - 1:0] current_master, highest_master;
+    wbm_signal_recv wbm_o_reg[MASTER_COUNT - 1:0];
+    wbm_signal_send wbs_o_reg;
+
+    assign wbm_o = wbm_o_reg;
+    assign wbs_o = wbs_o_reg;
 
     always_comb begin
         for (integer i = 0; i < MASTER_COUNT; ++i) begin
-            wbm_o[i] = 0;
+            wbm_o_reg[i] = 0;
         end
 
-        wbm_o[current_master] = wbs_i;
-        wbs_o = wbm_i[current_master];
+        wbm_o_reg[current_master] = wbs_i;
+        wbs_o_reg = wbm_i[current_master];
 
         highest_master = 0;
         for (integer i = MASTER_COUNT - 1; i >= 0; --i) begin

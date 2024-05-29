@@ -70,11 +70,12 @@ module mod_top(
     // PLL 分频演示，从输入产生不同频率的时钟
     wire clk_hdmi;
     wire clk_locked;
+
     ip_pll u_ip_pll(
         .clk_in1  (clk_in    ),  // 输入 100MHz 时钟
         .reset    (btn_rst   ),  // 复位信号，高有效
-        .clk_out1 (clk_hdmi  ),  // 148.500MHz 像素时钟
-        .locked   (clk_locked)   // 高表示 148.500MHz 时钟已经稳定输出
+        .clk_out1 (clk_hdmi  ),  // 118.800MHz 像素时钟
+        .locked   (clk_locked)   // 高表示 hdmi 时钟已经稳定输出
     );
     logic clk, rst;
     assign clk = clk_in;
@@ -101,17 +102,17 @@ module mod_top(
     // 七段数码管扫描演示
     reg [31:0] number;
     dpy_scan u_dpy_scan (
-        .clk     (clk_in      ),
-        .number  (number      ),
-        .dp      (8'b0        ),
+        .clk     (clk_hdmi),
+        .number  (number),
+        .dp      (8'b0),
 
-        .digit   (dpy_digit   ),
-        .segment (dpy_segment )
+        .digit   (dpy_digit),
+        .segment (dpy_segment)
     );
 
     // 自增计数器，用于数码管演示
     reg [31:0] counter;
-    always @(posedge clk_in) begin
+    always @(posedge clk_hdmi) begin
         if (btn_rst) begin
             counter <= 32'b0;
             number <= 32'b0;
@@ -129,15 +130,15 @@ module mod_top(
     assign leds[15:0] = number[15:0];
     assign leds[31:16] = ~(dip_sw) ^ btn_push;
     led_scan u_led_scan (
-        .clk     (clk_in      ),
-        .leds    (leds        ),
+        .clk     (clk_hdmi),
+        .leds    (leds),
 
-        .led_bit (led_bit     ),
-        .led_com (led_com     )
+        .led_bit (led_bit),
+        .led_com (led_com)
     );
 
 
-    // 图像输出，分辨率 1920x1080@60Hz，像素时钟为 148.500MHz
+    // 图像输出，分辨率 1920x1080@48Hz，像素时钟为 118.800MHz
     wire [11:0] hdata;  // 当前横坐标
     wire [11:0] vdata;  // 当前纵坐标
 
@@ -155,7 +156,8 @@ module mod_top(
 
     assign video_clk = clk_hdmi;
 
-    video #(12, VGA_HSIZE, VGA_HFP, VGA_HSP, VGA_HMAX, VGA_VSIZE, VGA_VFP, VGA_VSP, VGA_VMAX, 1, 1) u_video1080p60hz (
+
+    video #(12, VGA_HSIZE, VGA_HFP, VGA_HSP, VGA_HMAX, VGA_VSIZE, VGA_VFP, VGA_VSP, VGA_VMAX, 1, 1) u_video1080p48hz (
         .clk(video_clk), 
         .hdata(hdata), //横坐标
         .vdata(vdata), //纵坐标
@@ -172,6 +174,27 @@ module mod_top(
     packed_pixel_data gm_datab;
     assign gm_clk_b = video_clk;
 
+    logic vga_is_reading_src;
+    logic vga_is_reading_dst;
+
+    xpm_cdc_single #(
+        .DEST_SYNC_FF(2),   // DECIMAL; range: 2-10
+        .INIT_SYNC_FF(0),   // DECIMAL; 0=disable simulation init values, 1=enable simulation init values
+        .SIM_ASSERT_CHK(0), // DECIMAL; 0=disable simulation messages, 1=enable simulation messages
+        .SRC_INPUT_REG(0)   // DECIMAL; 0=do not register input, 1=register input
+    )
+    xpm_cdc_single_inst_vga (
+        // 1-bit input: optional; required when SRC_INPUT_REG = 1
+        .src_clk(video_clk),
+        // 1-bit input: Clock signal for the destination clock domain.
+        .dest_clk(clk),
+
+        // 1-bit input: Input signal to be synchronized to dest_clk domain.
+        .src_in(vga_is_reading_src),
+        // 1-bit output: src_in synchronized to the destination clock domain. This output is registered.
+        .dest_out(vga_is_reading_dst)
+    );
+
     travel_forward #(12, VGA_HSIZE, VGA_HMAX, VGA_VSIZE, VGA_VMAX) m_travel_forward (
         .clk(video_clk),
         .hdata(hdata),
@@ -181,11 +204,9 @@ module mod_top(
 
         .addr(gm_addrb),
         .enb(gm_enb),
-        .pixel(video_gray4)
+        .pixel(video_gray8),
+        .vga_is_reading(vga_is_reading_src)
     );
-
-    // 将像素映射为灰度
-    assign video_gray8 = {video_gray4, 4'b0000};
 
     // 把 RGB 转化为 HDMI TMDS 信号并输出
     ip_rgb2dvi u_ip_rgb2dvi (
@@ -193,7 +214,7 @@ module mod_top(
         .vid_pVDE   (video_de),
         .vid_pHSync (video_hsync),
         .vid_pVSync (video_vsync),
-        .vid_pData  ({video_gray8, video_gray8, video_gray8}),
+        .vid_pData  (video_de ? {8'd255 ^ video_gray8, 8'd255 ^ video_gray8, 8'd255 ^ video_gray8} : {'b0, 'b0, 'b0}),
         .aRst       (~clk_locked),
 
         .TMDS_Clk_p  (hdmi_tmds_c_p),
@@ -342,8 +363,6 @@ module mod_top(
         end
     end
 
-
-
     wb_arbiter wb_arbiter_i (
         .clk(clk),
         .rst(rst),
@@ -362,6 +381,7 @@ module mod_top(
         .rear(bram_a_addr),
         .bram_data(bram_b_data[index]),
         .wbm_i(wbm_i[0]),
+        .vga_is_reading(vga_is_reading_dst),
 
         .bram_addr(bram_b_addr),
         .ind(index),
@@ -377,7 +397,6 @@ module mod_top(
         .wbm_o(wbm_o[1]),
         .reset_finished(reset_finished)
     );
-
 
     bram_of_1080p_graph graph_memory (
         .clka(clk),

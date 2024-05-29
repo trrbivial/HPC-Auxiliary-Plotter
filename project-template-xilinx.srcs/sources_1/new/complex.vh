@@ -29,14 +29,19 @@ localparam CALC_GIVENS_ROTATIONS_CYCS = CALC_GIVENS_SECOND_COEF_MUL_ADD_CYCS;
 
 localparam DATA_WIDTH = 32;
 localparam MAX_DEG = 6;
-localparam SAMPLING_DIV_N = 32'd200;
+
+localparam SAMPLING_DIV_N = 32'd700;
+localparam SAMPLING_STEP_COEF = 32'h3ABB3EE7; // 1/700
+
+//localparam SAMPLING_DIV_N = 32'd2000;
 //localparam SAMPLING_STEP_COEF = 32'h3A03126F; // 1/2000
-localparam SAMPLING_STEP_COEF = 32'h3BA3D70A; // 1/200
+//localparam SAMPLING_DIV_N = 32'd200;
+//localparam SAMPLING_STEP_COEF = 32'h3BA3D70A; // 1/200
 
 localparam POLY_X_HOLD_CYCS = CP_MUL_ADD_CYCS * (MAX_DEG - 1);
 
 localparam QR_DECOMP_CYCS = CALC_GIVENS_ROTATIONS_CYCS * (MAX_DEG - 1);
-localparam ITER_TIMES_EACH = 10;
+localparam ITER_TIMES_EACH = 13;
 localparam ITER_TIMES = ITER_TIMES_EACH * (MAX_DEG - 1);
 
 localparam CP_DATA_WIDTH = 64;
@@ -195,10 +200,13 @@ typedef struct packed {
     mat r;
     logic [2:0] row_id;
     logic [2:0] col_id;
+    logic [2:0] mul_mat_pos;
     logic [2:0] lim;
     logic dir;
     logic [1:0] shift;
     logic [$clog2(ITER_TIMES_EACH) - 1:0] iter;
+
+    logic should_reset_mul_mat_pos;
     logic should_reset_row_id;
     logic should_start_new_iter;
     logic should_reduce_problem_scale;

@@ -54,6 +54,19 @@ module single_shift # (
                         end
                     end
                 end
+                2: begin
+                    always_ff @(posedge clk or posedge rst) begin
+                        if (rst) begin
+                            s[i].valid <= 0;
+                        end else begin
+                            s[i] <= s[i - 1];
+                            if (TYPE == SHIFT_ADD) begin
+                                s[i].meta.should_reset_mul_mat_pos <= 
+                                    (s[i - 1].meta.mul_mat_pos == s[i - 1].meta.lim);
+                            end
+                        end
+                    end
+                end
                 3: begin
                     always_ff @(posedge clk or posedge rst) begin
                         if (rst) begin
@@ -62,6 +75,7 @@ module single_shift # (
                             s[i] <= s[i - 1];
                             if (TYPE == SHIFT_ADD) begin
                                 s[i].meta.should_reset_row_id <= 
+                                    (s[i - 1].meta.should_reset_mul_mat_pos) &
                                     (s[i - 1].meta.row_id == s[i - 1].meta.lim);
                             end
                         end
@@ -122,8 +136,10 @@ module single_shift # (
                                 end
                             end
                             if (TYPE == SHIFT_SUB) begin
-                                if (s[i - 1].meta.row_id == s[i - 1].meta.lim && s[i - 1].meta.dir) begin
-                                    s[i].meta.shift <= SHIFT_ADD;
+                                if (s[i - 1].meta.mul_mat_pos == s[i - 1].meta.lim) begin
+                                    if (s[i - 1].meta.row_id == s[i - 1].meta.lim && s[i - 1].meta.dir) begin
+                                        s[i].meta.shift <= SHIFT_ADD;
+                                    end
                                 end
                             end
                         end

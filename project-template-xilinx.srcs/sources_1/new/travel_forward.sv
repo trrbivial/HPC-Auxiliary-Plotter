@@ -13,7 +13,8 @@ module travel_forward #(
 
     output reg [$clog2(BRAM_GRAPH_MEM_DEPTH) - 1:0] addr,
     output reg enb,
-    output wire pixel_data pixel
+    output reg [7:0] pixel,
+    output reg vga_is_reading
 );
     typedef enum logic [2:0] {
         INIT,
@@ -28,18 +29,24 @@ module travel_forward #(
     state_t stat;
     packed_pixel_data now_data_reg;
     packed_pixel_data next_data_reg;
-    assign pixel = 
-        data_enable ? now_data_reg.p[hdata[$clog2(PACKED_PIXEL_COUNT) - 1:0]] : 
-        0;
 
     initial begin
         stat = INIT;
         enb = 'b0;
         addr = 'b1; 
         now_data_reg = 'b0;
+        vga_is_reading = 'b1;
+        pixel = 'b0;
     end
     always @ (posedge clk) begin
+        vga_is_reading <= 0;
+        if (data_enable || (hdata >= HMAX - 5 && vdata + 1 < VSIZE)) begin
+            vga_is_reading <= 1;
+        end
         if (data_enable) begin
+            if (hdata[$clog2(PACKED_PIXEL_COUNT) - 1:0] < 4'b1111) begin
+                pixel <= {now_data_reg.p[hdata[$clog2(PACKED_PIXEL_COUNT) - 1:0] + 4'b1], 4'b0000};
+            end
             case (stat)
                 INIT: begin
                     enb <= 1;
@@ -57,7 +64,7 @@ module travel_forward #(
                 READ_NEXT_PACK3: begin
                     next_data_reg <= data;
                     addr <= addr + 1;
-                    if (addr == GM_ADDR_MAX - 1) begin
+                    if (addr == HSIZE * VSIZE / PACKED_PIXEL_COUNT - 1) begin
                         addr <= 0;
                     end
                     enb <= 0;
@@ -66,6 +73,7 @@ module travel_forward #(
                 WAIT_NEXT_PACK: begin
                     if (hdata[3:0] == 4'b1111) begin
                         now_data_reg <= next_data_reg;
+                        pixel <= {next_data_reg.p[0], 4'b0000};
                         stat <= INIT;
                     end
                 end

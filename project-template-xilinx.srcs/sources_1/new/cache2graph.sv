@@ -8,6 +8,7 @@ module cache2graph (
     input wire [BRAM_1024_ADDR_WIDTH - 1:0] rear,
     input wire [CP_DATA_WIDTH - 1:0] bram_data,
     input wire wbm_signal_recv wbm_i,
+    input wire vga_is_reading,
 
     output wire [BRAM_1024_ADDR_WIDTH - 1:0] bram_addr[MAX_DEG - 1:0],
     output wire [2:0] ind,
@@ -76,9 +77,9 @@ module cache2graph (
                     ST_P2G_READ_PIXEL: begin
                         wbm_o_reg.cyc <= 1;
                         wbm_o_reg.stb <= 1;
+                        wbm_o_reg.we <= 0;
                         wbm_o_reg.adr <= (now_pixel_index >> $clog2(PACKED_PIXEL_COUNT));
                         wbm_o_reg.dat <= 0;
-                        wbm_o_reg.we <= 0;
                         stat <= ST_P2G_WAIT_READ_ACK;
                     end
                     ST_P2G_WAIT_READ_ACK: begin
@@ -92,6 +93,7 @@ module cache2graph (
                     ST_P2G_WRITE_PIXEL: begin
                         wbm_o_reg.cyc <= 1;
                         wbm_o_reg.stb <= 1;
+
                         wbm_o_reg.we <= 1;
                         wbm_o_reg.dat <= dat;
                         wbm_o_reg.dat.p[pos] <= (~dat.p[pos] == '0) ? {PIXEL_DATA_WIDTH{1'b1}} : dat.p[pos] + 1;

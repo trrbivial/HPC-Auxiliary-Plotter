@@ -101,6 +101,7 @@ module qr_decomp # (
                         select_in.meta.col_id <= 0;
                         select_in.meta.lim <= MAX_N - 1;
                         select_in.meta.dir <= 0;
+                        select_in.meta.mul_mat_pos <= 0;
                         select_in.meta.shift <= SHIFT_SUB;
                         count_input <= 1;
                         stat <= ST_QR_FROM_INPUT;
@@ -113,6 +114,7 @@ module qr_decomp # (
                     select_in.meta.col_id <= 0;
                     select_in.meta.lim <= MAX_N - 1;
                     select_in.meta.dir <= 0;
+                    select_in.meta.mul_mat_pos <= 0;
                     select_in.meta.shift <= SHIFT_SUB;
                     count_input <= count_input + 1;
 
@@ -133,9 +135,13 @@ module qr_decomp # (
                 end
                 ST_QR_FROM_MUL_MAT: begin
                     select_in <= out_cache;
-                    select_in.meta.row_id <= out_cache.meta.row_id + 1;
-                    select_in.meta.col_id <= out_cache.meta.col_id + 1;
                     select_in.meta.shift <= 0;
+                    select_in.meta.mul_mat_pos <= out_cache.meta.mul_mat_pos + 1;
+                    if (out_cache.meta.should_reset_mul_mat_pos) begin
+                        select_in.meta.row_id <= out_cache.meta.row_id + 1;
+                        select_in.meta.col_id <= out_cache.meta.col_id + 1;
+                        select_in.meta.mul_mat_pos <= 0;
+                    end
                     if (out_cache.meta.should_reset_row_id) begin
                         select_in.meta.row_id <= 1;
                         select_in.meta.col_id <= 0;
