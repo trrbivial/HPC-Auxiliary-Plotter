@@ -24,8 +24,8 @@ module mod_top(
     // 若要使用，不要忘记去掉 io.xdc 中对应行的注释
 
     // PS/2 键盘
-    // input  wire        ps2_keyboard_clk,     // PS/2 键盘时钟信号
-    // input  wire        ps2_keyboard_data,    // PS/2 键盘数据信号
+    input  wire        ps2_keyboard_clk,     // PS/2 键盘时钟信号
+    input  wire        ps2_keyboard_data,    // PS/2 键盘数据信号
 
     // PS/2 鼠标
     // inout  wire       ps2_mouse_clk,     // PS/2 时钟信号
@@ -81,6 +81,50 @@ module mod_top(
     assign clk = clk_in;
     assign rst = btn_rst;
 
+    // 在数码管上显示 PS/2 Keyboard scancode
+    wire [7:0] scancode;
+    wire scancode_valid;
+    ps2_keyboard u_ps2_keyboard (
+        .clock     (clk_in           ),
+        .reset     (btn_rst          ),
+        .ps2_clock (ps2_keyboard_clk ),
+        .ps2_data  (ps2_keyboard_data),
+        .scancode  (scancode         ),
+        .valid     (scancode_valid   )
+    );
+
+    // 七段数码管扫描演示
+    reg [31:0] number;
+    dpy_scan u_dpy_scan (
+        .clk     (clk_hdmi),
+        .number  (number),
+        .dp      (8'b0),
+
+        .digit   (dpy_digit),
+        .segment (dpy_segment)
+    );
+    always @(posedge clk_in) begin
+        if (btn_rst) begin
+            number <= 32'b0;
+        end else begin
+            if (scancode_valid) begin
+                number <= {number, scancode};
+            end
+        end
+    end
+
+    // LED 演示
+    wire [31:0] leds;
+    assign leds[15:0] = number[15:0];
+    assign leds[31:16] = ~(dip_sw) ^ btn_push;
+    led_scan u_led_scan (
+        .clk     (clk_hdmi),
+        .leds    (leds),
+
+        .led_bit (led_bit),
+        .led_com (led_com)
+    );
+
     logic reset_finished;
 
     logic draw_option_finished;
@@ -97,10 +141,12 @@ module mod_top(
         index_to_draw = 'b10;
     end
 
+
     system_status_t sys_stat;
     system_status m_system_status (
         .clk(clk),
         .rst(rst),
+
         .calc_mode(2'b01),
         .reset_finished(reset_finished),
         .draw_option_finished(draw_option_finished),
@@ -118,46 +164,46 @@ module mod_top(
         .system_status(sys_stat)
     );
 
-
-
-
-    // 七段数码管扫描演示
-    reg [31:0] number;
-    dpy_scan u_dpy_scan (
-        .clk     (clk_hdmi),
-        .number  (number),
-        .dp      (8'b0),
-
-        .digit   (dpy_digit),
-        .segment (dpy_segment)
-    );
-
-    // 自增计数器，用于数码管演示
-    reg [31:0] counter;
-    always @(posedge clk_hdmi) begin
-        if (btn_rst) begin
-            counter <= 32'b0;
-            number <= 32'b0;
+    always @(posedge clk, posedge rst) begin
+        if (rst) begin
+            index_to_draw <= 'b10;
+            option_select_changed <= 0;
+            option_select_confirmed <= 0;
         end else begin
-            counter <= counter + 32'b1;
-            if (counter == 32'd5_000_000) begin
-                counter <= 32'b0;
-                number <= number + 32'b1;
+            if (option_select_changed) begin
+                option_select_changed <= 0;
+            end
+            if (option_select_confirmed) begin
+                option_select_confirmed <= 0;
+            end
+            if (sys_stat == ST_SYS_OPTION_SELECTION) begin
+                if (scancode_valid) begin
+                    case (scancode)
+                        // 'j'
+                        8'h3B: begin
+                            index_to_draw <= index_to_draw == OPTION_COUNT - 1 ? 0 : index_to_draw + 1;
+                            option_select_changed <= 1;
+                        end
+
+                        // 'k'
+                        8'h42: begin
+                            index_to_draw <= index_to_draw == 0 ? OPTION_COUNT - 1 : index_to_draw - 1;
+                            option_select_changed <= 1;
+                        end
+
+                        // '\enter'
+                        8'h5A: begin
+                            option_select_confirmed <= 1;
+                        end
+                        default: begin
+                        end
+                    endcase
+                end
             end
         end
     end
 
-    // LED 演示
-    wire [31:0] leds;
-    assign leds[15:0] = number[15:0];
-    assign leds[31:16] = ~(dip_sw) ^ btn_push;
-    led_scan u_led_scan (
-        .clk     (clk_hdmi),
-        .leds    (leds),
 
-        .led_bit (led_bit),
-        .led_com (led_com)
-    );
 
 
     // 图像输出，分辨率 1920x1080@48Hz，像素时钟为 118.800MHz
