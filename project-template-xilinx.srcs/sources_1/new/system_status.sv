@@ -7,7 +7,15 @@ module system_status (
     input wire rst,
     input wire [1:0] calc_mode,
     input wire reset_finished,
+
+    input wire draw_option_finished,
+
+    input wire option_select_changed,
+    input wire refresh_option_selection_finished,
+    input wire option_select_confirmed,
+
     input wire draw_top_bar_finished,
+
     input wire mode1_input_finish,
     input wire mode1_moved_or_scaled,
     input wire mode1_calc_finish,
@@ -29,10 +37,32 @@ module system_status (
                 end
                 ST_SYS_RESET_ALL: begin
                     if (reset_finished) begin
+                        stat <= ST_SYS_DRAW_OPTION;
+                    end
+                end
+                ST_SYS_DRAW_OPTION: begin
+                    if (draw_option_finished) begin
+                        stat <= ST_SYS_REFRESH_OPTION_SELECTION;
+                    end
+                end
+                ST_SYS_OPTION_SELECTION: begin
+                    if (option_select_changed) begin
+                        stat <= ST_SYS_REFRESH_OPTION_SELECTION;
+                    end
+                    if (option_select_confirmed) begin
+                        stat <= ST_SYS_DRAW_BACKGROUND;
+                    end
+                end
+                ST_SYS_REFRESH_OPTION_SELECTION: begin
+                    if (refresh_option_selection_finished) begin
+                        stat <= ST_SYS_OPTION_SELECTION;
+                    end
+                end
+                ST_SYS_DRAW_BACKGROUND: begin
+                    if (reset_finished) begin
                         stat <= ST_SYS_DRAW_TOP_BAR;
                     end
                 end
-
                 ST_SYS_DRAW_TOP_BAR: begin
                     if (draw_top_bar_finished) begin
                         stat <= ST_SYS_INPUT_CHOOSE_MODE;

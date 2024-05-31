@@ -82,12 +82,19 @@ module mod_top(
     assign rst = btn_rst;
 
     logic reset_finished;
+
+    logic draw_option_finished;
+
+    logic option_select_changed;
+    logic refresh_option_selection_finished;
+    logic option_select_confirmed;
+
     logic draw_top_bar_finished;
 
-    logic [2:0] draw_index;
+    logic [2:0] index_to_draw;
 
     initial begin
-        draw_index = 'b10;
+        index_to_draw = 'b10;
     end
 
     system_status_t sys_stat;
@@ -96,6 +103,12 @@ module mod_top(
         .rst(rst),
         .calc_mode(2'b01),
         .reset_finished(reset_finished),
+        .draw_option_finished(draw_option_finished),
+
+        .option_select_changed(option_select_changed),
+        .refresh_option_selection_finished(refresh_option_selection_finished),
+        .option_select_confirmed(option_select_confirmed),
+
         .draw_top_bar_finished(draw_top_bar_finished),
         .mode1_input_finish(1'b1),
         .mode1_moved_or_scaled(1'b0),
@@ -418,13 +431,15 @@ module mod_top(
         .clk(clk),
         .rst(rst),
         .sys_stat(sys_stat),
-        .index(draw_index),
+        .index(index_to_draw),
         .wbm_i(wbm_i[2]),
         .sram_wbm_i(sram_wbm_i),
 
         .wbm_o(wbm_o[2]),
         .sram_wbm_o(sram_wbm_o),
-        .draw_top_bar_finished(draw_top_bar_finished)
+        .draw_top_bar_finished(draw_top_bar_finished),
+        .draw_option_finished(draw_option_finished),
+        .refresh_option_selection_finished(refresh_option_selection_finished)
     );
 
     sram_controller m_sram_controller (

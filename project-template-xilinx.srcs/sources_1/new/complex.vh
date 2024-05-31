@@ -91,6 +91,7 @@ localparam VGA_VMAX = VGA_VSP + VGA_V_BACK_PORCH;
 localparam VGA_RESOLUTION = VGA_HSIZE * VGA_VSIZE;
 localparam GM_ADDR_MAX = VGA_RESOLUTION / PACKED_PIXEL_COUNT;
 localparam SRAM_TOP_BAR_WIDTH = VGA_HSIZE * TOP_BAR_WIDTH * PIXEL_DATA_WIDTH / DATA_WIDTH;
+localparam OPTION_COUNT = 7;
 
 typedef struct packed {
     logic [PIXEL_DATA_WIDTH - 1:0] v;
@@ -249,6 +250,10 @@ typedef enum logic [2:0] {
 typedef enum logic [3:0] {
     ST_SYS_IDLE,
     ST_SYS_RESET_ALL,
+    ST_SYS_DRAW_OPTION,
+    ST_SYS_OPTION_SELECTION,
+    ST_SYS_REFRESH_OPTION_SELECTION,
+    ST_SYS_DRAW_BACKGROUND,
     ST_SYS_DRAW_TOP_BAR,
     ST_SYS_INPUT_CHOOSE_MODE,
     ST_SYS_MODE1_INPUT,
@@ -265,13 +270,17 @@ typedef enum logic [2:0] {
     ST_RST_FIN
 } reset_all_status_t;
 
-typedef enum logic [2:0] {
+typedef enum logic [3:0] {
     ST_DTB_IDLE,
     ST_DTB_RUNNING,
     ST_DTB_WAIT_READ_ACK1,
     ST_DTB_READ2,
     ST_DTB_WAIT_READ_ACK2,
     ST_DTB_WAIT_WRITE_ACK,
+    ST_DTB_REFRESH_OPTION_BAR,
+    ST_DTB_READ_OPTION_BAR,
+    ST_DTB_WRITE_OPTION_BAR,
+    ST_DTB_WAIT_WRITE_OPTION_BAR,
     ST_DTB_FIN
 } draw_top_bar_status_t;
 

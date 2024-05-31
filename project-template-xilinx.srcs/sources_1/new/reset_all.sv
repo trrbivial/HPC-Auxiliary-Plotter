@@ -28,7 +28,7 @@ module reset_all # (
         end else begin
             case (stat)
                 ST_RST_IDLE: begin
-                    if (sys_stat == ST_SYS_RESET_ALL) begin
+                    if (sys_stat == ST_SYS_RESET_ALL || sys_stat == ST_SYS_DRAW_BACKGROUND) begin
                         reset_finished <= 0;
                         wbm_o_reg <= 0;
                         tim <= 0;
