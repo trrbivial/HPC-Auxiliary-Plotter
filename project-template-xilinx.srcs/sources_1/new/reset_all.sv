@@ -58,6 +58,7 @@ module reset_all # (
                 end
                 ST_RST_FIN: begin
                     reset_finished <= 0;
+                    stat <= ST_RST_IDLE;
                 end
                 default: begin
 

@@ -49,12 +49,12 @@ module mod_top(
     // output wire [3: 0] rgmii_tx_data,
 
     // 4MB SRAM 内存
-    // inout  wire [31:0] base_ram_data,   // SRAM 数据
-    // output wire [19:0] base_ram_addr,   // SRAM 地址
-    // output wire [3: 0] base_ram_be_n,   // SRAM 字节使能，低有效。如果不使用字节使能，请保持为0
-    // output wire        base_ram_ce_n,   // SRAM 片选，低有效
-    // output wire        base_ram_oe_n,   // SRAM 读使能，低有效
-    // output wire        base_ram_we_n,   // SRAM 写使能，低有效
+    inout  wire [31:0] base_ram_data,   // SRAM 数据
+    output wire [19:0] base_ram_addr,   // SRAM 地址
+    output wire [3: 0] base_ram_be_n,   // SRAM 字节使能，低有效。如果不使用字节使能，请保持为0
+    output wire        base_ram_ce_n,   // SRAM 片选，低有效
+    output wire        base_ram_oe_n,   // SRAM 读使能，低有效
+    output wire        base_ram_we_n,   // SRAM 写使能，低有效
 
     // HDMI 图像输出
     output wire [2:0] hdmi_tmds_n,    // HDMI TMDS 数据信号
@@ -82,12 +82,21 @@ module mod_top(
     assign rst = btn_rst;
 
     logic reset_finished;
+    logic draw_top_bar_finished;
+
+    logic [2:0] draw_index;
+
+    initial begin
+        draw_index = 'b10;
+    end
+
     system_status_t sys_stat;
     system_status m_system_status (
         .clk(clk),
         .rst(rst),
         .calc_mode(2'b01),
         .reset_finished(reset_finished),
+        .draw_top_bar_finished(draw_top_bar_finished),
         .mode1_input_finish(1'b1),
         .mode1_moved_or_scaled(1'b0),
         .mode1_calc_finish(1'b0),
@@ -351,9 +360,13 @@ module mod_top(
             count_ack <= 0;
         end else begin
             if (wbs_i.cyc && wbs_i.stb) begin
-                count_ack <= count_ack + 1;
-                if (count_ack == 2) begin
+                if (wbs_i.we) begin
                     wbs_o.ack <= 1;
+                end else begin
+                    count_ack <= count_ack + 1;
+                    if (count_ack == 2) begin
+                        wbs_o.ack <= 1;
+                    end
                 end
             end
             if (wbs_o.ack) begin
@@ -396,6 +409,35 @@ module mod_top(
 
         .wbm_o(wbm_o[1]),
         .reset_finished(reset_finished)
+    );
+
+    sram_signal_recv sram_wbm_i;
+    sram_signal_send sram_wbm_o;
+
+    draw_top_bar m_draw_top_bar (
+        .clk(clk),
+        .rst(rst),
+        .sys_stat(sys_stat),
+        .index(draw_index),
+        .wbm_i(wbm_i[2]),
+        .sram_wbm_i(sram_wbm_i),
+
+        .wbm_o(wbm_o[2]),
+        .sram_wbm_o(sram_wbm_o),
+        .draw_top_bar_finished(draw_top_bar_finished)
+    );
+
+    sram_controller m_sram_controller (
+        .clk(clk),
+        .rst(rst),
+        .wbs_i(sram_wbm_o),
+        .wbs_o(sram_wbm_i),
+        .sram_addr(base_ram_addr),
+        .sram_data(base_ram_data),
+        .sram_ce_n(base_ram_ce_n),
+        .sram_oe_n(base_ram_oe_n),
+        .sram_we_n(base_ram_we_n),
+        .sram_be_n(base_ram_be_n)
     );
 
     bram_of_1080p_graph graph_memory (

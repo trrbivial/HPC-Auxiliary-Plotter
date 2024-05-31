@@ -67,7 +67,7 @@ module cache2graph (
                         stat <= ST_P2G_CHECK;
                     end
                     ST_P2G_CHECK: begin
-                        if (now_pixel.x < 0 || now_pixel.y < 0 || now_pixel.x >= VGA_HSIZE || now_pixel.y >= VGA_VSIZE) begin
+                        if (now_pixel.x < 0 || now_pixel.y < 0 || now_pixel.x >= VGA_HSIZE || now_pixel.y >= VGA_VSIZE - TOP_BAR_WIDTH) begin
                             stat <= ST_P2G_NEXT;
                         end else begin
                             now_pixel_index <= (VGA_VSIZE - 1 - now_pixel.y) * VGA_HSIZE + now_pixel.x;

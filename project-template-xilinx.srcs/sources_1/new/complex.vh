@@ -28,6 +28,7 @@ localparam CALC_GIVENS_SECOND_COEF_MUL_ADD_CYCS = CALC_GIVENS_COEF_MUL_ADD_CYCS 
 localparam CALC_GIVENS_ROTATIONS_CYCS = CALC_GIVENS_SECOND_COEF_MUL_ADD_CYCS;
 
 localparam DATA_WIDTH = 32;
+localparam SRAM_ADDR_WIDTH = 20;
 localparam MAX_DEG = 6;
 
 localparam SAMPLING_DIV_N = 32'd700;
@@ -53,7 +54,7 @@ localparam BRAM_GRAPH_MEM_DEPTH = (1 << 17);
 
 localparam ROOTS_TO_PIXELS_CYCS = CP_MUL_CYCS + CP_ADD_CYCS;
 
-localparam GM_MASTER_COUNT = 2;
+localparam GM_MASTER_COUNT = 3;
 
 localparam SHIFT_SUB = 2'b01;
 localparam SHIFT_ADD = 2'b10;
@@ -72,6 +73,7 @@ localparam VGA_HSP = VGA_HFP + VGA_H_SYNC_PULSE;
 // 2200 = 1920 + 88 + 44 + 148(Back Porch)
 localparam VGA_HMAX = VGA_HSP + VGA_H_BACK_PORCH;
 
+localparam TOP_BAR_WIDTH = 144;
 localparam VGA_VSIZE = 1080;
 localparam VGA_V_FRONT_PORCH = 4;
 localparam VGA_V_SYNC_PULSE = 5;
@@ -88,6 +90,7 @@ localparam VGA_VMAX = VGA_VSP + VGA_V_BACK_PORCH;
 
 localparam VGA_RESOLUTION = VGA_HSIZE * VGA_VSIZE;
 localparam GM_ADDR_MAX = VGA_RESOLUTION / PACKED_PIXEL_COUNT;
+localparam SRAM_TOP_BAR_WIDTH = VGA_HSIZE * TOP_BAR_WIDTH * PIXEL_DATA_WIDTH / DATA_WIDTH;
 
 typedef struct packed {
     logic [PIXEL_DATA_WIDTH - 1:0] v;
@@ -246,6 +249,7 @@ typedef enum logic [2:0] {
 typedef enum logic [3:0] {
     ST_SYS_IDLE,
     ST_SYS_RESET_ALL,
+    ST_SYS_DRAW_TOP_BAR,
     ST_SYS_INPUT_CHOOSE_MODE,
     ST_SYS_MODE1_INPUT,
     ST_SYS_MODE1_RESET,
@@ -260,6 +264,17 @@ typedef enum logic [2:0] {
     ST_RST_WAIT_WRITE_ACK,
     ST_RST_FIN
 } reset_all_status_t;
+
+typedef enum logic [2:0] {
+    ST_DTB_IDLE,
+    ST_DTB_RUNNING,
+    ST_DTB_WAIT_READ_ACK1,
+    ST_DTB_READ2,
+    ST_DTB_WAIT_READ_ACK2,
+    ST_DTB_WAIT_WRITE_ACK,
+    ST_DTB_FIN
+} draw_top_bar_status_t;
+
 
 typedef enum logic [2:0] {
     ST_SAMP_IDLE,
@@ -297,6 +312,18 @@ typedef struct packed {
     logic we;
 } wbm_signal_send;
 
+typedef struct packed {
+    logic ack;
+    logic [DATA_WIDTH - 1:0] dat;
+} sram_signal_recv;
+
+typedef struct packed {
+    logic cyc;
+    logic stb;
+    logic [SRAM_ADDR_WIDTH - 1:0] adr;
+    logic [DATA_WIDTH - 1:0] dat;
+    logic we;
+} sram_signal_send;
 
 `endif
 
