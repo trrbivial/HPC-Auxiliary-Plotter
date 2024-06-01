@@ -5,8 +5,6 @@
 module system_status (
     input wire clk,
     input wire rst,
-    input wire [7:0] scancode,
-    input wire scancode_valid,
 
     input wire [1:0] calc_mode,
     input wire reset_finished,

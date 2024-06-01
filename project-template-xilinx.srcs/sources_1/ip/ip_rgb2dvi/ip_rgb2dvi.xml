@@ -446,7 +446,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Sun May 26 13:29:14 UTC 2024</spirit:value>
+            <spirit:value>Sat Jun 01 13:29:15 UTC 2024</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
@@ -465,11 +465,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Sun May 26 13:29:14 UTC 2024</spirit:value>
+            <spirit:value>Sat Jun 01 13:29:14 UTC 2024</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:a27a11f7</spirit:value>
+            <spirit:value>9:0fda2bd9</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -485,11 +485,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Sun May 26 13:29:14 UTC 2024</spirit:value>
+            <spirit:value>Sat Jun 01 13:29:14 UTC 2024</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:a27a11f7</spirit:value>
+            <spirit:value>9:0fda2bd9</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -500,7 +500,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:a27a11f7</spirit:value>
+            <spirit:value>9:0fda2bd9</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -516,11 +516,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Sun May 26 13:29:14 UTC 2024</spirit:value>
+            <spirit:value>Sat Jun 01 13:29:14 UTC 2024</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:a27a11f7</spirit:value>
+            <spirit:value>9:0fda2bd9</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -536,11 +536,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Sun May 26 13:29:14 UTC 2024</spirit:value>
+            <spirit:value>Sat Jun 01 13:29:14 UTC 2024</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:e6e19140</spirit:value>
+            <spirit:value>9:56731794</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -556,11 +556,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Sun May 26 13:29:14 UTC 2024</spirit:value>
+            <spirit:value>Sat Jun 01 13:29:14 UTC 2024</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:e6e19140</spirit:value>
+            <spirit:value>9:56731794</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -784,7 +784,7 @@
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>kClkRange</spirit:name>
         <spirit:displayName>Kclkrange</spirit:displayName>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.kClkRange" spirit:minimum="0" spirit:rangeType="long">2</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.kClkRange" spirit:minimum="0" spirit:rangeType="long">1</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="boolean">
         <spirit:name>kD0Swap</spirit:name>
@@ -1018,7 +1018,7 @@
     <spirit:parameter>
       <spirit:name>kClkRange</spirit:name>
       <spirit:displayName>TMDS clock range</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.kClkRange" spirit:choiceRef="choice_pairs_236e8b89">2</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.kClkRange" spirit:choiceRef="choice_pairs_236e8b89">1</spirit:value>
       <spirit:vendorExtensions>
         <xilinx:parameterInfo>
           <xilinx:enablement>

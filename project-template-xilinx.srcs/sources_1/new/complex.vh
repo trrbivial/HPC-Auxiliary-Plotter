@@ -93,6 +93,10 @@ localparam GM_ADDR_MAX = VGA_RESOLUTION / PACKED_PIXEL_COUNT;
 localparam SRAM_TOP_BAR_WIDTH = VGA_HSIZE * TOP_BAR_WIDTH * PIXEL_DATA_WIDTH / DATA_WIDTH;
 localparam OPTION_COUNT = 7;
 
+localparam BACKGROUND_RED = 8'd244;
+localparam BACKGROUND_GREEN = 8'd240;
+localparam BACKGROUND_BLUE = 8'd231;
+
 typedef struct packed {
     logic [PIXEL_DATA_WIDTH - 1:0] v;
 } pixel_data;

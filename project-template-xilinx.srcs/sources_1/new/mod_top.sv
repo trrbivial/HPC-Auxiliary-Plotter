@@ -74,7 +74,7 @@ module mod_top(
     ip_pll u_ip_pll(
         .clk_in1  (clk_in    ),  // 输入 100MHz 时钟
         .reset    (btn_rst   ),  // 复位信号，高有效
-        .clk_out1 (clk_hdmi  ),  // 118.800MHz 像素时钟
+        .clk_out1 (clk_hdmi  ),  // 148.500MHz 像素时钟
         .locked   (clk_locked)   // 高表示 hdmi 时钟已经稳定输出
     );
     logic clk, rst;
@@ -206,7 +206,7 @@ module mod_top(
 
 
 
-    // 图像输出，分辨率 1920x1080@48Hz，像素时钟为 118.800MHz
+    // 图像输出，分辨率 1920x1080@60Hz，像素时钟为 148.500MHz
     wire [11:0] hdata;  // 当前横坐标
     wire [11:0] vdata;  // 当前纵坐标
 
@@ -225,7 +225,7 @@ module mod_top(
     assign video_clk = clk_hdmi;
 
 
-    video #(12, VGA_HSIZE, VGA_HFP, VGA_HSP, VGA_HMAX, VGA_VSIZE, VGA_VFP, VGA_VSP, VGA_VMAX, 1, 1) u_video1080p48hz (
+    video #(12, VGA_HSIZE, VGA_HFP, VGA_HSP, VGA_HMAX, VGA_VSIZE, VGA_VFP, VGA_VSP, VGA_VMAX, 1, 1) u_video1080p60hz (
         .clk(video_clk), 
         .hdata(hdata), //横坐标
         .vdata(vdata), //纵坐标
@@ -445,7 +445,6 @@ module mod_top(
         .wbs_i(wbs_o),
         .wbs_o(wbs_i)
     );
-
 
     cache2graph m_cache2graph (
         .clk(clk),

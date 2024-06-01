@@ -36,20 +36,20 @@ module sram_controller #(
     logic [DATA_WIDTH - 1:0] data_reg;
     logic [DATA_WIDTH / 8 - 1:0] be_n_reg;
 
-    assign wb_o.ack = stat == READ1 || (stat == INIT && wb_i.we);
-    assign wb_o.dat = sram_data_i;
+    assign wbs_o.ack = stat == READ1 || (stat == INIT && wbs_i.we);
+    assign wbs_o.dat = sram_data_i;
 
 
     always_comb begin
-        sram_addr = wb_i.adr;
-        sram_data_t = ~wb_i.we;
-        sram_data_o = wb_i.dat;
-        sram_ce_n = stat == INIT && !wb_i.stb;
-        sram_oe_n = wb_i.we;
+        sram_addr = wbs_i.adr;
+        sram_data_t = ~wbs_i.we;
+        sram_data_o = wbs_i.dat;
+        sram_ce_n = stat == INIT && !wbs_i.stb;
+        sram_oe_n = wbs_i.we;
         sram_we_n = stat != WRITE1;
 
         sram_be_n = 4'b0;
-        //sram_be_n = ~wb_i.sel;
+        //sram_be_n = ~wbs_i.sel;
         if (stat == WRITE1 || stat == WRITE2) begin
           sram_addr   = addr_reg;
           sram_data_t = 0;
@@ -68,8 +68,8 @@ module sram_controller #(
         end else begin
             case (stat)
                 INIT: begin
-                    if (wb_i.cyc && wb_i.stb) begin
-                        if (wb_i.we) begin
+                    if (wbs_i.cyc && wbs_i.stb) begin
+                        if (wbs_i.we) begin
                             stat <= WRITE1;
                             addr_reg <= sram_addr;
                             data_reg <= sram_data_o;
