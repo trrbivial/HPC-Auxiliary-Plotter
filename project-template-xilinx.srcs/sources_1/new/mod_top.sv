@@ -212,6 +212,7 @@ module mod_top(
         .clk(clk),
         .rst(rst),
         .in(mat_in),
+        .mat_n(index_to_draw == 'b01 ? 4 - 1 : MAX_DEG - 1),
 
         .out(roots_out),
         .in_ready(iter_in_ready)

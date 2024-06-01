@@ -9,6 +9,7 @@ module qr_decomp # (
     input wire clk,
     input wire rst,
     input wire mat_axis in,
+    input wire [2:0] mat_n,
 
     output wire roots_axis out,
     output wire in_ready
@@ -99,7 +100,7 @@ module qr_decomp # (
                         select_in.meta.r <= in.meta;
                         select_in.meta.row_id <= 1;
                         select_in.meta.col_id <= 0;
-                        select_in.meta.lim <= MAX_N - 1;
+                        select_in.meta.lim <= mat_n;
                         select_in.meta.dir <= 0;
                         select_in.meta.mul_mat_pos <= 0;
                         select_in.meta.shift <= SHIFT_SUB;
@@ -112,7 +113,7 @@ module qr_decomp # (
                     select_in.meta.r <= in.meta;
                     select_in.meta.row_id <= 1;
                     select_in.meta.col_id <= 0;
-                    select_in.meta.lim <= MAX_N - 1;
+                    select_in.meta.lim <= mat_n;
                     select_in.meta.dir <= 0;
                     select_in.meta.mul_mat_pos <= 0;
                     select_in.meta.shift <= SHIFT_SUB;
