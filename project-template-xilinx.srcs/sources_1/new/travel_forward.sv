@@ -13,8 +13,7 @@ module travel_forward #(
 
     output reg [$clog2(BRAM_GRAPH_MEM_DEPTH) - 1:0] addr,
     output reg enb,
-    output reg [7:0] pixel,
-    output reg vga_is_reading
+    output reg [7:0] pixel
 );
     typedef enum logic [2:0] {
         INIT,
@@ -35,14 +34,9 @@ module travel_forward #(
         enb = 'b0;
         addr = 'b1; 
         now_data_reg = 'b0;
-        vga_is_reading = 'b1;
         pixel = 'b0;
     end
     always @ (posedge clk) begin
-        vga_is_reading <= 0;
-        if (data_enable || (hdata >= HMAX - 5 && vdata + 1 < VSIZE)) begin
-            vga_is_reading <= 1;
-        end
         if (data_enable) begin
             if (hdata[$clog2(PACKED_PIXEL_COUNT) - 1:0] < 4'b1111) begin
                 pixel <= {now_data_reg.p[hdata[$clog2(PACKED_PIXEL_COUNT) - 1:0] + 4'b1], 4'b0000};

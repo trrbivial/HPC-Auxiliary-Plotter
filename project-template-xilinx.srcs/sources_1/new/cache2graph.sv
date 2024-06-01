@@ -8,7 +8,6 @@ module cache2graph (
     input wire [BRAM_1024_ADDR_WIDTH - 1:0] rear,
     input wire [CP_DATA_WIDTH - 1:0] bram_data,
     input wire wbm_signal_recv wbm_i,
-    input wire vga_is_reading,
 
     output wire [BRAM_1024_ADDR_WIDTH - 1:0] bram_addr[MAX_DEG - 1:0],
     output wire [2:0] ind,

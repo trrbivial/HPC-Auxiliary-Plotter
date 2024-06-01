@@ -136,11 +136,8 @@ module mod_top(
     logic draw_top_bar_finished;
 
     logic [2:0] index_to_draw;
-
-    initial begin
-        index_to_draw = 'b10;
-    end
-
+    cp_axis screen_offset;
+    float_axis screen_scalar;
 
     system_status_t sys_stat;
     system_status m_system_status (
@@ -164,146 +161,20 @@ module mod_top(
         .system_status(sys_stat)
     );
 
-    always @(posedge clk, posedge rst) begin
-        if (rst) begin
-            index_to_draw <= 'b10;
-            option_select_changed <= 0;
-            option_select_confirmed <= 0;
-        end else begin
-            if (option_select_changed) begin
-                option_select_changed <= 0;
-            end
-            if (option_select_confirmed) begin
-                option_select_confirmed <= 0;
-            end
-            if (sys_stat == ST_SYS_OPTION_SELECTION) begin
-                if (scancode_valid) begin
-                    case (scancode)
-                        // 'j'
-                        8'h3B: begin
-                            index_to_draw <= index_to_draw == OPTION_COUNT - 1 ? 0 : index_to_draw + 1;
-                            option_select_changed <= 1;
-                        end
+    keyboard_parser m_keyboard_parser (
+        .clk(clk),
+        .rst(rst),
+        .sys_stat(sys_stat),
+        .scancode_valid(scancode_valid),
+        .scancode(scancode),
 
-                        // 'k'
-                        8'h42: begin
-                            index_to_draw <= index_to_draw == 0 ? OPTION_COUNT - 1 : index_to_draw - 1;
-                            option_select_changed <= 1;
-                        end
-
-                        // '\enter'
-                        8'h5A: begin
-                            option_select_confirmed <= 1;
-                        end
-                        default: begin
-                        end
-                    endcase
-                end
-            end
-        end
-    end
-
-
-
-
-    // 图像输出，分辨率 1920x1080@60Hz，像素时钟为 148.500MHz
-    wire [11:0] hdata;  // 当前横坐标
-    wire [11:0] vdata;  // 当前纵坐标
-
-    wire [3:0] video_gray4; // 像素
-    wire [7:0] video_gray8; // 灰度
-
-    wire video_clk;     // 像素时钟
-    wire video_hsync;   // 行同步信号
-    wire video_vsync;   // 场同步信号
-    logic video_de;
-
-    wire [7:0] video_red; // 红色分量
-    wire [7:0] video_green; // 绿色分量
-    wire [7:0] video_blue; // 蓝色分量
-
-    assign video_clk = clk_hdmi;
-
-
-    video #(12, VGA_HSIZE, VGA_HFP, VGA_HSP, VGA_HMAX, VGA_VSIZE, VGA_VFP, VGA_VSP, VGA_VMAX, 1, 1) u_video1080p60hz (
-        .clk(video_clk), 
-        .hdata(hdata), //横坐标
-        .vdata(vdata), //纵坐标
-        .hsync(video_hsync),
-        .vsync(video_vsync),
-        .data_enable(video_de)
+        .index_to_draw(index_to_draw),
+        .option_select_changed(option_select_changed),
+        .option_select_confirmed(option_select_confirmed),
+        .screen_offset(screen_offset),
+        .screen_scalar(screen_scalar)
     );
 
-    // 遍历 BRAM 地址，以得到存放的像素点
-    // 注意根据 横坐标、纵坐标 预读取数据，以保证同步信号
-    logic gm_clk_b;
-    logic gm_enb;
-    logic [$clog2(BRAM_GRAPH_MEM_DEPTH) - 1:0] gm_addrb;
-    packed_pixel_data gm_datab;
-    assign gm_clk_b = video_clk;
-
-    logic vga_is_reading_src;
-    logic vga_is_reading_dst;
-
-    xpm_cdc_single #(
-        .DEST_SYNC_FF(2),   // DECIMAL; range: 2-10
-        .INIT_SYNC_FF(0),   // DECIMAL; 0=disable simulation init values, 1=enable simulation init values
-        .SIM_ASSERT_CHK(0), // DECIMAL; 0=disable simulation messages, 1=enable simulation messages
-        .SRC_INPUT_REG(0)   // DECIMAL; 0=do not register input, 1=register input
-    )
-    xpm_cdc_single_inst_vga (
-        // 1-bit input: optional; required when SRC_INPUT_REG = 1
-        .src_clk(video_clk),
-        // 1-bit input: Clock signal for the destination clock domain.
-        .dest_clk(clk),
-
-        // 1-bit input: Input signal to be synchronized to dest_clk domain.
-        .src_in(vga_is_reading_src),
-        // 1-bit output: src_in synchronized to the destination clock domain. This output is registered.
-        .dest_out(vga_is_reading_dst)
-    );
-
-    travel_forward #(12, VGA_HSIZE, VGA_HMAX, VGA_VSIZE, VGA_VMAX) m_travel_forward (
-        .clk(video_clk),
-        .hdata(hdata),
-        .vdata(vdata),
-        .data_enable(video_de),
-        .data(gm_datab),
-
-        .addr(gm_addrb),
-        .enb(gm_enb),
-        .pixel(video_gray8),
-        .vga_is_reading(vga_is_reading_src)
-    );
-
-    // 把 RGB 转化为 HDMI TMDS 信号并输出
-    ip_rgb2dvi u_ip_rgb2dvi (
-        .PixelClk   (video_clk),
-        .vid_pVDE   (video_de),
-        .vid_pHSync (video_hsync),
-        .vid_pVSync (video_vsync),
-        .vid_pData  (video_de ? {8'd255 ^ video_gray8, 8'd255 ^ video_gray8, 8'd255 ^ video_gray8} : {'b0, 'b0, 'b0}),
-        .aRst       (~clk_locked),
-
-        .TMDS_Clk_p  (hdmi_tmds_c_p),
-        .TMDS_Clk_n  (hdmi_tmds_c_n),
-        .TMDS_Data_p (hdmi_tmds_p),
-        .TMDS_Data_n (hdmi_tmds_n)
-    );
-
-    cp_axis screen_offset;
-    float_axis screen_scalar;
-    logic rsted;
-
-    always_ff @(posedge clk, posedge rst) begin
-        if (rst) begin
-            screen_offset <= {1'b1, {POS_1_5, NEG_0_5}};
-            screen_scalar <= {1'b1, TWO_HUNDRED_FL};
-            rsted <= 1;
-        end else begin
-
-        end
-    end
 
     coef_axis coef_in;
     poly_axis poly_in;
@@ -311,29 +182,15 @@ module mod_top(
     roots_axis roots_out;
     logic iter_in_ready;
 
-    always_comb begin
-        coef_in = 0;
-        if (sys_stat == ST_SYS_MODE1_RUNNING) begin
-            coef_in.valid = 1;
-            coef_in.spm.mode = 1;
-            coef_in.spm.range = ONE_HUNDRED_FL;
-            coef_in.p_t1.a[1] = {32'b0, `neg_fl(ONE_FL)};
-            coef_in.p_t1.a[0] = ONE_CP; 
-            coef_in.ind_t1 = 0;
+    coef_in_controller m_coef_in_controller (
+        .clk(clk),
+        .rst(rst),
+        .sys_stat(sys_stat),
+        .index_to_draw(index_to_draw),
+        .option_select_confirmed(option_select_confirmed),
 
-            coef_in.p_t2.a[1] = ONE_CP;
-            coef_in.p_t2.a[0] = {32'b0, ONE_FL};
-            coef_in.ind_t2 = 5;
-
-            coef_in.p_c.a[0] = 0;
-            coef_in.p_c.a[1] = 0;
-            coef_in.p_c.a[2] = {32'b0, `neg_fl(ONE_FL)};
-            coef_in.p_c.a[3] = ONE_CP;
-            coef_in.p_c.a[4] = {32'b0, `neg_fl(ONE_FL)};
-            coef_in.p_c.a[5] = 0;
-            coef_in.p_c.a[6] = ONE_CP;
-        end
-    end
+        .coef_in(coef_in)
+    );
 
     generate_poly m_gen_poly (
         .clk(clk),
@@ -452,7 +309,6 @@ module mod_top(
         .rear(bram_a_addr),
         .bram_data(bram_b_data[index]),
         .wbm_i(wbm_i[0]),
-        .vga_is_reading(vga_is_reading_dst),
 
         .bram_addr(bram_b_addr),
         .ind(index),
@@ -498,6 +354,68 @@ module mod_top(
         .sram_oe_n(base_ram_oe_n),
         .sram_we_n(base_ram_we_n),
         .sram_be_n(base_ram_be_n)
+    );
+
+    // 图像输出，分辨率 1920x1080@60Hz，像素时钟为 148.500MHz
+    wire [11:0] hdata;  // 当前横坐标
+    wire [11:0] vdata;  // 当前纵坐标
+
+    wire [3:0] video_gray4; // 像素
+    wire [7:0] video_gray8; // 灰度
+
+    wire video_clk;     // 像素时钟
+    wire video_hsync;   // 行同步信号
+    wire video_vsync;   // 场同步信号
+    logic video_de;
+
+    wire [7:0] video_red; // 红色分量
+    wire [7:0] video_green; // 绿色分量
+    wire [7:0] video_blue; // 蓝色分量
+
+    assign video_clk = clk_hdmi;
+
+    video #(12, VGA_HSIZE, VGA_HFP, VGA_HSP, VGA_HMAX, VGA_VSIZE, VGA_VFP, VGA_VSP, VGA_VMAX, 1, 1) u_video1080p60hz (
+        .clk(video_clk), 
+        .hdata(hdata), //横坐标
+        .vdata(vdata), //纵坐标
+        .hsync(video_hsync),
+        .vsync(video_vsync),
+        .data_enable(video_de)
+    );
+
+    // 遍历 BRAM 地址，以得到存放的像素点
+    // 注意根据 横坐标、纵坐标 预读取数据，以保证同步信号
+    logic gm_clk_b;
+    logic gm_enb;
+    logic [$clog2(BRAM_GRAPH_MEM_DEPTH) - 1:0] gm_addrb;
+    packed_pixel_data gm_datab;
+    assign gm_clk_b = video_clk;
+
+    travel_forward #(12, VGA_HSIZE, VGA_HMAX, VGA_VSIZE, VGA_VMAX) m_travel_forward (
+        .clk(video_clk),
+        .hdata(hdata),
+        .vdata(vdata),
+        .data_enable(video_de),
+        .data(gm_datab),
+
+        .addr(gm_addrb),
+        .enb(gm_enb),
+        .pixel(video_gray8)
+    );
+
+    // 把 RGB 转化为 HDMI TMDS 信号并输出
+    ip_rgb2dvi u_ip_rgb2dvi (
+        .PixelClk   (video_clk),
+        .vid_pVDE   (video_de),
+        .vid_pHSync (video_hsync),
+        .vid_pVSync (video_vsync),
+        .vid_pData  (video_de ? {8'd255 ^ video_gray8, 8'd255 ^ video_gray8, 8'd255 ^ video_gray8} : 'b0),
+        .aRst       (~clk_locked),
+
+        .TMDS_Clk_p  (hdmi_tmds_c_p),
+        .TMDS_Clk_n  (hdmi_tmds_c_n),
+        .TMDS_Data_p (hdmi_tmds_p),
+        .TMDS_Data_n (hdmi_tmds_n)
     );
 
     bram_of_1080p_graph graph_memory (
