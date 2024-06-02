@@ -5,8 +5,10 @@ localparam ONE_FL = 32'h3F800000;
 localparam FIFTEEN_FL = 32'h41700000; // 15.0
 localparam SIXTY_FL = 32'h42700000; // 60.0
 localparam ONE_HUNDRED_FL = 32'h42C80000; // 100.0
+localparam ONE_HUNDRED_AND_SIXTY_FL = 32'h43200000; // 160.0
 localparam TWO_HUNDRED_FL = 32'h43480000; // 200.0
 localparam FIVE_HUNDRED_FL = 32'h43FA0000; // 500.0
+localparam SEVEN_HUNDRED_FL = 32'h442F0000; // 700.0
 localparam ONE_THOUSAND_FL = 32'h447A0000; // 1000.0
 localparam ONE_THOUSAND_AND_TWO_HUNDRED_FL = 32'h44960000; // 1200.0
 localparam NEG_0_5 = 32'hBF000000; // -0.5
@@ -15,7 +17,7 @@ localparam ONE_CP = {ONE_FL, 32'b0};
 localparam NEG_ONE_CP = {{ONE_FL[31] ^ 1'b1, ONE_FL[30:0]}, 32'b0};
 localparam PI = 32'h40490FDB;
 
-localparam FL_MUL_CYCS = 8;
+localparam FL_MUL_CYCS = 6;
 localparam FL_ADD_CYCS = 11;
 localparam FL_RECIPROCAL_SQRT_CYCS = 32;
 

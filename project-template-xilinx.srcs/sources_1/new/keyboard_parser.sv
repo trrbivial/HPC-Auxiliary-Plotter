@@ -27,8 +27,8 @@ module keyboard_parser (
 
     always_ff @(posedge clk, posedge rst) begin
         if (rst) begin
-            screen_offset_reg <= {1'b1, {POS_1_5, NEG_0_5}};
-            screen_scalar_reg <= {1'b1, TWO_HUNDRED_FL};
+            screen_offset_reg <= 0;
+            screen_scalar_reg <= 0;
         end else begin
             if (sys_stat == ST_SYS_MODE1_RUNNING) begin
                 // TEMPRARY
@@ -42,8 +42,8 @@ module keyboard_parser (
                         screen_scalar_reg <= {1'b1, FIVE_HUNDRED_FL};
                     end
                     'b10: begin
-                        screen_offset_reg <= {1'b1, {POS_1_5, NEG_0_5}};
-                        screen_scalar_reg <= {1'b1, TWO_HUNDRED_FL};
+                        screen_offset_reg <= {1'b1, 64'b0};
+                        screen_scalar_reg <= {1'b1, ONE_HUNDRED_AND_SIXTY_FL};
                     end
                 endcase
 
