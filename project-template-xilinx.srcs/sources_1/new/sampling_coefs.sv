@@ -64,6 +64,17 @@ module sampling_coefs # (
         .m_axis_result_tvalid(t2_tmp.valid)
     );
 
+    circle_chart m_circle_chart (
+        .clk(clk),
+        .rst(rst),
+        .cnt_valid(cnt_valid & !spm.meta.mode),
+        .t1_cnt(t1_cnt + DIV_N - 1),
+        .t2_cnt(t2_cnt + DIV_N - 1),
+        .t1_circle(t1_circle),
+        .t2_circle(t2_circle)
+    );
+
+    /*
     real2circle real_to_circle_1 (
         clk, rst, 
         {t1_tmp.valid & !spm.meta.mode, t1_tmp.meta},
@@ -74,6 +85,7 @@ module sampling_coefs # (
         {t2_tmp.valid & !spm.meta.mode, t2_tmp.meta},
         t2_circle
     );
+    */
 
     assign t1 = spm.meta.mode ? {t1_tmp.valid, {t1_tmp.meta, 32'b0}} : t1_circle;
     assign t2 = spm.meta.mode ? {t2_tmp.valid, {t2_tmp.meta, 32'b0}} : t2_circle;

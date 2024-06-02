@@ -23,7 +23,8 @@ module single_shift # (
     cp_axis delta;
     assign delta.valid = in.valid;
     assign delta.meta = 
-        in.meta.shift == SHIFT_SUB ? `neg_cp(in.meta.r.r[lim].c[lim]) :
+        in.meta.shift == SHIFT_SUB ? 
+            (in.meta.r.r[lim].c[lim] == 'b0 ? NEG_ONE_CP : `neg_cp(in.meta.r.r[lim].c[lim])) :
         in.meta.shift == SHIFT_ADD ? in.meta.offset :
         0;
 
@@ -50,6 +51,9 @@ module single_shift # (
                             s[i] <= s[i - 1];
                             if (TYPE == SHIFT_SUB && s[i - 1].meta.shift == SHIFT_SUB) begin
                                 s[i].meta.offset <= s[i - 1].meta.r.r[s[i - 1].meta.lim].c[s[i - 1].meta.lim];
+                                if (s[i - 1].meta.r.r[s[i - 1].meta.lim].c[s[i - 1].meta.lim] == 'b0) begin
+                                    s[i].meta.offset <= ONE_CP;
+                                end
                             end
                         end
                     end

@@ -35,7 +35,7 @@ module keyboard_parser (
                 case (index_to_draw) 
                     'b00: begin
                         screen_offset_reg <= {1'b1, 64'b0};
-                        screen_scalar_reg <= {1'b1, ONE_THOUSAND_AND_TWO_HUNDRED_FL};
+                        screen_scalar_reg <= {1'b1, ONE_THOUSAND_FL};
                     end
                     'b01: begin
                         screen_offset_reg <= {1'b1, 64'b0};
