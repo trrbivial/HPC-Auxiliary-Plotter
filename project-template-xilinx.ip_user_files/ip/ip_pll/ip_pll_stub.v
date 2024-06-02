@@ -1,10 +1,10 @@
 // Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2019.2 (lin64) Build 2708876 Wed Nov  6 21:39:14 MST 2019
-// Date        : Wed Mar 27 13:48:53 2024
-// Host        : cslab-alder running 64-bit Debian GNU/Linux 12 (bookworm)
+// Date        : Sat Jun  1 21:25:34 2024
+// Host        : koishi running 64-bit Arch Linux
 // Command     : write_verilog -force -mode synth_stub
-//               /home/jiegec/project-template-xilinx/project-template-xilinx.srcs/sources_1/ip/ip_pll/ip_pll_stub.v
+//               /home/satori/vivado/digital-design-grp-03/project-template-xilinx.srcs/sources_1/ip/ip_pll/ip_pll_stub.v
 // Design      : ip_pll
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xc7a200tfbg484-2

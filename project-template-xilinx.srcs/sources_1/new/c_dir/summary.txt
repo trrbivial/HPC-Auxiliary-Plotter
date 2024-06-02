@@ -1,0 +1,11 @@
+❯ gcc test_cycles.c -o test
+❯ ./test
+ cpu MHz                : 2304.302
+❯ g++ qr_decomp_iter.cpp
+❯ time ./a.out
+160000
+./a.out  47.85s user 0.00s system 99% cpu 47.861 total
+
+47.861 s * 2304.302 MHz / 160000 = 689285.447194 cycs / iteration
+
+digital design 10 * 10 + 8 * 10 + 6 * 10 + 4 * 10 + 2 * 10 = 300 cycs

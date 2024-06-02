@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="cache2graph_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="\$unit_cache2graph_sv " />
+            <top_module name="cache2graph_tb" />
+            <top_module name="glbl" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="803833fs"></ZoomStartTime>
+      <ZoomEndTime time="1039234fs"></ZoomEndTime>
+      <Cursor1Time time="1000000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="273"></NameColumnWidth>
+      <ValueColumnWidth column_width="215"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="23" />
+   <wvobject type="logic" fp_name="/cache2graph_tb/clk">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cache2graph_tb/rst">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cache2graph_tb/roots_r1">
+      <obj_property name="ElementShortName">roots_r1</obj_property>
+      <obj_property name="ObjectShortName">roots_r1</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cache2graph_tb/roots_r2">
+      <obj_property name="ElementShortName">roots_r2</obj_property>
+      <obj_property name="ObjectShortName">roots_r2</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cache2graph_tb/valid">
+      <obj_property name="ElementShortName">valid</obj_property>
+      <obj_property name="ObjectShortName">valid</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cache2graph_tb/r1">
+      <obj_property name="ElementShortName">r1</obj_property>
+      <obj_property name="ObjectShortName">r1</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cache2graph_tb/pixels_out">
+      <obj_property name="ElementShortName">pixels_out</obj_property>
+      <obj_property name="ObjectShortName">pixels_out</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/cache2graph_tb/pixels_out.valid">
+         <obj_property name="ElementShortName">.valid</obj_property>
+         <obj_property name="ObjectShortName">.valid</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/cache2graph_tb/pixels_out.meta">
+         <obj_property name="ElementShortName">.meta</obj_property>
+         <obj_property name="ObjectShortName">.meta</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject type="array" fp_name="/cache2graph_tb/pixels_out.meta.p">
+            <obj_property name="ElementShortName">.p[5:0]</obj_property>
+            <obj_property name="ObjectShortName">.p[5:0]</obj_property>
+            <obj_property name="isExpanded"></obj_property>
+            <wvobject type="array" fp_name="/cache2graph_tb/pixels_out.meta.p[5]">
+               <obj_property name="ElementShortName">[5]</obj_property>
+               <obj_property name="ObjectShortName">[5]</obj_property>
+               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/cache2graph_tb/pixels_out.meta.p[4]">
+               <obj_property name="ElementShortName">[4]</obj_property>
+               <obj_property name="ObjectShortName">[4]</obj_property>
+               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/cache2graph_tb/pixels_out.meta.p[3]">
+               <obj_property name="ElementShortName">[3]</obj_property>
+               <obj_property name="ObjectShortName">[3]</obj_property>
+               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/cache2graph_tb/pixels_out.meta.p[2]">
+               <obj_property name="ElementShortName">[2]</obj_property>
+               <obj_property name="ObjectShortName">[2]</obj_property>
+               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/cache2graph_tb/pixels_out.meta.p[1]">
+               <obj_property name="ElementShortName">[1]</obj_property>
+               <obj_property name="ObjectShortName">[1]</obj_property>
+               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/cache2graph_tb/pixels_out.meta.p[0]">
+               <obj_property name="ElementShortName">[0]</obj_property>
+               <obj_property name="ObjectShortName">[0]</obj_property>
+               <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+            </wvobject>
+         </wvobject>
+      </wvobject>
+   </wvobject>
+   <wvobject type="array" fp_name="/cache2graph_tb/bram_a_addr">
+      <obj_property name="ElementShortName">bram_a_addr[9:0]</obj_property>
+      <obj_property name="ObjectShortName">bram_a_addr[9:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cache2graph_tb/bram_we">
+      <obj_property name="ElementShortName">bram_we</obj_property>
+      <obj_property name="ObjectShortName">bram_we</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cache2graph_tb/bram_a_data">
+      <obj_property name="ElementShortName">bram_a_data[5:0][63:0]</obj_property>
+      <obj_property name="ObjectShortName">bram_a_data[5:0][63:0]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cache2graph_tb/index">
+      <obj_property name="ElementShortName">index[2:0]</obj_property>
+      <obj_property name="ObjectShortName">index[2:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cache2graph_tb/bram_b_addr">
+      <obj_property name="ElementShortName">bram_b_addr[5:0][9:0]</obj_property>
+      <obj_property name="ObjectShortName">bram_b_addr[5:0][9:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cache2graph_tb/bram_b_data">
+      <obj_property name="ElementShortName">bram_b_data[5:0][63:0]</obj_property>
+      <obj_property name="ObjectShortName">bram_b_data[5:0][63:0]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cache2graph_tb/graph_memory_a_we">
+      <obj_property name="ElementShortName">graph_memory_a_we</obj_property>
+      <obj_property name="ObjectShortName">graph_memory_a_we</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cache2graph_tb/graph_memory_a_addr">
+      <obj_property name="ElementShortName">graph_memory_a_addr[18:0]</obj_property>
+      <obj_property name="ObjectShortName">graph_memory_a_addr[18:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cache2graph_tb/graph_memory_a_in_data">
+      <obj_property name="ElementShortName">graph_memory_a_in_data[15:0]</obj_property>
+      <obj_property name="ObjectShortName">graph_memory_a_in_data[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cache2graph_tb/graph_memory_a_out_data">
+      <obj_property name="ElementShortName">graph_memory_a_out_data[15:0]</obj_property>
+      <obj_property name="ObjectShortName">graph_memory_a_out_data[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cache2graph_tb/clk_b">
+      <obj_property name="ElementShortName">clk_b</obj_property>
+      <obj_property name="ObjectShortName">clk_b</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cache2graph_tb/graph_memory_b_addr">
+      <obj_property name="ElementShortName">graph_memory_b_addr[18:0]</obj_property>
+      <obj_property name="ObjectShortName">graph_memory_b_addr[18:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cache2graph_tb/graph_memory_b_data">
+      <obj_property name="ElementShortName">graph_memory_b_data[15:0]</obj_property>
+      <obj_property name="ObjectShortName">graph_memory_b_data[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cache2graph_tb/m_cache2graph/stat">
+      <obj_property name="ElementShortName">stat[2:0]</obj_property>
+      <obj_property name="ObjectShortName">stat[2:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cache2graph_tb/m_cache2graph/now_pixel">
+      <obj_property name="ElementShortName">now_pixel</obj_property>
+      <obj_property name="ObjectShortName">now_pixel</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cache2graph_tb/m_cache2graph/now_pixel_index">
+      <obj_property name="ElementShortName">now_pixel_index[31:0]</obj_property>
+      <obj_property name="ObjectShortName">now_pixel_index[31:0]</obj_property>
+   </wvobject>
+</wave_config>

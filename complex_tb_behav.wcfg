@@ -1,0 +1,653 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="givens_rotations_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="\$unit_complex_sv " />
+            <top_module name="givens_rotations_tb" />
+            <top_module name="glbl" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="837160fs"></ZoomStartTime>
+      <ZoomEndTime time="2006161fs"></ZoomEndTime>
+      <Cursor1Time time="1414160fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="273"></NameColumnWidth>
+      <ValueColumnWidth column_width="223"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="21" />
+   <wvobject type="logic" fp_name="/givens_rotations_tb/dut/clk">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/givens_rotations_tb/dut/rst">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/givens_rotations_tb/dut/in">
+      <obj_property name="ElementShortName">in</obj_property>
+      <obj_property name="ObjectShortName">in</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/givens_rotations_tb/dut/in.valid">
+         <obj_property name="ElementShortName">.valid</obj_property>
+         <obj_property name="ObjectShortName">.valid</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/givens_rotations_tb/dut/in.meta">
+         <obj_property name="ElementShortName">.meta</obj_property>
+         <obj_property name="ObjectShortName">.meta</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject type="array" fp_name="/givens_rotations_tb/dut/in.meta.q">
+            <obj_property name="ElementShortName">.q</obj_property>
+            <obj_property name="ObjectShortName">.q</obj_property>
+            <obj_property name="isExpanded"></obj_property>
+            <wvobject type="array" fp_name="/givens_rotations_tb/dut/in.meta.q.r">
+               <obj_property name="ElementShortName">.r[5:0]</obj_property>
+               <obj_property name="ObjectShortName">.r[5:0]</obj_property>
+               <wvobject type="array" fp_name="/givens_rotations_tb/dut/in.meta.q.r[5]">
+                  <obj_property name="ElementShortName">[5]</obj_property>
+                  <obj_property name="ObjectShortName">[5]</obj_property>
+                  <obj_property name="isExpanded"></obj_property>
+                  <wvobject type="array" fp_name="/givens_rotations_tb/dut/in.meta.q.r[5].c">
+                     <obj_property name="ElementShortName">.c[5:0]</obj_property>
+                     <obj_property name="ObjectShortName">.c[5:0]</obj_property>
+                     <obj_property name="isExpanded"></obj_property>
+                  </wvobject>
+               </wvobject>
+               <wvobject type="array" fp_name="/givens_rotations_tb/dut/in.meta.q.r[4]">
+                  <obj_property name="ElementShortName">[4]</obj_property>
+                  <obj_property name="ObjectShortName">[4]</obj_property>
+                  <obj_property name="isExpanded"></obj_property>
+                  <wvobject type="array" fp_name="/givens_rotations_tb/dut/in.meta.q.r[4].c">
+                     <obj_property name="ElementShortName">.c[5:0]</obj_property>
+                     <obj_property name="ObjectShortName">.c[5:0]</obj_property>
+                     <obj_property name="isExpanded"></obj_property>
+                  </wvobject>
+               </wvobject>
+               <wvobject type="array" fp_name="/givens_rotations_tb/dut/in.meta.q.r[3]">
+                  <obj_property name="ElementShortName">[3]</obj_property>
+                  <obj_property name="ObjectShortName">[3]</obj_property>
+                  <obj_property name="isExpanded"></obj_property>
+                  <wvobject type="array" fp_name="/givens_rotations_tb/dut/in.meta.q.r[3].c">
+                     <obj_property name="ElementShortName">.c[5:0]</obj_property>
+                     <obj_property name="ObjectShortName">.c[5:0]</obj_property>
+                     <obj_property name="isExpanded"></obj_property>
+                  </wvobject>
+               </wvobject>
+               <wvobject type="array" fp_name="/givens_rotations_tb/dut/in.meta.q.r[2]">
+                  <obj_property name="ElementShortName">[2]</obj_property>
+                  <obj_property name="ObjectShortName">[2]</obj_property>
+                  <obj_property name="isExpanded"></obj_property>
+                  <wvobject type="array" fp_name="/givens_rotations_tb/dut/in.meta.q.r[2].c">
+                     <obj_property name="ElementShortName">.c[5:0]</obj_property>
+                     <obj_property name="ObjectShortName">.c[5:0]</obj_property>
+                     <obj_property name="isExpanded"></obj_property>
+                  </wvobject>
+               </wvobject>
+               <wvobject type="array" fp_name="/givens_rotations_tb/dut/in.meta.q.r[1]">
+                  <obj_property name="ElementShortName">[1]</obj_property>
+                  <obj_property name="ObjectShortName">[1]</obj_property>
+                  <obj_property name="isExpanded"></obj_property>
+                  <wvobject type="array" fp_name="/givens_rotations_tb/dut/in.meta.q.r[1].c">
+                     <obj_property name="ElementShortName">.c[5:0]</obj_property>
+                     <obj_property name="ObjectShortName">.c[5:0]</obj_property>
+                     <obj_property name="isExpanded"></obj_property>
+                  </wvobject>
+               </wvobject>
+               <wvobject type="array" fp_name="/givens_rotations_tb/dut/in.meta.q.r[0]">
+                  <obj_property name="ElementShortName">[0]</obj_property>
+                  <obj_property name="ObjectShortName">[0]</obj_property>
+                  <obj_property name="isExpanded"></obj_property>
+                  <wvobject type="array" fp_name="/givens_rotations_tb/dut/in.meta.q.r[0].c">
+                     <obj_property name="ElementShortName">.c[5:0]</obj_property>
+                     <obj_property name="ObjectShortName">.c[5:0]</obj_property>
+                     <obj_property name="isExpanded"></obj_property>
+                  </wvobject>
+               </wvobject>
+            </wvobject>
+         </wvobject>
+         <wvobject type="array" fp_name="/givens_rotations_tb/dut/in.meta.r">
+            <obj_property name="ElementShortName">.r</obj_property>
+            <obj_property name="ObjectShortName">.r</obj_property>
+            <obj_property name="isExpanded"></obj_property>
+            <wvobject type="array" fp_name="/givens_rotations_tb/dut/in.meta.r.r">
+               <obj_property name="ElementShortName">.r[5:0]</obj_property>
+               <obj_property name="ObjectShortName">.r[5:0]</obj_property>
+               <obj_property name="isExpanded"></obj_property>
+               <wvobject type="array" fp_name="/givens_rotations_tb/dut/in.meta.r.r[5]">
+                  <obj_property name="ElementShortName">[5]</obj_property>
+                  <obj_property name="ObjectShortName">[5]</obj_property>
+               </wvobject>
+               <wvobject type="array" fp_name="/givens_rotations_tb/dut/in.meta.r.r[4]">
+                  <obj_property name="ElementShortName">[4]</obj_property>
+                  <obj_property name="ObjectShortName">[4]</obj_property>
+               </wvobject>
+               <wvobject type="array" fp_name="/givens_rotations_tb/dut/in.meta.r.r[3]">
+                  <obj_property name="ElementShortName">[3]</obj_property>
+                  <obj_property name="ObjectShortName">[3]</obj_property>
+               </wvobject>
+               <wvobject type="array" fp_name="/givens_rotations_tb/dut/in.meta.r.r[2]">
+                  <obj_property name="ElementShortName">[2]</obj_property>
+                  <obj_property name="ObjectShortName">[2]</obj_property>
+               </wvobject>
+               <wvobject type="array" fp_name="/givens_rotations_tb/dut/in.meta.r.r[1]">
+                  <obj_property name="ElementShortName">[1]</obj_property>
+                  <obj_property name="ObjectShortName">[1]</obj_property>
+               </wvobject>
+               <wvobject type="array" fp_name="/givens_rotations_tb/dut/in.meta.r.r[0]">
+                  <obj_property name="ElementShortName">[0]</obj_property>
+                  <obj_property name="ObjectShortName">[0]</obj_property>
+                  <obj_property name="isExpanded"></obj_property>
+                  <wvobject type="array" fp_name="/givens_rotations_tb/dut/in.meta.r.r[0].c">
+                     <obj_property name="ElementShortName">.c[5:0]</obj_property>
+                     <obj_property name="ObjectShortName">.c[5:0]</obj_property>
+                     <obj_property name="isExpanded"></obj_property>
+                  </wvobject>
+               </wvobject>
+            </wvobject>
+         </wvobject>
+      </wvobject>
+   </wvobject>
+   <wvobject type="array" fp_name="/givens_rotations_tb/dut/out">
+      <obj_property name="ElementShortName">out</obj_property>
+      <obj_property name="ObjectShortName">out</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/givens_rotations_tb/dut/out.valid">
+         <obj_property name="ElementShortName">.valid</obj_property>
+         <obj_property name="ObjectShortName">.valid</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/givens_rotations_tb/dut/out.meta">
+         <obj_property name="ElementShortName">.meta</obj_property>
+         <obj_property name="ObjectShortName">.meta</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">24</obj_property>
+         <obj_property name="radix_otherWidth">8</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject type="array" fp_name="/givens_rotations_tb/dut/out.meta.q">
+            <obj_property name="ElementShortName">.q</obj_property>
+            <obj_property name="ObjectShortName">.q</obj_property>
+            <wvobject type="array" fp_name="/givens_rotations_tb/dut/out.meta.q.r">
+               <obj_property name="ElementShortName">.r[5:0]</obj_property>
+               <obj_property name="ObjectShortName">.r[5:0]</obj_property>
+               <obj_property name="isExpanded"></obj_property>
+               <wvobject type="array" fp_name="/givens_rotations_tb/dut/out.meta.q.r[5]">
+                  <obj_property name="ElementShortName">[5]</obj_property>
+                  <obj_property name="ObjectShortName">[5]</obj_property>
+                  <obj_property name="isExpanded"></obj_property>
+                  <wvobject type="array" fp_name="/givens_rotations_tb/dut/out.meta.q.r[5].c">
+                     <obj_property name="ElementShortName">.c[5:0]</obj_property>
+                     <obj_property name="ObjectShortName">.c[5:0]</obj_property>
+                     <obj_property name="isExpanded"></obj_property>
+                  </wvobject>
+               </wvobject>
+               <wvobject type="array" fp_name="/givens_rotations_tb/dut/out.meta.q.r[4]">
+                  <obj_property name="ElementShortName">[4]</obj_property>
+                  <obj_property name="ObjectShortName">[4]</obj_property>
+                  <obj_property name="isExpanded"></obj_property>
+                  <wvobject type="array" fp_name="/givens_rotations_tb/dut/out.meta.q.r[4].c">
+                     <obj_property name="ElementShortName">.c[5:0]</obj_property>
+                     <obj_property name="ObjectShortName">.c[5:0]</obj_property>
+                     <obj_property name="isExpanded"></obj_property>
+                  </wvobject>
+               </wvobject>
+               <wvobject type="array" fp_name="/givens_rotations_tb/dut/out.meta.q.r[3]">
+                  <obj_property name="ElementShortName">[3]</obj_property>
+                  <obj_property name="ObjectShortName">[3]</obj_property>
+                  <obj_property name="isExpanded"></obj_property>
+                  <wvobject type="array" fp_name="/givens_rotations_tb/dut/out.meta.q.r[3].c">
+                     <obj_property name="ElementShortName">.c[5:0]</obj_property>
+                     <obj_property name="ObjectShortName">.c[5:0]</obj_property>
+                     <obj_property name="isExpanded"></obj_property>
+                  </wvobject>
+               </wvobject>
+               <wvobject type="array" fp_name="/givens_rotations_tb/dut/out.meta.q.r[2]">
+                  <obj_property name="ElementShortName">[2]</obj_property>
+                  <obj_property name="ObjectShortName">[2]</obj_property>
+                  <obj_property name="isExpanded"></obj_property>
+                  <wvobject type="array" fp_name="/givens_rotations_tb/dut/out.meta.q.r[2].c">
+                     <obj_property name="ElementShortName">.c[5:0]</obj_property>
+                     <obj_property name="ObjectShortName">.c[5:0]</obj_property>
+                     <obj_property name="isExpanded"></obj_property>
+                  </wvobject>
+               </wvobject>
+               <wvobject type="array" fp_name="/givens_rotations_tb/dut/out.meta.q.r[1]">
+                  <obj_property name="ElementShortName">[1]</obj_property>
+                  <obj_property name="ObjectShortName">[1]</obj_property>
+                  <obj_property name="isExpanded"></obj_property>
+                  <wvobject type="array" fp_name="/givens_rotations_tb/dut/out.meta.q.r[1].c">
+                     <obj_property name="ElementShortName">.c[5:0]</obj_property>
+                     <obj_property name="ObjectShortName">.c[5:0]</obj_property>
+                     <obj_property name="isExpanded"></obj_property>
+                  </wvobject>
+               </wvobject>
+               <wvobject type="array" fp_name="/givens_rotations_tb/dut/out.meta.q.r[0]">
+                  <obj_property name="ElementShortName">[0]</obj_property>
+                  <obj_property name="ObjectShortName">[0]</obj_property>
+                  <obj_property name="isExpanded"></obj_property>
+                  <wvobject type="array" fp_name="/givens_rotations_tb/dut/out.meta.q.r[0].c">
+                     <obj_property name="ElementShortName">.c[5:0]</obj_property>
+                     <obj_property name="ObjectShortName">.c[5:0]</obj_property>
+                     <obj_property name="isExpanded"></obj_property>
+                     <wvobject type="array" fp_name="/givens_rotations_tb/dut/out.meta.q.r[0].c[5]">
+                        <obj_property name="ElementShortName">[5]</obj_property>
+                        <obj_property name="ObjectShortName">[5]</obj_property>
+                     </wvobject>
+                     <wvobject type="array" fp_name="/givens_rotations_tb/dut/out.meta.q.r[0].c[4]">
+                        <obj_property name="ElementShortName">[4]</obj_property>
+                        <obj_property name="ObjectShortName">[4]</obj_property>
+                     </wvobject>
+                     <wvobject type="array" fp_name="/givens_rotations_tb/dut/out.meta.q.r[0].c[3]">
+                        <obj_property name="ElementShortName">[3]</obj_property>
+                        <obj_property name="ObjectShortName">[3]</obj_property>
+                     </wvobject>
+                     <wvobject type="array" fp_name="/givens_rotations_tb/dut/out.meta.q.r[0].c[2]">
+                        <obj_property name="ElementShortName">[2]</obj_property>
+                        <obj_property name="ObjectShortName">[2]</obj_property>
+                     </wvobject>
+                     <wvobject type="array" fp_name="/givens_rotations_tb/dut/out.meta.q.r[0].c[1]">
+                        <obj_property name="ElementShortName">[1]</obj_property>
+                        <obj_property name="ObjectShortName">[1]</obj_property>
+                        <obj_property name="Radix">REALRADIX</obj_property>
+                        <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+                        <obj_property name="radix_fractionWidth">24</obj_property>
+                        <obj_property name="radix_otherWidth">8</obj_property>
+                     </wvobject>
+                     <wvobject type="array" fp_name="/givens_rotations_tb/dut/out.meta.q.r[0].c[0]">
+                        <obj_property name="ElementShortName">[0]</obj_property>
+                        <obj_property name="ObjectShortName">[0]</obj_property>
+                     </wvobject>
+                  </wvobject>
+               </wvobject>
+            </wvobject>
+         </wvobject>
+         <wvobject type="array" fp_name="/givens_rotations_tb/dut/out.meta.r">
+            <obj_property name="ElementShortName">.r</obj_property>
+            <obj_property name="ObjectShortName">.r</obj_property>
+            <obj_property name="isExpanded"></obj_property>
+            <wvobject type="array" fp_name="/givens_rotations_tb/dut/out.meta.r.r">
+               <obj_property name="ElementShortName">.r[5:0]</obj_property>
+               <obj_property name="ObjectShortName">.r[5:0]</obj_property>
+               <obj_property name="isExpanded"></obj_property>
+               <wvobject type="array" fp_name="/givens_rotations_tb/dut/out.meta.r.r[5]">
+                  <obj_property name="ElementShortName">[5]</obj_property>
+                  <obj_property name="ObjectShortName">[5]</obj_property>
+               </wvobject>
+               <wvobject type="array" fp_name="/givens_rotations_tb/dut/out.meta.r.r[4]">
+                  <obj_property name="ElementShortName">[4]</obj_property>
+                  <obj_property name="ObjectShortName">[4]</obj_property>
+               </wvobject>
+               <wvobject type="array" fp_name="/givens_rotations_tb/dut/out.meta.r.r[3]">
+                  <obj_property name="ElementShortName">[3]</obj_property>
+                  <obj_property name="ObjectShortName">[3]</obj_property>
+               </wvobject>
+               <wvobject type="array" fp_name="/givens_rotations_tb/dut/out.meta.r.r[2]">
+                  <obj_property name="ElementShortName">[2]</obj_property>
+                  <obj_property name="ObjectShortName">[2]</obj_property>
+               </wvobject>
+               <wvobject type="array" fp_name="/givens_rotations_tb/dut/out.meta.r.r[1]">
+                  <obj_property name="ElementShortName">[1]</obj_property>
+                  <obj_property name="ObjectShortName">[1]</obj_property>
+                  <obj_property name="isExpanded"></obj_property>
+                  <wvobject type="array" fp_name="/givens_rotations_tb/dut/out.meta.r.r[1].c">
+                     <obj_property name="ElementShortName">.c[5:0]</obj_property>
+                     <obj_property name="ObjectShortName">.c[5:0]</obj_property>
+                     <obj_property name="isExpanded"></obj_property>
+                     <wvobject type="array" fp_name="/givens_rotations_tb/dut/out.meta.r.r[1].c[5]">
+                        <obj_property name="ElementShortName">[5]</obj_property>
+                        <obj_property name="ObjectShortName">[5]</obj_property>
+                        <obj_property name="Radix">REALRADIX</obj_property>
+                        <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+                        <obj_property name="radix_fractionWidth">24</obj_property>
+                        <obj_property name="radix_otherWidth">8</obj_property>
+                     </wvobject>
+                     <wvobject type="array" fp_name="/givens_rotations_tb/dut/out.meta.r.r[1].c[4]">
+                        <obj_property name="ElementShortName">[4]</obj_property>
+                        <obj_property name="ObjectShortName">[4]</obj_property>
+                        <obj_property name="Radix">REALRADIX</obj_property>
+                        <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+                        <obj_property name="radix_fractionWidth">24</obj_property>
+                        <obj_property name="radix_otherWidth">8</obj_property>
+                     </wvobject>
+                     <wvobject type="array" fp_name="/givens_rotations_tb/dut/out.meta.r.r[1].c[3]">
+                        <obj_property name="ElementShortName">[3]</obj_property>
+                        <obj_property name="ObjectShortName">[3]</obj_property>
+                        <obj_property name="Radix">REALRADIX</obj_property>
+                        <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+                        <obj_property name="radix_fractionWidth">24</obj_property>
+                        <obj_property name="radix_otherWidth">8</obj_property>
+                     </wvobject>
+                     <wvobject type="array" fp_name="/givens_rotations_tb/dut/out.meta.r.r[1].c[2]">
+                        <obj_property name="ElementShortName">[2]</obj_property>
+                        <obj_property name="ObjectShortName">[2]</obj_property>
+                        <obj_property name="Radix">REALRADIX</obj_property>
+                        <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+                        <obj_property name="radix_fractionWidth">24</obj_property>
+                        <obj_property name="radix_otherWidth">8</obj_property>
+                     </wvobject>
+                     <wvobject type="array" fp_name="/givens_rotations_tb/dut/out.meta.r.r[1].c[1]">
+                        <obj_property name="ElementShortName">[1]</obj_property>
+                        <obj_property name="ObjectShortName">[1]</obj_property>
+                        <obj_property name="Radix">REALRADIX</obj_property>
+                        <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+                        <obj_property name="radix_fractionWidth">24</obj_property>
+                        <obj_property name="radix_otherWidth">8</obj_property>
+                     </wvobject>
+                     <wvobject type="array" fp_name="/givens_rotations_tb/dut/out.meta.r.r[1].c[0]">
+                        <obj_property name="ElementShortName">[0]</obj_property>
+                        <obj_property name="ObjectShortName">[0]</obj_property>
+                        <obj_property name="Radix">REALRADIX</obj_property>
+                        <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+                        <obj_property name="radix_fractionWidth">24</obj_property>
+                        <obj_property name="radix_otherWidth">8</obj_property>
+                     </wvobject>
+                  </wvobject>
+               </wvobject>
+               <wvobject type="array" fp_name="/givens_rotations_tb/dut/out.meta.r.r[0]">
+                  <obj_property name="ElementShortName">[0]</obj_property>
+                  <obj_property name="ObjectShortName">[0]</obj_property>
+                  <obj_property name="isExpanded"></obj_property>
+                  <wvobject type="array" fp_name="/givens_rotations_tb/dut/out.meta.r.r[0].c">
+                     <obj_property name="ElementShortName">.c[5:0]</obj_property>
+                     <obj_property name="ObjectShortName">.c[5:0]</obj_property>
+                     <obj_property name="isExpanded"></obj_property>
+                     <wvobject type="array" fp_name="/givens_rotations_tb/dut/out.meta.r.r[0].c[5]">
+                        <obj_property name="ElementShortName">[5]</obj_property>
+                        <obj_property name="ObjectShortName">[5]</obj_property>
+                        <obj_property name="Radix">REALRADIX</obj_property>
+                        <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+                        <obj_property name="radix_fractionWidth">24</obj_property>
+                        <obj_property name="radix_otherWidth">8</obj_property>
+                     </wvobject>
+                     <wvobject type="array" fp_name="/givens_rotations_tb/dut/out.meta.r.r[0].c[4]">
+                        <obj_property name="ElementShortName">[4]</obj_property>
+                        <obj_property name="ObjectShortName">[4]</obj_property>
+                        <obj_property name="Radix">REALRADIX</obj_property>
+                        <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+                        <obj_property name="radix_fractionWidth">24</obj_property>
+                        <obj_property name="radix_otherWidth">8</obj_property>
+                     </wvobject>
+                     <wvobject type="array" fp_name="/givens_rotations_tb/dut/out.meta.r.r[0].c[3]">
+                        <obj_property name="ElementShortName">[3]</obj_property>
+                        <obj_property name="ObjectShortName">[3]</obj_property>
+                        <obj_property name="Radix">REALRADIX</obj_property>
+                        <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+                        <obj_property name="radix_fractionWidth">24</obj_property>
+                        <obj_property name="radix_otherWidth">8</obj_property>
+                     </wvobject>
+                     <wvobject type="array" fp_name="/givens_rotations_tb/dut/out.meta.r.r[0].c[2]">
+                        <obj_property name="ElementShortName">[2]</obj_property>
+                        <obj_property name="ObjectShortName">[2]</obj_property>
+                        <obj_property name="Radix">REALRADIX</obj_property>
+                        <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+                        <obj_property name="radix_fractionWidth">24</obj_property>
+                        <obj_property name="radix_otherWidth">8</obj_property>
+                     </wvobject>
+                     <wvobject type="array" fp_name="/givens_rotations_tb/dut/out.meta.r.r[0].c[1]">
+                        <obj_property name="ElementShortName">[1]</obj_property>
+                        <obj_property name="ObjectShortName">[1]</obj_property>
+                        <obj_property name="Radix">REALRADIX</obj_property>
+                        <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+                        <obj_property name="radix_fractionWidth">24</obj_property>
+                        <obj_property name="radix_otherWidth">8</obj_property>
+                     </wvobject>
+                     <wvobject type="array" fp_name="/givens_rotations_tb/dut/out.meta.r.r[0].c[0]">
+                        <obj_property name="ElementShortName">[0]</obj_property>
+                        <obj_property name="ObjectShortName">[0]</obj_property>
+                        <obj_property name="Radix">REALRADIX</obj_property>
+                        <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+                        <obj_property name="radix_fractionWidth">24</obj_property>
+                        <obj_property name="radix_otherWidth">8</obj_property>
+                     </wvobject>
+                  </wvobject>
+               </wvobject>
+            </wvobject>
+         </wvobject>
+      </wvobject>
+   </wvobject>
+   <wvobject type="array" fp_name="/givens_rotations_tb/dut/c0">
+      <obj_property name="ElementShortName">c0</obj_property>
+      <obj_property name="ObjectShortName">c0</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/givens_rotations_tb/dut/c0.valid">
+         <obj_property name="ElementShortName">.valid</obj_property>
+         <obj_property name="ObjectShortName">.valid</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/givens_rotations_tb/dut/c0.meta">
+         <obj_property name="ElementShortName">.meta</obj_property>
+         <obj_property name="ObjectShortName">.meta</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">24</obj_property>
+         <obj_property name="radix_otherWidth">8</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="array" fp_name="/givens_rotations_tb/dut/c1">
+      <obj_property name="ElementShortName">c1</obj_property>
+      <obj_property name="ObjectShortName">c1</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/givens_rotations_tb/dut/c1.valid">
+         <obj_property name="ElementShortName">.valid</obj_property>
+         <obj_property name="ObjectShortName">.valid</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/givens_rotations_tb/dut/c1.meta">
+         <obj_property name="ElementShortName">.meta</obj_property>
+         <obj_property name="ObjectShortName">.meta</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">24</obj_property>
+         <obj_property name="radix_otherWidth">8</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="array" fp_name="/givens_rotations_tb/dut/c2">
+      <obj_property name="ElementShortName">c2</obj_property>
+      <obj_property name="ObjectShortName">c2</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/givens_rotations_tb/dut/c2.valid">
+         <obj_property name="ElementShortName">.valid</obj_property>
+         <obj_property name="ObjectShortName">.valid</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/givens_rotations_tb/dut/c2.meta">
+         <obj_property name="ElementShortName">.meta</obj_property>
+         <obj_property name="ObjectShortName">.meta</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">24</obj_property>
+         <obj_property name="radix_otherWidth">8</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="array" fp_name="/givens_rotations_tb/dut/c3">
+      <obj_property name="ElementShortName">c3</obj_property>
+      <obj_property name="ObjectShortName">c3</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/givens_rotations_tb/dut/c3.valid">
+         <obj_property name="ElementShortName">.valid</obj_property>
+         <obj_property name="ObjectShortName">.valid</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/givens_rotations_tb/dut/c3.meta">
+         <obj_property name="ElementShortName">.meta</obj_property>
+         <obj_property name="ObjectShortName">.meta</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">24</obj_property>
+         <obj_property name="radix_otherWidth">8</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="array" fp_name="/givens_rotations_tb/dut/coef_s">
+      <obj_property name="ElementShortName">coef_s</obj_property>
+      <obj_property name="ObjectShortName">coef_s</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/givens_rotations_tb/dut/coef_s.valid">
+         <obj_property name="ElementShortName">.valid</obj_property>
+         <obj_property name="ObjectShortName">.valid</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/givens_rotations_tb/dut/coef_s.meta">
+         <obj_property name="ElementShortName">.meta</obj_property>
+         <obj_property name="ObjectShortName">.meta</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">24</obj_property>
+         <obj_property name="radix_otherWidth">8</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="array" fp_name="/givens_rotations_tb/dut/coef_c_r">
+      <obj_property name="ElementShortName">coef_c_r</obj_property>
+      <obj_property name="ObjectShortName">coef_c_r</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/givens_rotations_tb/dut/coef_c_r.valid">
+         <obj_property name="ElementShortName">.valid</obj_property>
+         <obj_property name="ObjectShortName">.valid</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/givens_rotations_tb/dut/coef_c_r.meta">
+         <obj_property name="ElementShortName">.meta</obj_property>
+         <obj_property name="ObjectShortName">.meta</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">24</obj_property>
+         <obj_property name="radix_otherWidth">8</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="array" fp_name="/givens_rotations_tb/dut/coef_c_i">
+      <obj_property name="ElementShortName">coef_c_i</obj_property>
+      <obj_property name="ObjectShortName">coef_c_i</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/givens_rotations_tb/dut/coef_c_i.valid">
+         <obj_property name="ElementShortName">.valid</obj_property>
+         <obj_property name="ObjectShortName">.valid</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/givens_rotations_tb/dut/coef_c_i.meta">
+         <obj_property name="ElementShortName">.meta</obj_property>
+         <obj_property name="ObjectShortName">.meta</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">24</obj_property>
+         <obj_property name="radix_otherWidth">8</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="array" fp_name="/givens_rotations_tb/dut/coef_cp_c">
+      <obj_property name="ElementShortName">coef_cp_c</obj_property>
+      <obj_property name="ObjectShortName">coef_cp_c</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/givens_rotations_tb/dut/coef_cp_s">
+      <obj_property name="ElementShortName">coef_cp_s</obj_property>
+      <obj_property name="ObjectShortName">coef_cp_s</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/givens_rotations_tb/dut/tmp1">
+      <obj_property name="ElementShortName">tmp1[4:0]</obj_property>
+      <obj_property name="ObjectShortName">tmp1[4:0]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="array" fp_name="/givens_rotations_tb/dut/tmp1[4]">
+         <obj_property name="ElementShortName">[4]</obj_property>
+         <obj_property name="ObjectShortName">[4]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">24</obj_property>
+         <obj_property name="radix_otherWidth">8</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/givens_rotations_tb/dut/tmp1[3]">
+         <obj_property name="ElementShortName">[3]</obj_property>
+         <obj_property name="ObjectShortName">[3]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">24</obj_property>
+         <obj_property name="radix_otherWidth">8</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/givens_rotations_tb/dut/tmp1[2]">
+         <obj_property name="ElementShortName">[2]</obj_property>
+         <obj_property name="ObjectShortName">[2]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">24</obj_property>
+         <obj_property name="radix_otherWidth">8</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/givens_rotations_tb/dut/tmp1[1]">
+         <obj_property name="ElementShortName">[1]</obj_property>
+         <obj_property name="ObjectShortName">[1]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">24</obj_property>
+         <obj_property name="radix_otherWidth">8</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/givens_rotations_tb/dut/tmp1[0]">
+         <obj_property name="ElementShortName">[0]</obj_property>
+         <obj_property name="ObjectShortName">[0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">24</obj_property>
+         <obj_property name="radix_otherWidth">8</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="array" fp_name="/givens_rotations_tb/dut/tmp2">
+      <obj_property name="ElementShortName">tmp2[4:0]</obj_property>
+      <obj_property name="ObjectShortName">tmp2[4:0]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="array" fp_name="/givens_rotations_tb/dut/tmp2[4]">
+         <obj_property name="ElementShortName">[4]</obj_property>
+         <obj_property name="ObjectShortName">[4]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">24</obj_property>
+         <obj_property name="radix_otherWidth">8</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/givens_rotations_tb/dut/tmp2[3]">
+         <obj_property name="ElementShortName">[3]</obj_property>
+         <obj_property name="ObjectShortName">[3]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">24</obj_property>
+         <obj_property name="radix_otherWidth">8</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/givens_rotations_tb/dut/tmp2[2]">
+         <obj_property name="ElementShortName">[2]</obj_property>
+         <obj_property name="ObjectShortName">[2]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">24</obj_property>
+         <obj_property name="radix_otherWidth">8</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/givens_rotations_tb/dut/tmp2[1]">
+         <obj_property name="ElementShortName">[1]</obj_property>
+         <obj_property name="ObjectShortName">[1]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">24</obj_property>
+         <obj_property name="radix_otherWidth">8</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/givens_rotations_tb/dut/tmp2[0]">
+         <obj_property name="ElementShortName">[0]</obj_property>
+         <obj_property name="ObjectShortName">[0]</obj_property>
+         <obj_property name="Radix">REALRADIX</obj_property>
+         <obj_property name="radix_realType">FLOATINGPOINTRADIX</obj_property>
+         <obj_property name="radix_fractionWidth">24</obj_property>
+         <obj_property name="radix_otherWidth">8</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="array" fp_name="/givens_rotations_tb/dut/tmp3">
+      <obj_property name="ElementShortName">tmp3</obj_property>
+      <obj_property name="ObjectShortName">tmp3</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/givens_rotations_tb/dut/tmp4">
+      <obj_property name="ElementShortName">tmp4[0:0]</obj_property>
+      <obj_property name="ObjectShortName">tmp4[0:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/givens_rotations_tb/dut/tmp5">
+      <obj_property name="ElementShortName">tmp5[0:0]</obj_property>
+      <obj_property name="ObjectShortName">tmp5[0:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/givens_rotations_tb/dut/ROW_ID">
+      <obj_property name="ElementShortName">ROW_ID[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ROW_ID[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/givens_rotations_tb/dut/COL_ID">
+      <obj_property name="ElementShortName">COL_ID[31:0]</obj_property>
+      <obj_property name="ObjectShortName">COL_ID[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/givens_rotations_tb/dut/MAX_N">
+      <obj_property name="ElementShortName">MAX_N[31:0]</obj_property>
+      <obj_property name="ObjectShortName">MAX_N[31:0]</obj_property>
+   </wvobject>
+</wave_config>
