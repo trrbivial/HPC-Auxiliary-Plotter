@@ -2,6 +2,7 @@
 `define _COMPLEX_HDR_VH_
 
 localparam ONE_FL = 32'h3F800000;
+localparam TWO_FL = 32'h40000000;
 localparam FIFTEEN_FL = 32'h41700000; // 15.0
 localparam SIXTY_FL = 32'h42700000; // 60.0
 localparam ONE_HUNDRED_FL = 32'h42C80000; // 100.0

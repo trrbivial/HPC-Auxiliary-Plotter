@@ -89,6 +89,30 @@ module coef_in_controller (
                         coef.p_c.a[1] <= 0;
                         coef.p_c.a[0] <= 0;
                     end
+                    'b11: begin
+                        coef.spm.mode <= 0;
+                        coef.spm.range <= PI;
+                        coef.p_t1.a[5] <= ONE_CP;
+                        coef.p_t1.a[3] <= ONE_CP;
+                        coef.p_t1.a[1] <= ONE_CP;
+                        coef.ind_t1 <= 1;
+
+                        coef.p_t2.a[1] <= ONE_CP;
+                        coef.ind_t2 <= 5;
+
+                        coef.p_c.a[6] <= ONE_CP;
+                    end
+                    'b100: begin
+                        coef.spm.mode <= 0;
+                        coef.spm.range <= PI;
+                        coef.p_t1.a[1] <= {TWO_FL, 32'b0};
+                        coef.ind_t1 <= 3;
+
+                        coef.p_t2.a[1] <= ONE_CP;
+                        coef.ind_t2 <= 5;
+
+                        coef.p_c.a[6] <= ONE_CP;
+                    end
                     default: begin
 
                     end

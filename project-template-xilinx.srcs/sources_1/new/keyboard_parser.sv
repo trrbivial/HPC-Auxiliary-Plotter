@@ -45,6 +45,17 @@ module keyboard_parser (
                         screen_offset_reg <= {1'b1, 64'b0};
                         screen_scalar_reg <= {1'b1, ONE_HUNDRED_AND_SIXTY_FL};
                     end
+                    'b11: begin
+                        screen_offset_reg <= {1'b1, 64'b0};
+                        screen_scalar_reg <= {1'b1, TWO_HUNDRED_FL};
+                    end
+                    'b100: begin
+                        screen_offset_reg <= {1'b1, 64'b0};
+                        screen_scalar_reg <= {1'b1, TWO_HUNDRED_FL};
+                    end
+                    default: begin
+
+                    end
                 endcase
 
                 if (scancode_valid) begin

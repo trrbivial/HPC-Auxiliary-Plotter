@@ -111,8 +111,12 @@ module sampling_coefs # (
                     end
                 end
                 ST_SAMP_SAMPLING: begin
-                    t2_cnt <= t2_cnt + 1;
-                    if (t2_cnt == DIV_N) begin
+                    if (spm.meta.mode == 'b0) begin
+                        t2_cnt <= t2_cnt + 2;
+                    end else begin
+                        t2_cnt <= t2_cnt + 1;
+                    end
+                    if (t2_cnt == (spm.meta.mode == 'b0 ? DIV_N - 1 : DIV_N)) begin
                         t2_cnt <= -DIV_N + 1;
                         if (t1_cnt == DIV_N) begin
                             cnt_valid <= 0;

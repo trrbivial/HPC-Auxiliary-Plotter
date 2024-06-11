@@ -208,11 +208,22 @@ module mod_top(
         .out(mat_in)
     );
 
+    logic [2:0] mat_n;
+
+    always_comb begin
+        case (index_to_draw)
+            'b01: mat_n = 4 - 1;
+            'b11: mat_n = 5 - 1;
+            'b100: mat_n = 3 - 1;
+            default: mat_n = MAX_DEG - 1;
+        endcase
+    end
+
     qr_decomp m_qr_decomp_iter (
         .clk(clk),
         .rst(rst),
         .in(mat_in),
-        .mat_n(index_to_draw == 'b01 ? 4 - 1 : MAX_DEG - 1),
+        .mat_n(mat_n),
 
         .out(roots_out),
         .in_ready(iter_in_ready)
