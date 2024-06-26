@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="mod_top_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="\$unit_cache2graph_sv " />
+            <top_module name="dvi_constants" />
+            <top_module name="glbl" />
+            <top_module name="mod_top_tb" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="999990fs"></ZoomStartTime>
+      <ZoomEndTime time="1000002fs"></ZoomEndTime>
+      <Cursor1Time time="1000000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="273"></NameColumnWidth>
+      <ValueColumnWidth column_width="195"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="20" />
+   <wvobject type="logic" fp_name="/mod_top_tb/clk">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/mod_top_tb/dut/video_clk">
+      <obj_property name="ElementShortName">video_clk</obj_property>
+      <obj_property name="ObjectShortName">video_clk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/mod_top_tb/rst">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/mod_top_tb/dut/wbm_o">
+      <obj_property name="ElementShortName">wbm_o[2:0]</obj_property>
+      <obj_property name="ObjectShortName">wbm_o[2:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/mod_top_tb/dut/wbm_i">
+      <obj_property name="ElementShortName">wbm_i[2:0]</obj_property>
+      <obj_property name="ObjectShortName">wbm_i[2:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/mod_top_tb/dut/wbs_i">
+      <obj_property name="ElementShortName">wbs_i</obj_property>
+      <obj_property name="ObjectShortName">wbs_i</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/mod_top_tb/dut/wbs_o">
+      <obj_property name="ElementShortName">wbs_o</obj_property>
+      <obj_property name="ObjectShortName">wbs_o</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/mod_top_tb/dut/vga_is_reading_src">
+      <obj_property name="ElementShortName">vga_is_reading_src</obj_property>
+      <obj_property name="ObjectShortName">vga_is_reading_src</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/mod_top_tb/dut/vga_is_reading_dst">
+      <obj_property name="ElementShortName">vga_is_reading_dst</obj_property>
+      <obj_property name="ObjectShortName">vga_is_reading_dst</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/mod_top_tb/dut/wb_last_op_finished_src">
+      <obj_property name="ElementShortName">wb_last_op_finished_src</obj_property>
+      <obj_property name="ObjectShortName">wb_last_op_finished_src</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/mod_top_tb/dut/wb_last_op_finished_dst">
+      <obj_property name="ElementShortName">wb_last_op_finished_dst</obj_property>
+      <obj_property name="ObjectShortName">wb_last_op_finished_dst</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/mod_top_tb/dut/hdata">
+      <obj_property name="ElementShortName">hdata[11:0]</obj_property>
+      <obj_property name="ObjectShortName">hdata[11:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/mod_top_tb/dut/vdata">
+      <obj_property name="ElementShortName">vdata[11:0]</obj_property>
+      <obj_property name="ObjectShortName">vdata[11:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/mod_top_tb/dut/video_gray4">
+      <obj_property name="ElementShortName">video_gray4[3:0]</obj_property>
+      <obj_property name="ObjectShortName">video_gray4[3:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/mod_top_tb/dut/m_travel_forward/stat">
+      <obj_property name="ElementShortName">stat[2:0]</obj_property>
+      <obj_property name="ObjectShortName">stat[2:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/mod_top_tb/dut/m_travel_forward/now_data_reg">
+      <obj_property name="ElementShortName">now_data_reg</obj_property>
+      <obj_property name="ObjectShortName">now_data_reg</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/mod_top_tb/dut/m_travel_forward/next_data_reg">
+      <obj_property name="ElementShortName">next_data_reg</obj_property>
+      <obj_property name="ObjectShortName">next_data_reg</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/mod_top_tb/dut/m_travel_forward/addr">
+      <obj_property name="ElementShortName">addr[16:0]</obj_property>
+      <obj_property name="ObjectShortName">addr[16:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/mod_top_tb/dut/m_travel_forward/enb">
+      <obj_property name="ElementShortName">enb</obj_property>
+      <obj_property name="ObjectShortName">enb</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/mod_top_tb/dut/m_travel_forward/data">
+      <obj_property name="ElementShortName">data</obj_property>
+      <obj_property name="ObjectShortName">data</obj_property>
+   </wvobject>
+</wave_config>
