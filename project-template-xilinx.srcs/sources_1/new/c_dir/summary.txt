@@ -11,6 +11,28 @@
 ❯ time ./a.out
 ./a.out  1.31s user 0.00s system 99% cpu 1.309 total
 
+GPU
+nvcc qr_decomp_iter_gpu.cu -o qr_iter -O3 -arch=sm_80 --use_fast_math
+time ./qr_iter
+./qr_iter   17.55s user 0.14s system 99% cpu 17.703 total
+
+CPU omp
+❯ g++ qr_decomp_iter.cpp -Ofast
+❯ ./a.out
+❯ time ./a.out
+./a.out  1.33s user 0.00s system 99% cpu 1.329 total
+
+❯ nvcc --version
+nvcc: NVIDIA (R) Cuda compiler driver
+Copyright (c) 2005-2024 NVIDIA Corporation
+Built on Tue_Oct_29_23:50:19_PDT_2024
+Cuda compilation tools, release 12.6, V12.6.85
+Build cuda_12.6.r12.6/compiler.35059454_0
+❯ g++ --version
+g++ (GCC) 14.2.1 20240910
+Copyright (C) 2024 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 47.861 s * 2304.302 MHz / 160000 = 689285.447194 cycs / iteration
 
